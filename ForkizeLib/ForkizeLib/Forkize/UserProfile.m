@@ -111,6 +111,11 @@ typedef enum{
         
         [self.changeLog setValue:setDict forKey:FORKIZE_SET];
         
+        
+        NSMutableArray *unsetArray = [NSMutableArray arrayWithArray:[self.changeLog objectForKey:FORKIZE_UNSET]];
+        [unsetArray removeObject:key];
+        [self.changeLog setValue:unsetArray forKey:FORKIZE_UNSET];
+        
         [self.userInfo setValue:value forKey:key];
     }
  }
@@ -172,17 +177,20 @@ typedef enum{
 -(void) appendForKey:(NSString*) key andValue:(id) value{
     if ([ForkizeHelper isKeyValid:key]) {
         
-        NSArray *appendArray = [self.changeLog objectForKey:FORKIZE_APPEND];
-        NSMutableArray *appendMutArray = [NSMutableArray array];
+        NSDictionary *appendDictonary = [self.changeLog objectForKey:FORKIZE_APPEND];
         
-        if (appendArray && [appendArray count]) {
-            [appendMutArray addObjectsFromArray:appendArray];
+        NSArray *keyArray = [appendDictonary objectForKey:key];
+        
+        if (keyArray == nil) {
+            keyArray = [NSArray array];
         }
         
-        [appendMutArray addObject:key];
-        [appendMutArray addObject:value];
+        NSMutableArray *keyMutableArray = [NSMutableArray arrayWithArray:keyArray];
+        [keyMutableArray addObject:value];
         
-        [self.changeLog setValue:appendMutArray forKey:FORKIZE_APPEND];
+        [appendDictonary setValue:keyMutableArray forKey:key];
+        
+        [self.changeLog setValue:appendDictonary forKey:FORKIZE_APPEND];
         
         NSArray* valueFromDict = [self.userInfo valueForKey:key];
         if (![valueFromDict isKindOfClass:[NSArray class]]) {
@@ -198,17 +206,21 @@ typedef enum{
 -(void) prependForKey:(NSString*) key andValue:(id) value{
     if ([ForkizeHelper isKeyValid:key]) {
         
-        NSArray *prependArray = [self.changeLog objectForKey:FORKIZE_PREPEND];
-        NSMutableArray *prependMutArray = [NSMutableArray array];
         
-        if (prependArray && [prependArray count]) {
-            [prependMutArray addObjectsFromArray:prependArray];
+        NSDictionary *rependDictonary = [self.changeLog objectForKey:FORKIZE_PREPEND];
+        
+        NSArray *keyArray = [rependDictonary objectForKey:key];
+        
+        if (keyArray == nil) {
+            keyArray = [NSArray array];
         }
         
-        [prependMutArray addObject:key];
-        [prependMutArray addObject:value];
+        NSMutableArray *keyMutableArray = [NSMutableArray arrayWithArray:keyArray];
+        [keyMutableArray insertObject:value atIndex:0];
         
-        [self.changeLog setValue:prependMutArray forKey:FORKIZE_PREPEND];
+        [rependDictonary setValue:keyMutableArray forKey:key];
+        
+        [self.changeLog setValue:rependDictonary forKey:FORKIZE_PREPEND];
         
         NSArray* valueFromDict = [self.userInfo valueForKey:key];
         if (![valueFromDict isKindOfClass:[NSArray class]]) {
