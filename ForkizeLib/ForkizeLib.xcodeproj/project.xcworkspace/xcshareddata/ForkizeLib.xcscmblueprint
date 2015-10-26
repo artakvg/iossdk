@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "c5cd3166-f1af-4b1f-935b-dce5f46692af++6139",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "c5cd3166-f1af-4b1f-935b-dce5f46692af++6139" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "c5cd3166-f1af-4b1f-935b-dce5f46692af++6139" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6E08DFBA-5FD9-4378-B4F0-507B765B1B84",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "c5cd3166-f1af-4b1f-935b-dce5f46692af++6139" : "ForkizeLib\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ForkizeLib",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ForkizeLib.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/subversion.assembla.com\/svn\/qbit",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "c5cd3166-f1af-4b1f-935b-dce5f46692af++6139"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+//
+//  UserProfile.h
+//  ForkizeLib
+//
+//  Created by Artak on 9/9/15.
+//  Copyright (c) 2015 Artak. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@class LocalStorageManager;
+@class RestClient;
+
+@interface UserProfile : NSObject
+
++ (UserProfile*) getInstance;
+
+-(void) setStorage:(LocalStorageManager *) manager;
+
+-(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
+-(void) updateProfile:(NSDictionary *) dict;
+-(void) setProfile:(NSDictionary *) dict;
+-(void) incrementValueForKey:(NSString*) key byValue:(NSString *) value;
+-(void) incrementByDictonary:(NSDictionary *)dict;
+
+
+-(void) setAge:(NSInteger ) age;
+-(NSInteger) getAge; // +
+
+-(NSString*) getUserId;
+-(NSDictionary *) getUserInfo;
+
+-(void) appendForKey:(NSString*) key andValue:(id) value;
+-(void) prependForKey:(NSString*) key andValue:(id) value;
+
+-(void) setMale:(BOOL) male; // +
+-(void) setFemale:(BOOL) female; // +
+
+-(void) setValue:(id)value forKey:(NSString *)key; // +
+-(void) unsetForKey:(NSString *)key; // +
+
+-(NSString*) getGender; // +
+-(BOOL) isNewInstall;
+
+-(void) identify:(NSString *) userId;
+
+-(NSString *) getChangeLog;
+
+-(void) dropChangeLog;
+
+-(void) printChangeLog;
+
+
+@property (nonatomic, strong) RestClient *restClient;
+
+
+@end
