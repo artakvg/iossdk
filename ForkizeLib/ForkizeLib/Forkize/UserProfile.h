@@ -44,6 +44,9 @@
 
 -(NSString *) getChangeLog;
 
+-(id) getChangeLogJSON;
+
+
 -(void) dropChangeLog;
 
 -(void) printChangeLog;

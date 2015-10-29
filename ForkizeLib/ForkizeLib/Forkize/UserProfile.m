@@ -395,4 +395,75 @@ typedef enum{
     return NO;
 }
 
+
+-(id) getChangeLogJSON{
+    
+    NSMutableDictionary * changeLogJSONDict = [NSMutableDictionary dictionary];
+    
+    NSDictionary *incrementDict = [self.changeLog objectForKey:FORKIZE_INCREMENT];
+    if (incrementDict != nil && [incrementDict count]) {
+        id incrementJSON = [self getJSON:incrementDict];
+        [changeLogJSONDict setObject:incrementJSON forKey:FORKIZE_INCREMENT];
+    }
+    
+    NSDictionary *setDict = [self.changeLog objectForKey:FORKIZE_SET];
+    if (setDict != nil && [setDict count]) {
+        id setJSON = [self getJSON:setDict];
+        [changeLogJSONDict setObject:setJSON forKey:FORKIZE_SET];
+    }
+    
+    NSArray *unsetArray = [self.changeLog objectForKey:FORKIZE_UNSET];
+    if (unsetArray != nil && [unsetArray count]) {
+        id unsetJSON = [self getJSON:unsetArray];
+        [changeLogJSONDict setObject:unsetJSON forKey:FORKIZE_UNSET];
+    }
+    
+    NSDictionary *appendDict = [self.changeLog objectForKey:FORKIZE_APPEND];
+    if (appendDict != nil && [appendDict count]) {
+        NSMutableDictionary *appendJSONDict = [NSMutableDictionary dictionary];
+        
+        for (NSString *key in [appendDict allKeys]) {
+            NSArray *keyValuesArray = [appendDict objectForKey:key];
+            id keyValuesJSON = [self getJSON:keyValuesArray];
+            [appendJSONDict setObject:keyValuesJSON forKey:key];
+        }
+        
+        
+        
+        id appendJSON = [self getJSON:appendJSONDict];
+        [changeLogJSONDict setObject:appendJSON forKey:FORKIZE_APPEND];
+    }
+
+    NSDictionary *prependDict = [self.changeLog objectForKey:FORKIZE_PREPEND];
+    if (prependDict != nil && [prependDict count]) {
+        NSMutableDictionary *prependJSONDict = [NSMutableDictionary dictionary];
+        
+        for (NSString *key in [prependDict allKeys]) {
+            NSArray *keyValuesArray = [prependDict objectForKey:key];
+            id keyValuesJSON = [self getJSON:keyValuesArray];
+            [prependJSONDict setObject:keyValuesJSON forKey:key];
+        }
+        
+        
+        
+        id prependJSON = [self getJSON:prependJSONDict];
+        [changeLogJSONDict setObject:prependJSON forKey:FORKIZE_PREPEND];
+    }
+
+    id changeLogJSON = [self getJSON:changeLogJSONDict];
+    
+    return changeLogJSON;
+}
+
+-(id) getJSON:(id) container{
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:container options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSError *parseError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
+
+    return jsonObject;
+}
+
 @end

@@ -192,7 +192,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 -(BOOL) updateUserProfile:(NSString *) accessToken{
     @try {
         
-        NSString *jsonString = [[UserProfile getInstance] getChangeLog];
+        NSString *jsonString = [[UserProfile getInstance] getChangeLogJSON];
         NSData *jsonData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
 
         NSError *parseError = nil;
