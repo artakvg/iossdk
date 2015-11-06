@@ -172,6 +172,7 @@
         --self.counter;
         [self.localStorage flushToDatabase];
         [self.userProfile flushToDatabase];
+        
         [self.sessionInstance pause];
         
         NSLog(@"Forkize SDK On Pause");
@@ -184,6 +185,9 @@
 -(void)  onResume{
     @try {
         ++self.counter;
+        
+        [self.userProfile restoreFromDatabase];
+        
         
         [self.sessionInstance resume];
     } @catch (NSException *exception) {
@@ -223,6 +227,7 @@
         if (self.localStorage != nil){
             [self.localStorage flushToDatabase];
             [self.userProfile flushToDatabase];
+            
         }
     } @catch (NSException* e) {
         NSLog(@"Forkize SDK Exception thrown onLowMemory %@", e);

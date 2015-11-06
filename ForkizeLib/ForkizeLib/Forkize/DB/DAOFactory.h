@@ -10,9 +10,6 @@
 
 @class FZUserDAO;
 @class EventsDAO;
-@class FZUser;
-
-@class SQLiteDatabase;
 
 
 @interface DAOFactory : NSObject

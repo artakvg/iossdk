@@ -7,7 +7,6 @@
 //
 
 #import "ForkizeEmpty.h"
-#import "UserProfile.h"
 
 @implementation ForkizeEmpty
 

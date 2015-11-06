@@ -40,6 +40,10 @@
     return self.deviceParams;
 }
 
+-(NSString *) getBatteryLevel{
+    return [NSString stringWithFormat:@"%ld", (long)( [UIDevice currentDevice].batteryLevel * 100)];
+}
+
 -(void) fetchParams{
     @try {
         if ([ForkizeHelper isNilOrEmpty:self.language]) {
@@ -61,6 +65,7 @@
         [mutDict setObject:@"Apple" forKey:@"device_manufacturer"];
         [mutDict setObject:[[UIDevice currentDevice] model] forKey:@"device_model"];
         [mutDict setObject:[UIDevice currentDevice].systemVersion forKey:@"device_os_name"];
+        [mutDict setObject:[self getBatteryLevel] forKey:@"battery_level"];
         [mutDict setObject:@"ios" forKey:@"device_os_name"];
         [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.width] forKey:@"device_width"];
         [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.height] forKey:@"device_height"];

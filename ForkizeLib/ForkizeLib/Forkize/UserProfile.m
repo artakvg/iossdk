@@ -84,6 +84,8 @@ typedef enum{
         return;
     }
     
+   // NSAssert([oldUserId isEqualToString:self.userId], @"Old UserId mismatch with oldUserId in alias function");
+    
     [self.localStorage aliasWithOldUserId:oldUserId andNewUserId:newUserId];
     self.aliasedLevel = 1;
     NSLog(@"Forkize SDK userId will change");
@@ -176,7 +178,6 @@ typedef enum{
 
 -(void) appendForKey:(NSString*) key andValue:(id) value{
     if ([ForkizeHelper isKeyValid:key]) {
-        
         NSDictionary *appendDictonary = [self.changeLog objectForKey:FORKIZE_APPEND];
         
         NSArray *keyArray = [appendDictonary objectForKey:key];
@@ -205,11 +206,9 @@ typedef enum{
 
 -(void) prependForKey:(NSString*) key andValue:(id) value{
     if ([ForkizeHelper isKeyValid:key]) {
+        NSDictionary *prependDictonary = [self.changeLog objectForKey:FORKIZE_PREPEND];
         
-        
-        NSDictionary *rependDictonary = [self.changeLog objectForKey:FORKIZE_PREPEND];
-        
-        NSArray *keyArray = [rependDictonary objectForKey:key];
+        NSArray *keyArray = [prependDictonary objectForKey:key];
         
         if (keyArray == nil) {
             keyArray = [NSArray array];
@@ -218,9 +217,9 @@ typedef enum{
         NSMutableArray *keyMutableArray = [NSMutableArray arrayWithArray:keyArray];
         [keyMutableArray insertObject:value atIndex:0];
         
-        [rependDictonary setValue:keyMutableArray forKey:key];
+        [prependDictonary setValue:keyMutableArray forKey:key];
         
-        [self.changeLog setValue:rependDictonary forKey:FORKIZE_PREPEND];
+        [self.changeLog setValue:prependDictonary forKey:FORKIZE_PREPEND];
         
         NSArray* valueFromDict = [self.userInfo valueForKey:key];
         if (![valueFromDict isKindOfClass:[NSArray class]]) {
@@ -273,7 +272,7 @@ typedef enum{
     self.aliasedLevel = 0;
     NSString *oldId = self.userId;
     
-    NSString *tmpUserId = (userId == nil ? [self generateUserId] : userId);
+    NSString *tmpUserId = (userId != nil ? userId : [self generateUserId]);
     
     [[NSUserDefaults  standardUserDefaults] setObject:tmpUserId forKey:USER_PROFILE_USER_ID];
     
@@ -314,13 +313,15 @@ typedef enum{
     return dict;
 }
 
+-(NSString *) getJsonString:(NSDictionary *) dict{
+    NSError * err;
+    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:dict options:0 error:&err];
+    NSString * jsonString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
+    return  jsonString;
+}
 
 -(NSString *) getChangeLog {
-    NSError * err;
-    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:self.changeLog options:0 error:&err];
-    NSString * jsonString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
-
-    return  jsonString;
+  return  [self getJsonString:self.changeLog];
 }
 
 -(void) dropChangeLog {
@@ -337,6 +338,9 @@ typedef enum{
     }
 }
 
+-(void) restoreFromDatabase{
+
+}
 
 -(NSString *) generateUserId{
     NSString *userId = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PROFILE_USER_ID];

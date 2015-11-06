@@ -53,4 +53,6 @@
 
 -(void) flushToDatabase;
 
+-(void) restoreFromDatabase;
+
 @end

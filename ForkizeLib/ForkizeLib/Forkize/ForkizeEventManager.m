@@ -12,6 +12,7 @@
 #import "SessionInstance.h"
 #import "LocationInstance.h"
 #import "LocalStorageManager.h"
+#import "DeviceInfo.h"
 #import "ForkizeHelper.h"
 
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -25,6 +26,7 @@
 NSString *const EVENT_TYPE = @"$event";
 NSString *const EVENT_VALUE = @"$value";
 NSString *const EVENT_DURATION = @"$event_duration";
+NSString *const BATTERY_LEVEL = @"$battery_level";
 
 NSString *const EVENT_TIME = @"Forkize.event.time";
 NSString *const PARAMS = @"Forkize.event.params";
@@ -198,8 +200,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 
 -(void) queueEventWithName:(NSString*) eventName andValue:(NSInteger) eventValue andParams:(NSDictionary *)params{
     @try {
-
-        NSString *eventString = [self eventAsJSON:eventName andValue:eventValue andParameters:params];
+         NSString *eventString = [self eventAsJSON:eventName andValue:eventValue andParameters:params];
         [self.queue addOperation:[[FzEventOperation alloc] initWithEventJSON:eventString]];
     }
     @catch (NSException *exception) {
@@ -212,6 +213,8 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 {
     
     NSMutableDictionary * jsonDict = [NSMutableDictionary dictionary];
+    [jsonDict setObject:[[DeviceInfo getInstance] getBatteryLevel] forKey:BATTERY_LEVEL];
+    
     [jsonDict setObject:event forKey:EVENT_TYPE];
     [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long) eventValue] forKey:EVENT_VALUE];
     

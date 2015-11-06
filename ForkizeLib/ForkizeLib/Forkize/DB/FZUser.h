@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString * userName;
 @property (nonatomic, strong) NSString * aliasedName;
 @property (nonatomic, strong) NSString * changeLog;
+@property (nonatomic, strong) NSString * userInfo;
 
 @end
