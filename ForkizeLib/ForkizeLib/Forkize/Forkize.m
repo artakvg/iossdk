@@ -74,7 +74,7 @@
 }
 
 -(void) purchaseWithProductId:(NSString *)productId andCurrency:(NSString *)currency andPrice:(double)price andQuantity:(NSInteger)quantity{
-    // FZ::TODO  lets have eventManager function with internal implementation of purchase queueing
+    // FZ::DONE
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           productId, @"product_id",
                           currency,  @"currency",
@@ -110,6 +110,7 @@
     [self.eventManager setSuperPropertiesOnce:properties];
 }
 
+// FZ::TODO::1 MERGE WITH IDENTIFY
 -(id<IForkize>) onCreate{
     
     self.isRunning = true;
@@ -141,8 +142,11 @@
                 [self.eventManager queueNewInstall];
             }
             
-            [self.eventManager queueDeviceInfo:[[DeviceInfo getInstance] getDeviceInfo]];
+            // FZ::TODO
+            //[self.eventManager queueDeviceInfo:[[DeviceInfo getInstance] getDeviceInfo]];
             // ** FZ::TODO seems getUserInfo returns the changelog
+            
+            // FZ::TODO CHANGE WITH CHANGELOG
             [self.eventManager queueUserInfo:[self.userProfile getUserInfo]];
         }
         
@@ -262,7 +266,8 @@
         self.isRunning = FALSE;
         self.destroyed = TRUE;
         
-        // FZ::TODO what about session Instance ?
+        // FZ::DONE what about session Instance ?
+        
         
         NSLog(@"Forkize SDK SDK is shot down!");
     }

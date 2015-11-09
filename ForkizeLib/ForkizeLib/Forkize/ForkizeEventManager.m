@@ -14,6 +14,7 @@
 #import "LocalStorageManager.h"
 #import "DeviceInfo.h"
 #import "ForkizeHelper.h"
+#include "SessionInstance.h"
 
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Reachability.h"
@@ -133,7 +134,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     if (self.scheduledEvents == nil){
         self.scheduledEvents = [NSMutableDictionary dictionary];
     }
-    // FZ::TODO which timezone is timeIntervalSince1970 ?????
+    // FZ::TODO which timezone is timeIntervalSince1970 ????? LOOK AT TRACK EVENT
     [self.scheduledEvents setObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]] forKey:eventName];
 }
 
@@ -165,7 +166,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     }
 }
 
-// FZ::TODO from where it was called
+// FZ::DONE THINK IT SHOULD BE REMOVED from where it was called
 -(void) queueAliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -180,10 +181,10 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     [self queueEventWithName:SESSION_START andValue:1 andParams:nil];
 }
 
-// FZ::TODO , think session time should be retrieved from session instance
--(void) queueSessionEnd:(long) time {
+// FZ::DONE , think session time should be retrieved from session instance
+-(void) queueSessionEnd{
     
-    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", time] forKey:SESSION_LENGTH];
+    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [[SessionInstance getInstance] getSessionLength]] forKey:SESSION_LENGTH];
     
     [self queueEventWithName:SESSION_END andValue:1 andParams:params];
 }

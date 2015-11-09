@@ -469,7 +469,7 @@ typedef enum{
     return changeLogJSON;
 }
 
-// FZ::TODO why we need it here
+// FZ::TODO why we need it here  NSJSONWritingPrettyPrinted
 -(id) getJSON:(id) container{
     
     NSError *error;

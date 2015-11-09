@@ -7,8 +7,7 @@
 //
 
 #import "ForkizeHelper.h"
-// FZ::TODO why we need it ?
-#import <UIKit/UIKit.h>
+// FZ::DONE why we need it ?
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation ForkizeHelper

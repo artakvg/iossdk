@@ -139,6 +139,7 @@
     }
     
     self.eventDAO = [self.daoFactory eventsDAO];
+    // FZ::TODO REMOVE USER
     self.eventDAO.user = user;
 }
 

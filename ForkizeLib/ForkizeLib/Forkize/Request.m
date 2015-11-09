@@ -18,11 +18,11 @@
 
 NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 
-#define URL_LIVE_PATH [NSString stringWithFormat:@"%@/%@/event/batch", URL_BASE_PATH, [ForkizeConfig getInstance].sdkVersion]
-#define  URL_AUTH_PATH [NSString stringWithFormat:@"%@/%@/people/identify", URL_BASE_PATH, [ForkizeConfig getInstance].sdkVersion] 
-#define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/%@/people/alias", URL_BASE_PATH, [ForkizeConfig getInstance].sdkVersion]
+#define URL_LIVE_PATH [NSString stringWithFormat:@"%@/%@/event/batch", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
+#define  URL_AUTH_PATH [NSString stringWithFormat:@"%@/%@/people/identify", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION] 
+#define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/%@/people/alias", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
 
-#define URL_AUPDATE_PATH  [NSString stringWithFormat:@"%@/%@/profile/update", URL_BASE_PATH, [ForkizeConfig getInstance].sdkVersion]
+#define URL_AUPDATE_PATH  [NSString stringWithFormat:@"%@/%@/profile/update", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
 
 @implementation Request
 
@@ -116,7 +116,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     @try {
         NSDictionary *api_dataDict = [NSDictionary dictionaryWithObject:aliasedName forKey:@"alias_id"];
         
-        
+        //FZ::TODO TEST NSJSONWritingPrettyPrinted OR 0
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:api_dataDict options:NSJSONWritingPrettyPrinted error:&error];
         
@@ -133,7 +133,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
                                     [ForkizeConfig getInstance].appId,
                                     [[UserProfile getInstance] getUserId],
                                     @"ios",
-                                    [ForkizeConfig getInstance].sdkVersion,
+                                    [ForkizeConfig getInstance].SDK_VERSION,
                                     [ForkizeConfig getInstance].appKey,
                                     apiDataString
                                     ];
@@ -145,7 +145,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         [mutDict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
         [mutDict setObject:userName forKey:@"user_id"];
         [mutDict setObject:@"ios" forKey:@"sdk"];
-        [mutDict setObject:[ForkizeConfig getInstance].sdkVersion forKey:@"version"];
+        [mutDict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
         [mutDict setObject:accessToken forKey:@"access_token"];
         [mutDict setObject:hash forKeyedSubscript:@"hash"];
         [mutDict setObject:aliasedName forKey:@"alias_id"];
@@ -211,7 +211,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
                                     [ForkizeConfig getInstance].appId,
                                     [[UserProfile getInstance] getUserId],
                                     @"ios",
-                                    [ForkizeConfig getInstance].sdkVersion,
+                                    [ForkizeConfig getInstance].SDK_VERSION,
                                     [ForkizeConfig getInstance].appKey,
                                     apiDataString
                                     ];
@@ -223,7 +223,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         [mutDict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
         [mutDict setObject:[[UserProfile getInstance] getUserId]  forKey:@"user_id"];
         [mutDict setObject:@"ios" forKey:@"sdk"];
-        [mutDict setObject:[ForkizeConfig getInstance].sdkVersion forKey:@"version"];
+        [mutDict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
         [mutDict setObject:accessToken forKey:@"access_token"];
         [mutDict setObject:hash forKeyedSubscript:@"hash"];
 
@@ -280,7 +280,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
                                 [ForkizeConfig getInstance].appId,
                                 [[UserProfile getInstance] getUserId],
                                 @"ios",
-                                [ForkizeConfig getInstance].sdkVersion,
+                                [ForkizeConfig getInstance].SDK_VERSION,
                                 [ForkizeConfig getInstance].appKey,
                                 jsonString];
     
@@ -293,7 +293,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     [batchDict setValue:[ForkizeConfig getInstance].appId forKey:@"app_id"];
     [batchDict setValue:[[UserProfile getInstance] getUserId] forKey:@"user_id"];
     [batchDict setObject:@"ios" forKey:@"sdk"];
-    [batchDict setObject:[[ForkizeConfig getInstance] sdkVersion] forKey:@"version"];
+    [batchDict setObject:[[ForkizeConfig getInstance] SDK_VERSION] forKey:@"version"];
     [batchDict setObject:accessToken forKey:@"access_token"];
     [batchDict setObject:hash forKey:@"hash"];
     // [batchDict setObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]] forKey:@"stamp"];

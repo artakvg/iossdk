@@ -42,9 +42,10 @@
 }
 
 -(void) setListeners{
-
+    
+    // FZ::TODO TEST IT
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        // FZ::TODO please explain
+         // FZ::TODO please explain
          [self.locationManager requestWhenInUseAuthorization];
     }
     
