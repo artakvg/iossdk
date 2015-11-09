@@ -16,8 +16,8 @@
 -(void) setSuperPropertiesOnce:(NSDictionary *) dict;
 
 
--(void) queueSessionStart ;
--(void) queueSessionEnd:(long) time;
+-(void) queueSessionStart;
+-(void) queueSessionEnd;
 -(void) eventDuration:(NSString*) eventName;
 
 -(void) queueEventWithName:(NSString*) eventName andValue:(NSInteger) value andParams:(NSDictionary *)params;

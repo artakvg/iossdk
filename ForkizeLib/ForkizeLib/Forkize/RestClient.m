@@ -76,7 +76,7 @@
             }
         }
         
-        NSArray *eventArray = [self.localStorage getEvents:[ForkizeConfig getInstance].maxEventsPerFlush];
+        NSArray *eventArray = [self.localStorage getEvents:[ForkizeConfig getInstance].MAX_EVENTS_PER_FLUSH];
         NSInteger lastEventsCount = [eventArray count];
         
         if (lastEventsCount == 0) {

@@ -43,8 +43,10 @@
 
 -(void) setListeners{
 
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-        [self.locationManager requestWhenInUseAuthorization];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        // FZ::TODO please explain
+         [self.locationManager requestWhenInUseAuthorization];
+    }
     
     [self.locationManager startUpdatingLocation];
 }
@@ -63,7 +65,6 @@
  */
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0){
-
 
     CLLocation *currentLocation = [locations objectAtIndex:0];
     self.latitude = currentLocation.coordinate.latitude;

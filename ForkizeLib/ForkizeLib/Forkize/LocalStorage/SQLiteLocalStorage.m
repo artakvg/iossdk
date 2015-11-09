@@ -98,6 +98,7 @@
     [self reset];
 }
 
+// FZ::TODO Dont need that , to pass an array for event removal
 -(BOOL) removeEvents:(NSArray *) events{
     BOOL result = FALSE;
     
@@ -119,7 +120,7 @@
 -(void) changeUserId{
     FZUser *newUser = [[FZUser alloc] init];
     newUser.userName = [[UserProfile getInstance] getUserId];
-    
+    // FZ::TODO why we need self.currentUser
     self.currentUser = newUser;
     
     FZUserDAO *userDAO = [self.daoFactory userDAO];

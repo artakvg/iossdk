@@ -20,6 +20,8 @@ NSString *const FORKIZE_INSTALL_TIME = @"Forkize.Install.Time";
 
 
 NSString *const FORKIZE_USER_ID = @"user_id";
+
+// ** operations
 NSString *const FORKIZE_INCREMENT = @"increment";
 NSString *const FORKIZE_SET = @"set";
 NSString *const FORKIZE_UNSET = @"unset";
@@ -75,6 +77,7 @@ typedef enum{
 -(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
     
     if ([ForkizeHelper isNilOrEmpty:newUserId]) {
+        // FZ::TODO why we are logging and not throwing exception ?
         NSLog(@"Forkize SDK New user Id is nill or empty");
         return;
     }
@@ -84,8 +87,9 @@ typedef enum{
         return;
     }
     
-   // NSAssert([oldUserId isEqualToString:self.userId], @"Old UserId mismatch with oldUserId in alias function");
+    // NSAssert([oldUserId isEqualToString:self.userId], @"Old UserId mismatch with oldUserId in alias function");
     
+    // FZ::TODO should local storage be aware of such kind of functionality like alias ????
     [self.localStorage aliasWithOldUserId:oldUserId andNewUserId:newUserId];
     self.aliasedLevel = 1;
     NSLog(@"Forkize SDK userId will change");
@@ -106,6 +110,7 @@ typedef enum{
 }
 
 -(void) setValue:(id)value forKey:(NSString *)key{
+     // FZ::TODO why we are not removing prev inc and prepend operations ???
     if ([ForkizeHelper isKeyValid:key]) {
         NSMutableDictionary *setDict = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_SET]];
         
@@ -123,6 +128,7 @@ typedef enum{
  }
 
 -(void) unsetForKey:(NSString *)key{
+    // FZ::TODO why we are not removing prev inc and prepend operations ???
     if ([ForkizeHelper isKeyValid:key]) {
         NSArray *unsetArray = [self.changeLog objectForKey:FORKIZE_UNSET];
         NSMutableArray *unsetMutArray = [NSMutableArray array];
@@ -234,7 +240,7 @@ typedef enum{
 
 
 -(void) setAge:(NSInteger ) age{
-    if (age> 0 && age < 150) {
+    if (age > 0 && age < 100) {
         self.age = age;
         [self setValue:[NSString stringWithFormat:@"%ld", (long) age] forKey:@"age"];
     } else {
@@ -286,6 +292,7 @@ typedef enum{
         
         if (![ForkizeHelper isNilOrEmpty:oldId]) {
             NSString *changeLogString = [self getChangeLog];
+            // FZ::TODO why user id and not olduser id
             [self.localStorage setUserInfo:self.userId andChangeLog:changeLogString];
             @try {
                 NSString *jsonString = [self.localStorage getUserInfo:self.userId];
@@ -302,6 +309,7 @@ typedef enum{
     }
 }
 
+// ** FZ::TODO this could be moved to Forkize helper
 -(NSDictionary *) parseJsonString:(NSString *) jsonString{
     NSError * err;
     NSData *data =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
@@ -313,6 +321,7 @@ typedef enum{
     return dict;
 }
 
+// ** FZ::TODO this could be moved to Forkize helper
 -(NSString *) getJsonString:(NSDictionary *) dict{
     NSError * err;
     NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:dict options:0 error:&err];
@@ -332,6 +341,7 @@ typedef enum{
     NSLog(@"Forkize SDK %@", [self getChangeLog]);
 }
 
+// FZ::TODO dont think we need to have such high level interface, error prone
 -(void) flushToDatabase{
     if (self.localStorage != nil) {
         [self.localStorage setUserInfo:self.userId andChangeLog:[self getChangeLog]];
@@ -459,6 +469,7 @@ typedef enum{
     return changeLogJSON;
 }
 
+// FZ::TODO why we need it here
 -(id) getJSON:(id) container{
     
     NSError *error;

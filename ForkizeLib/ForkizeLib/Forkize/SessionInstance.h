@@ -13,12 +13,11 @@
 -(NSString*) getSessionToken;
 
 - (long) getSessionLength;
-- (void) dropSessionLength;
 
--(void) generateNewSessionInterval;
-
--(void) pause;
--(void) resume;
+- (void) start;
+- (void) end;
+- (void) pause;
+- (void) resume;
 
 + (SessionInstance*) getInstance;
 

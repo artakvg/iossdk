@@ -12,7 +12,11 @@
 
 @interface DeviceInfo ()
 
-@property (nonatomic, strong) NSString *language;
+// FZ::TODO why we need all members here ???
+// then why we have no battary level here
+
+@property (nonatomic, strong) NSString * language;
+// FZ::TODO country not used
 @property (nonatomic, strong) NSString * country;
 @property (nonatomic, strong) NSString * appMajorVersion;
 @property (nonatomic, strong) NSString * appMinorVersion;
@@ -40,6 +44,7 @@
     return self.deviceParams;
 }
 
+// FZ::TODO maybe we need to make it private
 -(NSString *) getBatteryLevel{
     return [NSString stringWithFormat:@"%ld", (long)( [UIDevice currentDevice].batteryLevel * 100)];
 }
@@ -61,12 +66,16 @@
             NSLog(@"Forkize SDK Minor Version Name %@",  self.appMinorVersion);
         }
         
+        // FZ::TODO why we need NSMutableDictionary
         NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
+       
         [mutDict setObject:@"Apple" forKey:@"device_manufacturer"];
         [mutDict setObject:[[UIDevice currentDevice] model] forKey:@"device_model"];
+        // FZ::TODO why we are fetching device_os_name and then putting it to ios?
         [mutDict setObject:[UIDevice currentDevice].systemVersion forKey:@"device_os_name"];
-        [mutDict setObject:[self getBatteryLevel] forKey:@"battery_level"];
+        // FZ::TODO why we need it ?
         [mutDict setObject:@"ios" forKey:@"device_os_name"];
+        
         [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.width] forKey:@"device_width"];
         [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.height] forKey:@"device_height"];
         [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[[UIScreen mainScreen] scale]] forKey:@"density"];
@@ -75,6 +84,7 @@
         [mutDict setObject:self.language forKey:@"language"];
         [mutDict setObject:self.appMajorVersion forKey:@"app_major_version"];
         [mutDict setObject:self.appMinorVersion forKey:@"app_minor_version"];
+        [mutDict setObject:[self getBatteryLevel] forKey:@"battery_level"];
         
         self.deviceParams = [NSDictionary dictionaryWithDictionary:mutDict];
 

@@ -45,16 +45,14 @@
     
     if (self) {
         self.destroyed = YES;
-        
         self.counter = 0;
-        self.config = [ForkizeConfig getInstance];
-        self.userProfile = [UserProfile getInstance];
+        
+        self.config          = [ForkizeConfig getInstance];
+        self.userProfile     = [UserProfile getInstance];
         self.sessionInstance = [SessionInstance getInstance];
-        self.eventManager = [ForkizeEventManager getInstance];
-        
-        self.localStorage = [LocalStorageManager getInstance];
-        
-        self.restClient = [RestClient getInstance];
+        self.eventManager    = [ForkizeEventManager getInstance];
+        self.localStorage    = [LocalStorageManager getInstance];
+        self.restClient      = [RestClient getInstance];
                 
         self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runOperations:) object:self];
         
@@ -76,23 +74,28 @@
 }
 
 -(void) purchaseWithProductId:(NSString *)productId andCurrency:(NSString *)currency andPrice:(double)price andQuantity:(NSInteger)quantity{
+    // FZ::TODO  lets have eventManager function with internal implementation of purchase queueing
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          productId, @"prouct_id",
-                          currency, @"currency",
-                          price, @"price",
-                          quantity, @"quantity",
+                          productId, @"product_id",
+                          currency,  @"currency",
+                          price,     @"price",
+                          quantity,  @"quantity",
                           nil];
     
     [self.eventManager queueEventWithName:@"purchase" andValue:0 andParams:dict];
 }
 
 -(void) sessionStart{
-    [self.eventManager queueSessionStart];
+    [self.sessionInstance start];
+    // FZ::TODO
+    //[self.eventManager queueSessionStart];
 }
 
 -(void) sessionEnd{
-    [self.eventManager queueSessionEnd:self.sessionInstance.getSessionLength];
-    [self.sessionInstance dropSessionLength];
+    [self.sessionInstance end];
+    // FZ::TODO
+    //[self.eventManager queueSessionEnd:self.sessionInstance.getSessionLength];
+    //[self.sessionInstance dropSessionLength];
 }
 
 -(void) eventDurationWithName:(NSString *)eventName{
@@ -126,17 +129,20 @@
         @try {
             
             self.initialized = true;
-        //    self.initializedTime = [NSDate date];
             
-            [self.sessionInstance generateNewSessionInterval];
+        //  self.initializedTime = [NSDate date];
             
-            [self.eventManager queueSessionStart];
+            // FZ::TODO sessionStart
+            [self sessionStart];
+            //[self.sessionInstance generateNewSessionInterval];
+            //[self.eventManager queueSessionStart];
             
             if ([self.userProfile isNewInstall]) {
                 [self.eventManager queueNewInstall];
             }
             
             [self.eventManager queueDeviceInfo:[[DeviceInfo getInstance] getDeviceInfo]];
+            // ** FZ::TODO seems getUserInfo returns the changelog
             [self.eventManager queueUserInfo:[self.userProfile getUserInfo]];
         }
         
@@ -159,7 +165,7 @@
         @try {
             [self.userProfile printChangeLog];
             [self.restClient flush];
-            [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] timeAfterFlush]];
+            [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] TIME_AFTER_FLUSH]];
         }
         @catch (NSException *exception) {
              NSLog(@"Forkize SDK Something went wrong in MainRunnable %@", exception);
@@ -209,8 +215,7 @@
         }
         
         if (self.counter == 1) {
-            [self.eventManager queueSessionEnd:[self.sessionInstance getSessionLength]];
-            [self.sessionInstance dropSessionLength];
+            [self.sessionInstance end];
             [self.localStorage flushToDatabase];
             [self.userProfile flushToDatabase];
         }
@@ -240,7 +245,6 @@
 
 -(void) shutDown //@throws InterruptedException
 {
-    
     if (!self.destroyed) {
         NSLog(@"Forkize SDK Shutting down the SDK ...");
         
@@ -257,6 +261,8 @@
         
         self.isRunning = FALSE;
         self.destroyed = TRUE;
+        
+        // FZ::TODO what about session Instance ?
         
         NSLog(@"Forkize SDK SDK is shot down!");
     }

@@ -10,14 +10,13 @@
 
 @interface ForkizeConfig : NSObject
 
-@property (nonatomic, readonly) NSInteger maxEventsPerFlush;
-@property (nonatomic, readonly) NSInteger timeAfterFlush;
-@property (nonatomic, readonly) NSString *sdkVersion;
+@property (nonatomic, readonly) NSInteger MAX_EVENTS_PER_FLUSH;
+@property (nonatomic, readonly) NSInteger TIME_AFTER_FLUSH;
+@property (nonatomic, readonly) NSInteger SESSION_INTERVAL;
+@property (nonatomic, readonly) NSString *SDK_VERSION;
 
-@property (nonatomic, assign) NSInteger newSessionInterval;
-
-@property (nonatomic, strong) NSString *appId;
-@property (nonatomic, strong) NSString *appKey;
+@property (nonatomic, strong)   NSString *appId;
+@property (nonatomic, strong)   NSString *appKey;
 
 + (ForkizeConfig*) getInstance;
 

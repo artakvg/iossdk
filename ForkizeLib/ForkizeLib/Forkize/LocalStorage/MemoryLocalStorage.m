@@ -21,16 +21,19 @@
 -(instancetype) init{
     self = [super init];
     if (self) {
-        self.eventMaxCount =  [[ForkizeConfig getInstance] maxEventsPerFlush];
+        self.eventMaxCount =  [[ForkizeConfig getInstance] MAX_EVENTS_PER_FLUSH];
         self.events = [NSMutableArray array];
     }
     
     return self;
 }
+
+// FZ::TODO why we need that
 -(NSString *) getUserInfo:(NSString*) userId{
     return nil;
 }
 
+// FZ::TODO why we need that
 -(void) setUserInfo:(NSString*) userId andChangeLog:(NSString*) userInfo{
 }
 

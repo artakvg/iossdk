@@ -16,10 +16,15 @@
 @interface SessionInstance()
 
 @property (nonatomic, strong) NSString *sessionToken;
-@property (nonatomic, strong) NSString *userId;
-@property (nonatomic, assign) long lastSessionTick;
+
+@property (nonatomic, assign) long sessionStartTime;
+@property (nonatomic, assign) long sessionResumeTime;
+@property (nonatomic, assign) long sessionEndTime;
 @property (nonatomic, assign) long sessionLength;
-@property (nonatomic, assign) long resumedTime;
+
+// FZ::TODO change to boolean
+@property (nonatomic, assign) long isDestroyed;
+@property (nonatomic, assign) long isPaused;
 
 @end
 
@@ -37,51 +42,74 @@
 -(instancetype) init{
     self = [super init];
     if (self) {
+        self.sessionStartTime = 0;
+        self.sessionEndTime = 0;
         self.sessionLength = 0;
+        self.isDestroyed = 1;
     }
     
     return self;
 }
 
--(NSString*) getSessionToken{
-    return  [self generateSessionToken:[[UserProfile getInstance] getUserId]];
+-(void) start{
+    long currentTime = [[NSDate date] timeIntervalSince1970];
+    if(currentTime > self.sessionEndTime || self.isDestroyed == 1 ) {
+        self.sessionStartTime = currentTime;
+        self.sessionResumeTime = currentTime;
+        self.sessionEndTime = currentTime + [[ForkizeConfig getInstance] SESSION_INTERVAL];
+        self.sessionLength = 0;
+        // set isDestroyed to FALSE
+        self.isDestroyed = 0;
+        self.isPaused = 0;
+        // ** generate session token
+        self.sessionToken = [self generateSessionToken];
+        [[ForkizeEventManager getInstance] queueSessionStart];
+    }
 }
 
--(void) generateNewSessionInterval {
-    self.lastSessionTick = [[NSDate date] timeIntervalSince1970] + [[ForkizeConfig getInstance] newSessionInterval];
-}
-
--(NSString*) generateSessionToken:(NSString*) userId {
-    self.userId = userId;
-    NSString* appId = [[ForkizeConfig getInstance] appId];
-    NSString* appKey = [[ForkizeConfig getInstance] appKey];
-    
-    
-    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970] / 1000];
-    NSString *hexDigest = [ForkizeHelper md5:[NSString stringWithFormat:@"%@%@%@", self.userId, timestamp, appKey]];
-    self.sessionToken = [NSString stringWithFormat:@"%@=%@=%@=%@", appId, userId, timestamp, hexDigest];
-    return self.sessionToken;
+-(void) end{
+    if(self.isDestroyed == 0) {
+        self.isDestroyed = 1;
+        self.sessionLength += [[NSDate date] timeIntervalSince1970] - self.sessionResumeTime;
+        return [[ForkizeEventManager getInstance] queueSessionEnd];
+    }
 }
 
 -(void) pause{
-    self.sessionLength += [[NSDate date] timeIntervalSince1970] - self.resumedTime;
+    if(self.isPaused == 0) {
+        self.isPaused = 1;
+        self.sessionLength += [[NSDate date] timeIntervalSince1970] - self.sessionResumeTime;
+    }
 }
 
 -(void) resume {
-    self.resumedTime = [[NSDate date] timeIntervalSince1970];
-    if (self.resumedTime > self.lastSessionTick) {
-        [self generateNewSessionInterval];
-        [self generateSessionToken:self.userId];
-        [[ForkizeEventManager getInstance] queueSessionStart];
+    if(self.isPaused == 1) {
+        self.sessionResumeTime = [[NSDate date] timeIntervalSince1970];
+        if (self.sessionResumeTime > self.sessionEndTime) {
+            [self end];
+            [self start];
+        }
     }
+}
+
+-(NSString*) getSessionToken{
+    return  [self generateSessionToken];
 }
 
 - (long) getSessionLength{
     return self.sessionLength;
 }
 
--(void) dropSessionLength {
-    self.sessionLength = 0L;
+-(NSString*) generateSessionToken {
+    NSString* userId = [[UserProfile getInstance] getUserId];
+    NSString* appId = [[ForkizeConfig getInstance] appId];
+    NSString* appKey = [[ForkizeConfig getInstance] appKey];
+    
+    
+    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970] / 1000];
+    NSString *hexDigest = [ForkizeHelper md5:[NSString stringWithFormat:@"%@%@%@", userId, timestamp, appKey]];
+    self.sessionToken = [NSString stringWithFormat:@"%@=%@=%@=%@", appId, userId, timestamp, hexDigest];
+    return self.sessionToken;
 }
 
 @end

@@ -37,7 +37,7 @@
 
 -(void)  onLowMemory;
 
--(void) onTerminate;
+-(void)  onTerminate;
 
 @end
 

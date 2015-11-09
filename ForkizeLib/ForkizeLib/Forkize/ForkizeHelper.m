@@ -7,6 +7,7 @@
 //
 
 #import "ForkizeHelper.h"
+// FZ::TODO why we need it ?
 #import <UIKit/UIKit.h>
 #import <CommonCrypto/CommonDigest.h>
 
@@ -40,8 +41,6 @@
         NSLog(@"Forkize SDK The key is not valid, it shouldn't start with $ and length must be less than 255 and more 0");
         return FALSE;
     }
-    return TRUE;
-    
     return TRUE;
 }
 

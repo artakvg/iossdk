@@ -38,6 +38,7 @@ NSString *const DEVICE_INFO = @"Forkize.device.info";
 NSString *const USER_INFO = @"Forkize.user.info";
 NSString *const USER_ID = @"Forkize.userId";
 NSString *const APP_ID = @"Forkize.appId";
+// FZ::TODO remove SESSION_TOKEN
 NSString *const SESSION_TOKEN = @"Forkize.session.token";
 NSString *const LATITUDE = @"Forkize.latitude";
 NSString *const LONGITUDE = @"Forkize.longitude";
@@ -132,7 +133,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     if (self.scheduledEvents == nil){
         self.scheduledEvents = [NSMutableDictionary dictionary];
     }
-    
+    // FZ::TODO which timezone is timeIntervalSince1970 ?????
     [self.scheduledEvents setObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]] forKey:eventName];
 }
 
@@ -164,6 +165,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     }
 }
 
+// FZ::TODO from where it was called
 -(void) queueAliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -178,6 +180,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     [self queueEventWithName:SESSION_START andValue:1 andParams:nil];
 }
 
+// FZ::TODO , think session time should be retrieved from session instance
 -(void) queueSessionEnd:(long) time {
     
     NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", time] forKey:SESSION_LENGTH];

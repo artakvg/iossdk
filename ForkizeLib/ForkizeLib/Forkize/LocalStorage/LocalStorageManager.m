@@ -45,6 +45,8 @@
     return sharedInstance;
 }
 
+// FZ::TODO think getUserInfo, setUserInfo should be moved to UserProfile
+
 -(NSString *) getUserInfo:(NSString*) userId{
     @synchronized(self.eventLock) {
         @try {
@@ -57,7 +59,7 @@
     
     return nil;
 }
-
+// FZ::TODO look at getUserInfo
 -(void) setUserInfo:(NSString*) userId andChangeLog:(NSString*) userInfo{
     @synchronized(self.eventLock) {
         @try {
@@ -68,7 +70,7 @@
         }
     }
 }
-
+// FZ::TODO look at getUserInfo
 -(void) changeUserId{
     @synchronized(self.eventLock) {
         @try {
@@ -80,6 +82,8 @@
         
     }
 }
+
+// FZ::TODO look at getUserInfo
 -(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
     @synchronized(self.eventLock) {
         @try {
@@ -91,6 +95,7 @@
     }
 }
 
+// FZ::TODO look at getUserInfo
 -(FZUser*)getAliasedUser:(NSString*) userName{
     @synchronized(self.eventLock) {
         @try {
@@ -101,6 +106,7 @@
         }
     }
 }
+// FZ::TODO look at getUserInfo
 -(void) exchangeIds:(NSString*) userName{
     @synchronized(self.eventLock) {
         @try {

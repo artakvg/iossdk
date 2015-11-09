@@ -14,9 +14,11 @@ NSString *const FORKIZE_SDK_VERION = @"1.0";
 
 @property (nonatomic, strong) NSString *dbName;
 @property (nonatomic, assign) long maxSQLiteDBSize;
-@property (nonatomic, assign) NSInteger maxEventsPerFlush;
-@property (nonatomic, assign) NSInteger timeAfterFlush;
-@property (nonatomic, strong) NSString *sdkVersion;
+
+@property (nonatomic, assign) NSInteger MAX_EVENTS_PER_FLUSH;
+@property (nonatomic, assign) NSInteger TIME_AFTER_FLUSH;
+@property (nonatomic, assign) NSInteger SESSION_INTERVAL;
+@property (nonatomic, strong) NSString *SDK_VERSION;
 
 
 @end
@@ -28,10 +30,11 @@ NSString *const FORKIZE_SDK_VERION = @"1.0";
     if (self) {
         self.dbName = @"forkize.db";
         self.maxSQLiteDBSize = 1048576L;
-        self.maxEventsPerFlush = 10;
-        self.timeAfterFlush = 10;
-        self.newSessionInterval = 30000L;
-        self.sdkVersion = FORKIZE_SDK_VERION;
+        
+        self.MAX_EVENTS_PER_FLUSH = 10;
+        self.TIME_AFTER_FLUSH = 10;
+        self.SESSION_INTERVAL = 30000L;
+        self.SDK_VERSION = FORKIZE_SDK_VERION;
     }
     
     return self;

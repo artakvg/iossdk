@@ -18,6 +18,8 @@
 -(void) updateProfile:(NSDictionary *) dict;
 -(void) setProfile:(NSDictionary *) dict;
 -(void) incrementValueForKey:(NSString*) key byValue:(NSString *) value;
+
+// FZ::TODO
 -(void) incrementByDictonary:(NSDictionary *)dict;
 
 
@@ -45,7 +47,6 @@
 -(NSString *) getChangeLog;
 
 -(id) getChangeLogJSON;
-
 
 -(void) dropChangeLog;
 

@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Artak. All rights reserved.
 //
 
+// FZ::TODO refactoring needed
+
 #import "Request.h"
 #import "FZUser.h"
 #import "ForkizeHelper.h"
@@ -42,7 +44,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
                                     [ForkizeConfig getInstance].appId,
                                     [[UserProfile getInstance] getUserId],
                                     @"ios",
-                                    [ForkizeConfig getInstance].sdkVersion,
+                                    [ForkizeConfig getInstance].SDK_VERSION,
                                     [ForkizeConfig getInstance].appKey];
         
         NSString *hash = [ForkizeHelper md5:hashableString];
@@ -50,7 +52,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
         [mutDict setObject:hash forKey:@"hash"];
         [mutDict setObject:@"ios" forKey:@"sdk"];
-        [mutDict setObject:[ForkizeConfig getInstance].sdkVersion forKey:@"version"];
+        [mutDict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
         [mutDict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
         [mutDict setObject:[[UserProfile getInstance] getUserId] forKey:@"user_id"];
         
