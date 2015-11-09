@@ -23,8 +23,7 @@
     ForkizeInstance *instance = [ForkizeInstance getInstance];
     [instance authorize:@"06dcddf476d65c12eeb35731" andAppKey:@"a18252f6f7999c8b48602adb"];
     
-    [[UserProfile getInstance] identify:nil];
-    [instance onCreate];
+    [instance identify:nil];
     
     return YES;
 }

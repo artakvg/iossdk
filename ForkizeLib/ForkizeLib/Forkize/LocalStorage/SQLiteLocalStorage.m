@@ -37,20 +37,15 @@
     return self;
 }
 
--(NSString *) getUserInfo:(NSString*) userId{
+-(FZUser*) getUser:(NSString*) userId{
     FZUserDAO *userDAO = [self.daoFactory userDAO];
     
     FZUser *user = [userDAO getUser:userId];
-
-    return user.changeLog;
+    return user;
 }
 
--(void) setUserInfo:(NSString*) userId andChangeLog:(NSString*) userInfo{
+-(void) setUser:(FZUser*) user{
     FZUserDAO *userDAO = [self.daoFactory userDAO];
-    
-    FZUser *user = [userDAO getUser:userId];
-    user.changeLog = userInfo;
-    
     [userDAO updateUser:user];
 }
 

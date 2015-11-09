@@ -12,18 +12,16 @@
 
 
 static NSString *const kSelectAllUsersSQL = @""
-"select Id, UserName, AliasedUserName, ChangeLog from Users order by Id";
+"select Id, UserName, AliasedUserName, ChangeLog, UserInfo from Users order by Id";
 
 static NSString *const kSelectUserSQL = @""
-"select Id, UserName, AliasedUserName, ChangeLog from Users where UserName=:userName order by Id";
+"select Id, UserName, AliasedUserName, ChangeLog, UserInfo from Users where UserName=:userName order by Id";
 
 static NSString *const kUpdateUserSQL = @""
-"update Users set UserName=:userName, AliasedUserName=:aliasedUserName, ChangeLog=:changeLog where Id=:id";
-
-
+"update Users set UserName=:userName, AliasedUserName=:aliasedUserName, ChangeLog=:changeLog, UserInfo=:userInfo where Id=:id";
 
 static NSString *const kInsertUserSQL = @""
-"insert into Users (UserName, AliasedUserName) values (:userName, :aliasedUserName)";
+"insert into Users (UserName, AliasedUserName, ChangeLog, UserInfo) values (:userName, :aliasedUserName, :changeLog, :userInfo)";
 
 static NSString *const  kDeleteUserSQL = @""
 "delete from Users where UserName=:userName";
@@ -34,12 +32,14 @@ static NSString *const kIdParamName = @":id";
 static NSString *const kUserNameParamName = @":userName";
 static NSString *const kAliasedUserNameParamName = @":aliasedUserName";
 static NSString *const kChangeLogParamName = @":changeLog";
+static NSString *const kUserInfoParamName = @":userInfo";
 
 
 #define kUserIdColIndex 0
 #define kUserNameColIndex 1
 #define kAliasedUserNameColIndex 2
 #define kChangeLogColIndex 3
+#define kUserInfoColIndex 4
 
 
 @interface FZUserDAO()
@@ -65,6 +65,7 @@ static NSString *const kChangeLogParamName = @":changeLog";
     user.userName = [row stringAtIndex:kUserNameColIndex];
     user.aliasedName = [row stringAtIndex:kAliasedUserNameColIndex];
     user.changeLog = [row stringAtIndex:kChangeLogColIndex];
+    user.userInfo = [row stringAtIndex:kUserInfoColIndex];
    
     return user;
 }
@@ -90,11 +91,15 @@ static NSString *const kChangeLogParamName = @":changeLog";
     user.userName = userName;
     user.aliasedName = @"";
     user.changeLog = @"";
+    user.userInfo = @"";
     
     
     SQLiteStatement *statement = [self.database statementWithSQLString:kInsertUserSQL];
    
     [statement setString:user.userName forParam:kUserNameParamName];
+    [statement setString:user.aliasedName forParam:kAliasedUserNameParamName];
+    [statement setString:user.changeLog forParam:kChangeLogParamName];
+    [statement setString:user.userInfo forParam:kUserInfoParamName];
     
     NSInteger updateCount = [statement executeUpdate];
     NSAssert(updateCount != 0,@"Unexpected error while creating user");
@@ -140,6 +145,7 @@ static NSString *const kChangeLogParamName = @":changeLog";
     [statement setString:user.userName forParam:kUserNameParamName];
     [statement setString:user.aliasedName forParam:kAliasedUserNameParamName];
     [statement setString:user.changeLog forParam:kChangeLogParamName];
+    [statement setString:user.userInfo forParam:kUserInfoParamName];
     
     return [statement executeUpdate];;
 }

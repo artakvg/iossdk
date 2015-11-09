@@ -29,12 +29,13 @@
 }
 
 // FZ::TODO why we need that
--(NSString *) getUserInfo:(NSString*) userId{
+-(FZUser*) getUser:(NSString*) userId{
     return nil;
 }
 
 // FZ::TODO why we need that
--(void) setUserInfo:(NSString*) userId andChangeLog:(NSString*) userInfo{
+-(void) setUser:(FZUser*) user{
+
 }
 
 

@@ -11,7 +11,8 @@ CREATE TABLE Users (
 	 Id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
 	 UserName text NOT NULL,
      AliasedUserName text,
-     ChangeLog text
+     ChangeLog text,
+     UserInfo text
 );
 
 DROP TABLE IF EXISTS Events;

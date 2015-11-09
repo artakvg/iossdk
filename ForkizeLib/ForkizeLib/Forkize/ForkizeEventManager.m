@@ -14,7 +14,6 @@
 #import "LocalStorageManager.h"
 #import "DeviceInfo.h"
 #import "ForkizeHelper.h"
-#include "SessionInstance.h"
 
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Reachability.h"
@@ -39,8 +38,8 @@ NSString *const DEVICE_INFO = @"Forkize.device.info";
 NSString *const USER_INFO = @"Forkize.user.info";
 NSString *const USER_ID = @"Forkize.userId";
 NSString *const APP_ID = @"Forkize.appId";
-// FZ::TODO remove SESSION_TOKEN
-NSString *const SESSION_TOKEN = @"Forkize.session.token";
+// FZ::DONE remove SESSION_TOKEN
+//NSString *const SESSION_TOKEN = @"Forkize.session.token";
 NSString *const LATITUDE = @"Forkize.latitude";
 NSString *const LONGITUDE = @"Forkize.longitude";
 NSString *const CONNECTION_TYPE = @"Forkize.connection.type";

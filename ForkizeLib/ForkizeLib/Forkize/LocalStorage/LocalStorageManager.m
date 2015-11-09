@@ -47,10 +47,10 @@
 
 // FZ::TODO think getUserInfo, setUserInfo should be moved to UserProfile
 
--(NSString *) getUserInfo:(NSString*) userId{
+-(FZUser*) getUser:(NSString*) userId{
     @synchronized(self.eventLock) {
         @try {
-            return [self.secondaryStorage getUserInfo:userId];
+            return [self.secondaryStorage getUser:userId];
         }
         @catch (NSException *exception) {
             NSLog(@"Forkize SDK get user info exception %@", exception);
@@ -60,15 +60,16 @@
     return nil;
 }
 // FZ::TODO look at getUserInfo
--(void) setUserInfo:(NSString*) userId andChangeLog:(NSString*) userInfo{
+-(void) setUser:(FZUser*) user{
     @synchronized(self.eventLock) {
         @try {
-            return [self.secondaryStorage setUserInfo:userId andChangeLog:userInfo];
+            return [self.secondaryStorage setUser:user];
         }
         @catch (NSException *exception) {
             NSLog(@"Forkize SDK set user info exception %@", exception);
         }
     }
+
 }
 // FZ::TODO look at getUserInfo
 -(void) changeUserId{

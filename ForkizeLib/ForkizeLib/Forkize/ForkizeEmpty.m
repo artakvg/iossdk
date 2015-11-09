@@ -41,7 +41,7 @@
 
 }
 
--(id<IForkize>) onCreate{
+-(id<IForkize>) identify:(NSString *) userId{
     return nil;
 }
 

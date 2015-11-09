@@ -27,7 +27,8 @@
 -(FZUser*)getAliasedUser:(NSString*) userName;
 -(void) exchangeIds:(NSString*) userName;
 
--(NSString *) getUserInfo:(NSString*) userId;
--(void) setUserInfo:(NSString*) userId andChangeLog:(NSString*) userInfo;
+
+-(FZUser*) getUser:(NSString*) userId;
+-(void) setUser:(FZUser*) user;
 
 @end

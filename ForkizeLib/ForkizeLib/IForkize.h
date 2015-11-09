@@ -27,7 +27,7 @@
 
 -(void) setSuperPropertiesOnce:(NSDictionary *) properties;
 
--(id<IForkize>) onCreate;
+-(id<IForkize>) identify:(NSString *) userId;
 
 -(void)  onPause;
 

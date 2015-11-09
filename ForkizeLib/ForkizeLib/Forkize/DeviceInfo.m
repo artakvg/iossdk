@@ -41,25 +41,22 @@
 
 -(void) fetchParams{
     @try {
-        // FZ::TODO why we need NSMutableDictionary
-        NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
-       
-        [mutDict setObject:@"Apple" forKey:@"device_manufacturer"];
-        [mutDict setObject:[[UIDevice currentDevice] model] forKey:@"device_model"];
-        [mutDict setObject:[UIDevice currentDevice].systemVersion forKey:@"device_os_version"];
-        [mutDict setObject:@"ios" forKey:@"device_os_name"];
-        
-        [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.width] forKey:@"device_width"];
-        [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.height] forKey:@"device_height"];
-        [mutDict setObject:[NSString stringWithFormat:@"%ld", (long)[[UIScreen mainScreen] scale]] forKey:@"density"];
-        
-        [mutDict setObject:[[NSLocale currentLocale] objectForKey: NSLocaleCountryCode] forKey:@"country"];
-        [mutDict setObject:[[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0] forKey:@"language"];
-        [mutDict setObject:[ [[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] forKey:@"app_major_version"];
-        [mutDict setObject:[ [[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"app_minor_version"];
-        [mutDict setObject:[self getBatteryLevel] forKey:@"battery_level"];
-        
-        self.deviceParams = [NSDictionary dictionaryWithDictionary:mutDict];
+        // FZ::DONE why we need NSMutableDictionary
+
+        self.deviceParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"Apple", @"device_manufacturer",
+                                                [[UIDevice currentDevice] model], @"device_model",
+                                                [UIDevice currentDevice].systemVersion, @"device_os_version",
+                                                @"ios", @"device_os_name",
+                                                [NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.width], @"device_width",
+                                                [NSString stringWithFormat:@"%ld", (long)[UIScreen mainScreen].bounds.size.height], @"device_height",
+                                                [NSString stringWithFormat:@"%ld", (long)[[UIScreen mainScreen] scale]], @"density",
+                                                [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode], @"country",
+                                                [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0], @"language",
+                                                [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], @"app_major_version",
+                                                [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], @"app_minor_version",
+                                                [self getBatteryLevel], @"battery_level",
+                                                nil];
 
     }
     @catch (NSException *exception) {

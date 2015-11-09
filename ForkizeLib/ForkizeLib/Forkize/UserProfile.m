@@ -13,6 +13,7 @@
 #import "LocalStorageManager.h"
 #import "ForkizeConfig.h"
 #import "RestClient.h"
+#import "FZUser.h"
 
 
 NSString *const USER_PROFILE_USER_ID = @"Forkize.UserProfile.userId";
@@ -38,6 +39,8 @@ typedef enum{
 @interface UserProfile()
 
 @property (nonatomic, strong) NSString *userId;
+@property (nonatomic, strong) NSString *aliasedUserId;
+
 @property (nonatomic, assign) UserGender gender;
 @property (nonatomic, assign) NSInteger age;
 @property (nonatomic, strong) NSMutableDictionary *userInfo;
@@ -92,6 +95,8 @@ typedef enum{
     // FZ::TODO should local storage be aware of such kind of functionality like alias ????
     [self.localStorage aliasWithOldUserId:oldUserId andNewUserId:newUserId];
     self.aliasedLevel = 1;
+    self.aliasedUserId = newUserId;
+    
     NSLog(@"Forkize SDK userId will change");
 }
 
@@ -291,16 +296,32 @@ typedef enum{
         [self.localStorage changeUserId];
         
         if (![ForkizeHelper isNilOrEmpty:oldId]) {
-            NSString *changeLogString = [self getChangeLog];
+            
+            FZUser *user = [[FZUser alloc] init];
+            user.userName = oldId;
+            user.changeLog = [self getChangeLog];
             // FZ::TODO why user id and not olduser id
-            [self.localStorage setUserInfo:self.userId andChangeLog:changeLogString];
+            [self.userInfo setObject:self.aliasedUserId forKey:@"aliasedUserId"];
+            user.userInfo = [self getJsonString:self.userInfo];
+            [self.localStorage setUser:user];
+            
+            
             @try {
-                NSString *jsonString = [self.localStorage getUserInfo:self.userId];
-                if (![ForkizeHelper isNilOrEmpty:jsonString]) {
-                    self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:jsonString]];
+                FZUser *user = [self.localStorage getUser:self.userId];
+
+                if (![ForkizeHelper isNilOrEmpty:user.changeLog]) {
+                    self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.changeLog]];
                 } else {
                     self.changeLog = [NSMutableDictionary dictionary];
                 }
+                
+                if (![ForkizeHelper isNilOrEmpty:user.userInfo]) {
+                    self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.userInfo]];
+                    self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
+                } else {
+                    self.userInfo = [NSMutableDictionary dictionary];
+                }
+                
             }
             @catch (NSException *exception) {
                 NSLog(@"Forkize SDK User change log is not converted to JSONObject");
@@ -344,11 +365,26 @@ typedef enum{
 // FZ::TODO dont think we need to have such high level interface, error prone
 -(void) flushToDatabase{
     if (self.localStorage != nil) {
-        [self.localStorage setUserInfo:self.userId andChangeLog:[self getChangeLog]];
+        FZUser *user = [[FZUser alloc] init];
+        user.userName = self.userId;
+        user.changeLog = [self getChangeLog];
+        user.userInfo = [self getJsonString:self.userInfo];
+        [self.userInfo setObject:self.aliasedUserId forKey:@"aliasedUserId"];
+        [self.localStorage setUser:user];
     }
 }
 
 -(void) restoreFromDatabase{
+    if (self.localStorage != nil) {
+        self.userId = [self getUserId];
+        
+        FZUser *user = [self.localStorage getUser:self.userId];
+        self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.userInfo]];
+        self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.changeLog]];
+        self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
+        
+        [self.localStorage setUser:user];
+    }
 
 }
 

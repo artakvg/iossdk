@@ -111,7 +111,9 @@
 }
 
 // FZ::TODO::1 MERGE WITH IDENTIFY
--(id<IForkize>) onCreate{
+-(id<IForkize>) identify:(NSString *) userId{
+    
+    [[UserProfile getInstance] identify:userId];
     
     self.isRunning = true;
     

@@ -22,9 +22,9 @@
 @property (nonatomic, assign) long sessionEndTime;
 @property (nonatomic, assign) long sessionLength;
 
-// FZ::TODO change to boolean
-@property (nonatomic, assign) long isDestroyed;
-@property (nonatomic, assign) long isPaused;
+// FZ::DONE change to boolean
+@property (nonatomic, assign) BOOL isDestroyed;
+@property (nonatomic, assign) BOOL isPaused;
 
 @end
 
@@ -45,7 +45,7 @@
         self.sessionStartTime = 0;
         self.sessionEndTime = 0;
         self.sessionLength = 0;
-        self.isDestroyed = 1;
+        self.isDestroyed = YES;
     }
     
     return self;
@@ -53,14 +53,14 @@
 
 -(void) start{
     long currentTime = [[NSDate date] timeIntervalSince1970];
-    if(currentTime > self.sessionEndTime || self.isDestroyed == 1 ) {
+    if(currentTime > self.sessionEndTime || self.isDestroyed ) {
         self.sessionStartTime = currentTime;
         self.sessionResumeTime = currentTime;
         self.sessionEndTime = currentTime + [[ForkizeConfig getInstance] SESSION_INTERVAL];
         self.sessionLength = 0;
         // set isDestroyed to FALSE
-        self.isDestroyed = 0;
-        self.isPaused = 0;
+        self.isDestroyed = NO;
+        self.isPaused = NO;
         // ** generate session token
         self.sessionToken = [self generateSessionToken];
         [[ForkizeEventManager getInstance] queueSessionStart];
@@ -68,22 +68,23 @@
 }
 
 -(void) end{
-    if(self.isDestroyed == 0) {
-        self.isDestroyed = 1;
+    if(!self.isDestroyed) {
+        self.isDestroyed = YES;
         self.sessionLength += [[NSDate date] timeIntervalSince1970] - self.sessionResumeTime;
         return [[ForkizeEventManager getInstance] queueSessionEnd];
     }
 }
 
 -(void) pause{
-    if(self.isPaused == 0) {
-        self.isPaused = 1;
+    if(!self.isPaused) {
+        self.isPaused = YES;
         self.sessionLength += [[NSDate date] timeIntervalSince1970] - self.sessionResumeTime;
     }
 }
 
 -(void) resume {
-    if(self.isPaused == 1) {
+    if(self.isPaused) {
+        self.isPaused = NO;
         self.sessionResumeTime = [[NSDate date] timeIntervalSince1970];
         if (self.sessionResumeTime > self.sessionEndTime) {
             [self end];
