@@ -9,11 +9,12 @@
 #import "LocalStorageManager.h"
 #import "MemoryLocalStorage.h"
 #import "SQLiteLocalStorage.h"
+#import "UserProfile.h"
 
 @interface LocalStorageManager()
 
-@property (nonatomic, strong) id<ILocalStorage> secondaryStorage;
-@property (nonatomic, strong) id<ILocalStorage> cache;
+@property (nonatomic, strong) SQLiteLocalStorage *secondaryStorage;
+@property (nonatomic, strong) MemoryLocalStorage *imMemoryStorage;
 @property (nonatomic, strong) id eventLock;
 @end
 
@@ -25,7 +26,7 @@
     if (self) {
         @try {
             self.eventLock = [[NSObject alloc] init];
-            self.cache = [[MemoryLocalStorage alloc] init];
+            self.imMemoryStorage = [[MemoryLocalStorage alloc] init];
             self.secondaryStorage = [[SQLiteLocalStorage alloc] init];
         }
         @catch (NSException *exception) {
@@ -45,6 +46,7 @@
     return sharedInstance;
 }
 
+/*
 // FZ::TODO think getUserInfo, setUserInfo should be moved to UserProfile
 
 -(FZUser*) getUser:(NSString*) userId{
@@ -118,15 +120,16 @@
         }
     }
 }
-
+ 
+*/
 
 -(void) addEvent:(FZEvent *) event{
     @synchronized(self.eventLock)
     {
-        if (![self.cache write:event] ) {
-            [self.secondaryStorage writeArray:[self.cache read]];
-            [self.cache flush];
-            [self.cache write:event];
+        if (![self.imMemoryStorage write:event] ) {
+            [self.secondaryStorage writeArray:[self.imMemoryStorage read]];
+            [self.imMemoryStorage flush];
+            [self.imMemoryStorage write:event];
         }
     }
 }
@@ -136,7 +139,7 @@
     @synchronized(self.eventLock)
     {
         @try {
-            return [self.secondaryStorage readWithQuantity:eventCount];
+            return [self.secondaryStorage readWithQuantity:eventCount forUser:[[UserProfile getInstance] getUserId]];
         } @catch (NSException *e) {
             NSLog(@"Forkize SDK Exception thrown getting events %@", e);
         }
@@ -156,21 +159,21 @@
 
 -(void) flushToDatabase {
     @try {
-        [self.secondaryStorage writeArray:[self.cache read]];
-        [self.cache flush];
+        [self.secondaryStorage writeArray:[self.imMemoryStorage read]];
+        [self.imMemoryStorage flush];
     } @catch (NSException *e) {
         NSLog(@"Forkize SDK Exception thrown flushing data to database");
     }
 }
 
 -(void) reset {
-    [self.cache reset];
+    [self.imMemoryStorage reset];
     if (self.secondaryStorage != nil)
         [self.secondaryStorage reset];
 }
 
 -(void) close {
-    [self.cache close];
+    [self.imMemoryStorage close];
     if (self.secondaryStorage != nil)
         [self.secondaryStorage close];
 }

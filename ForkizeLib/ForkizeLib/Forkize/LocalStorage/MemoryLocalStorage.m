@@ -28,16 +28,17 @@
     return self;
 }
 
-// FZ::TODO why we need that
+/*
+// FZ::DONE why we need that
 -(FZUser*) getUser:(NSString*) userId{
     return nil;
 }
 
-// FZ::TODO why we need that
+// FZ::DONE why we need that
 -(void) setUser:(FZUser*) user{
 
 }
-
+ */
 
 
 -(BOOL) write:(FZEvent *) data{
@@ -49,6 +50,7 @@
     return FALSE;
 }
 
+/*
 -(BOOL) writeArray:(NSArray *) arrayData{
     for (FZEvent * event in arrayData) {
         if (![self write:event]) {
@@ -57,25 +59,25 @@
     }
     return TRUE;
 }
-
+ */
 -(NSArray *) read{
-    return [self readWithQuantity:self.eventMaxCount];
+    return [self.events subarrayWithRange:NSMakeRange(0, MIN([self.events count], self.eventMaxCount))];
 }
-
--(NSArray *) readWithQuantity:(NSInteger) quantity{
+/*
+-(NSArray *) readWithQuantity:(NSInteger) quantity forUser:(NSString *) userId{
     NSInteger len = MIN([self.events count], quantity);
     
     return [self.events subarrayWithRange:NSMakeRange(0, len)];
-}
+}*/
 
 -(void) flush{
     [self reset];
 }
-
+/*
 -(BOOL) removeEvents:(NSArray *) events{
     [self.events removeObjectsInArray:events];
     return YES;
-}
+}*/
 
 -(void) reset{
     [self.events removeAllObjects];
@@ -83,7 +85,7 @@
 
 -(void) close{
 }
-
+/*
 -(void) changeUserId{
 }
 
@@ -96,5 +98,5 @@
 
 -(void) exchangeIds:(NSString*) userName{
 }
-
+*/
 @end

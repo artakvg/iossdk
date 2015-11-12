@@ -10,12 +10,11 @@
 #import "ForkizeConfig.h"
 #import "ForkizeHelper.h"
 #import "ForkizeEventManager.h"
-#import "ForkizeInstance.h"
 #import "UserProfile.h"
 
 @interface SessionInstance()
 
-@property (nonatomic, strong) NSString *sessionToken;
+@property (nonatomic, strong) NSString *sessionToken; // FZ:TODO Artak where we use it????
 
 @property (nonatomic, assign) long sessionStartTime;
 @property (nonatomic, assign) long sessionResumeTime;
@@ -52,7 +51,7 @@
 }
 
 -(void) start{
-    long currentTime = [[NSDate date] timeIntervalSince1970];
+    long currentTime = [ForkizeHelper getTimeIntervalSince1970];
     if(currentTime > self.sessionEndTime || self.isDestroyed ) {
         self.sessionStartTime = currentTime;
         self.sessionResumeTime = currentTime;
@@ -70,28 +69,30 @@
 -(void) end{
     if(!self.isDestroyed) {
         self.isDestroyed = YES;
-        self.sessionLength += [[NSDate date] timeIntervalSince1970] - self.sessionResumeTime;
+        self.sessionLength += [ForkizeHelper getTimeIntervalSince1970] - self.sessionResumeTime;
         return [[ForkizeEventManager getInstance] queueSessionEnd];
     }
+    self.sessionLength = 0; // FZ::TODO why we not do this before
 }
 
 -(void) pause{
     if(!self.isPaused) {
         self.isPaused = YES;
-        self.sessionLength += [[NSDate date] timeIntervalSince1970] - self.sessionResumeTime;
+        self.sessionLength += [ForkizeHelper getTimeIntervalSince1970] - self.sessionResumeTime;
     }
 }
 
 -(void) resume {
     if(self.isPaused) {
         self.isPaused = NO;
-        self.sessionResumeTime = [[NSDate date] timeIntervalSince1970];
+        self.sessionResumeTime = [ForkizeHelper getTimeIntervalSince1970];
         if (self.sessionResumeTime > self.sessionEndTime) {
             [self end];
             [self start];
         }
     }
 }
+//FZ::TODO Artak where it calls
 
 -(NSString*) getSessionToken{
     return  [self generateSessionToken];
@@ -107,7 +108,7 @@
     NSString* appKey = [[ForkizeConfig getInstance] appKey];
     
     
-    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970] / 1000];
+    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970] / 1000];
     NSString *hexDigest = [ForkizeHelper md5:[NSString stringWithFormat:@"%@%@%@", userId, timestamp, appKey]];
     self.sessionToken = [NSString stringWithFormat:@"%@=%@=%@=%@", appId, userId, timestamp, hexDigest];
     return self.sessionToken;

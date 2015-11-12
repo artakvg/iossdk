@@ -43,4 +43,47 @@
     return TRUE;
 }
 
++(NSTimeInterval) getTimeIntervalSince1970
+{
+    NSDate *now = [NSDate date];
+    NSTimeInterval timeZoneOffset = [[NSTimeZone systemTimeZone] secondsFromGMTForDate:now];
+    NSDate *gmtDate = [now dateByAddingTimeInterval:-timeZoneOffset];
+    
+    return [gmtDate timeIntervalSince1970];
+}
+
+
+// ** FZ::DONE this could be moved to Forkize helper
++(NSDictionary *) parseJsonString:(NSString *) jsonString{
+    NSError * err;
+    NSData *data =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary * dict;
+    if(data!=nil){
+        dict = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
+    }
+    
+    return dict;
+}
+
+// ** FZ::DONE this could be moved to Forkize helper
++(NSString *) getJsonString:(NSDictionary *) dict{
+    NSError * err;
+    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:dict options:0 error:&err];
+    NSString * jsonString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
+    return  jsonString;
+}
+
+// FZ::DONE why we need it here  NSJSONWritingPrettyPrinted
++(id) getJSON:(id) container{
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:container options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSError *parseError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
+    
+    return jsonObject;
+}
+
+
 @end

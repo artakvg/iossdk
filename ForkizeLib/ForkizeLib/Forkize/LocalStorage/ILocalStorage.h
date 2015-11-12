@@ -26,8 +26,8 @@
 -(BOOL) write:(FZEvent *) event;
 -(BOOL) writeArray:(NSArray *) arrayData;
 
--(NSArray *) read;
--(NSArray *) readWithQuantity:(NSInteger) quantity;
+-(NSArray *) readForUser:(NSString *) userId;
+-(NSArray *) readWithQuantity:(NSInteger) quantity forUser:(NSString *) userId;
 
 -(void) flush;
 -(BOOL) removeEvents:(NSArray *) events;

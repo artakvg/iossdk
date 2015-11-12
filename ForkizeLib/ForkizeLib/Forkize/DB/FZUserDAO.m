@@ -134,7 +134,7 @@ static NSString *const kUserInfoParamName = @":userInfo";
     
     [statement executeQueryWithCallBack:rowCallBack];
     
-    return [users objectAtIndex:0];
+    return [users count] ? [users objectAtIndex:0] : nil;
 }
 
 - (BOOL) updateUser:(FZUser *) user{

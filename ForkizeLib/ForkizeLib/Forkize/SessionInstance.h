@@ -10,7 +10,7 @@
 
 @interface SessionInstance : NSObject
 
--(NSString*) getSessionToken;
+-(NSString*) getSessionToken; //FZ::TODO why we need it
 
 - (long) getSessionLength;
 

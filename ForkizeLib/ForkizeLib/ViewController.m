@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
           
     UIButton *generateButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     generateButton.frame = CGRectMake(100, 50, 120, 40);
@@ -69,7 +69,7 @@
 
 -(void) generateAction:(UIButton *) button{
     ForkizeInstance *instance = [ForkizeInstance getInstance];
-    [instance trackEvent:@"gnum" withValue:12 andParams:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]] forKey:@"stamp"]];
+    [instance trackEvent:@"gnum" withValue:12 andParams:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]] forKey:@"stamp"]];
 }
 
 -(void) changeAction:(UIButton *) button{

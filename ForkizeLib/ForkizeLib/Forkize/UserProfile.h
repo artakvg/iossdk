@@ -8,11 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+@class FZUser;
+
 @interface UserProfile : NSObject
 
 + (UserProfile*) getInstance;
 
-@property (nonatomic, assign) NSInteger aliasedLevel; 
+@property (nonatomic, assign) NSInteger aliasedLevel;
+
+
+-(FZUser*)getAliasedUser;
+-(void) exchangeIds;
+
 
 -(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
 -(void) updateProfile:(NSDictionary *) dict;

@@ -7,13 +7,17 @@
 //
 
 #import "UserProfile.h"
-#import "ForkizeEventManager.h"
 #import "ForkizeHelper.h"
-#import <Foundation/Foundation.h>
 #import "LocalStorageManager.h"
 #import "ForkizeConfig.h"
 #import "RestClient.h"
+
 #import "FZUser.h"
+#import "FZEvent.h"
+
+#import "DAOFactory.h"
+#import "FZUserDAO.h"
+#import "EventsDAO.h"
 
 
 NSString *const USER_PROFILE_USER_ID = @"Forkize.UserProfile.userId";
@@ -49,6 +53,9 @@ typedef enum{
 
 @property (nonatomic, strong) LocalStorageManager *localStorage;
 
+@property (nonatomic, strong) FZUserDAO *userDAO;
+
+
 
 
 @end
@@ -63,6 +70,7 @@ typedef enum{
         self.userInfo = [NSMutableDictionary dictionary];
         self.changeLog = [NSMutableDictionary dictionary];
         self.localStorage = [LocalStorageManager getInstance];
+        self.userDAO = [[DAOFactory defaultFactory] userDAO];
     }
     
     return self;
@@ -75,6 +83,45 @@ typedef enum{
         sharedInstance = [[UserProfile alloc] init];
     });
     return sharedInstance;
+}
+
+
+
+-(FZUser*) getUser:(NSString*) userId{
+    FZUser *user = [self.userDAO getUser:userId];
+    return user;
+}
+
+-(void) setUser:(FZUser*) user{
+    [self.userDAO updateUser:user];
+}
+
+-(FZUser*)getAliasedUser{
+    FZUser *user = [self.userDAO getUser:[[UserProfile getInstance] getUserId]];
+    return user;
+}
+
+-(void) exchangeIds{
+  //  [self.localStorage exchangeIds:[[UserProfile getInstance] getUserId]];
+    
+    NSString *userName = [[UserProfile getInstance] getUserId];
+    
+    FZUser *user = [self.userDAO getUser:userName];
+    
+    EventsDAO *eventsDAO = [[DAOFactory defaultFactory] eventsDAO];
+    NSArray *events = [eventsDAO loadEventsForUser:user.userName];
+    for (FZEvent *event in events) {
+        event.userName = user.aliasedName;
+    }
+    
+    [eventsDAO updateEvents:events];
+    
+    user.userName = user.aliasedName;
+    user.aliasedName = @"";
+    [self.userDAO updateUser:user];
+    
+    [[UserProfile getInstance] identify:user.userName];
+    
 }
 
 -(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
@@ -90,14 +137,37 @@ typedef enum{
         return;
     }
     
-    // NSAssert([oldUserId isEqualToString:self.userId], @"Old UserId mismatch with oldUserId in alias function");
+   // NSAssert([oldUserId isEqualToString:self.userId], @"Old UserId mismatch with oldUserId in alias function");
     
     // FZ::TODO should local storage be aware of such kind of functionality like alias ????
-    [self.localStorage aliasWithOldUserId:oldUserId andNewUserId:newUserId];
+    
+    
+    //  gnum gtnum enq oldUserName-ov tox@ u aliased dashtum grum enq newUserName
+    FZUser *user = [self.userDAO getUser:oldUserId];
+    user.aliasedName = newUserId;
+    [self.userDAO updateUser:user];
+
+    
     self.aliasedLevel = 1;
     self.aliasedUserId = newUserId;
     
     NSLog(@"Forkize SDK userId will change");
+}
+
+-(void) changeUserId{
+    NSString * userName = [[UserProfile getInstance] getUserId];
+    // FZ::TODO why we need self.currentUser
+    // self.currentUser = newUser;
+    
+   FZUser *user = [self.userDAO getUser:userName];
+    
+    if (user == nil) {
+        user = [self.userDAO addUser:userName];
+    }
+    
+    //   self.eventDAO = [self.daoFactory eventsDAO];
+    // FZ::DONE REMOVE USER
+    //   self.eventDAO.userId = user.userName;
 }
 
 -(void) updateProfile:(NSDictionary *) dict{
@@ -149,6 +219,19 @@ typedef enum{
         NSMutableDictionary *setDict = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_SET]];
         [setDict removeObjectForKey:key];
         [self.changeLog setValue:setDict forKey:FORKIZE_SET];
+        
+        NSMutableDictionary *incrementDict = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_INCREMENT] ];
+        [incrementDict removeObjectForKey:key];
+        [self.changeLog setValue:incrementDict forKey:FORKIZE_INCREMENT];
+      
+        NSMutableDictionary *appendDictonary = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_APPEND]];
+        [appendDictonary removeObjectForKey:key];
+        [self.changeLog setValue:appendDictonary forKey:FORKIZE_APPEND];
+
+        
+        NSMutableDictionary *prependDictonary = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_PREPEND]];
+        [prependDictonary removeObjectForKey:key];
+        [self.changeLog setValue:prependDictonary forKey:FORKIZE_PREPEND];
 
         [self.userInfo removeObjectForKey:key];
     }
@@ -283,40 +366,42 @@ typedef enum{
     self.aliasedLevel = 0;
     NSString *oldId = self.userId;
     
-    NSString *tmpUserId = (userId != nil ? userId : [self generateUserId]);
+    if (userId == nil) {
+        userId = [self generateUserId];
+    }
     
-    [[NSUserDefaults  standardUserDefaults] setObject:tmpUserId forKey:USER_PROFILE_USER_ID];
+    [[NSUserDefaults  standardUserDefaults] setObject:userId forKey:USER_PROFILE_USER_ID];
     
-    self.userId = tmpUserId;
+    self.userId = userId;
     
     [[RestClient getInstance] dropAccessToken];
     
     if (self.localStorage != nil) {
         [self.localStorage flushToDatabase];
-        [self.localStorage changeUserId];
+        [self changeUserId];
         
         if (![ForkizeHelper isNilOrEmpty:oldId]) {
             
             FZUser *user = [[FZUser alloc] init];
             user.userName = oldId;
             user.changeLog = [self getChangeLog];
-            // FZ::TODO why user id and not olduser id
+             // FZ::TODO why user id and not olduser id
             [self.userInfo setObject:self.aliasedUserId forKey:@"aliasedUserId"];
-            user.userInfo = [self getJsonString:self.userInfo];
-            [self.localStorage setUser:user];
+            user.userInfo = [ForkizeHelper getJsonString:self.userInfo];
+            [self setUser:user];
             
             
             @try {
-                FZUser *user = [self.localStorage getUser:self.userId];
+                FZUser *user = [self getUser:self.userId];
 
                 if (![ForkizeHelper isNilOrEmpty:user.changeLog]) {
-                    self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.changeLog]];
+                    self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.changeLog]];
                 } else {
                     self.changeLog = [NSMutableDictionary dictionary];
                 }
                 
                 if (![ForkizeHelper isNilOrEmpty:user.userInfo]) {
-                    self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.userInfo]];
+                    self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.userInfo]];
                     self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
                 } else {
                     self.userInfo = [NSMutableDictionary dictionary];
@@ -330,28 +415,8 @@ typedef enum{
     }
 }
 
-// ** FZ::TODO this could be moved to Forkize helper
--(NSDictionary *) parseJsonString:(NSString *) jsonString{
-    NSError * err;
-    NSData *data =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary * dict;
-    if(data!=nil){
-        dict = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
-    }
-    
-    return dict;
-}
-
-// ** FZ::TODO this could be moved to Forkize helper
--(NSString *) getJsonString:(NSDictionary *) dict{
-    NSError * err;
-    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:dict options:0 error:&err];
-    NSString * jsonString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
-    return  jsonString;
-}
-
 -(NSString *) getChangeLog {
-  return  [self getJsonString:self.changeLog];
+  return  [ForkizeHelper getJsonString:self.changeLog];
 }
 
 -(void) dropChangeLog {
@@ -368,9 +433,9 @@ typedef enum{
         FZUser *user = [[FZUser alloc] init];
         user.userName = self.userId;
         user.changeLog = [self getChangeLog];
-        user.userInfo = [self getJsonString:self.userInfo];
+        user.userInfo = [ForkizeHelper getJsonString:self.userInfo];
         [self.userInfo setObject:self.aliasedUserId forKey:@"aliasedUserId"];
-        [self.localStorage setUser:user];
+        [self setUser:user];
     }
 }
 
@@ -378,12 +443,23 @@ typedef enum{
     if (self.localStorage != nil) {
         self.userId = [self getUserId];
         
-        FZUser *user = [self.localStorage getUser:self.userId];
-        self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.userInfo]];
-        self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[self parseJsonString:user.changeLog]];
+        FZUser *user = [self getUser:self.userId];
+        
+        if (![ForkizeHelper isNilOrEmpty:user.changeLog]) {
+        self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.changeLog]];
+        } else {
+            self.changeLog = [NSMutableDictionary dictionary];
+        }
+        
+        if (![ForkizeHelper isNilOrEmpty:user.userInfo]) {
+            self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.userInfo]];
+            self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
+        } else {
+            self.userInfo = [NSMutableDictionary dictionary];
+        }
         self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
         
-        [self.localStorage setUser:user];
+        [self setUser:user];
     }
 
 }
@@ -437,7 +513,7 @@ typedef enum{
     NSString *installTime = [[NSUserDefaults standardUserDefaults] valueForKey:FORKIZE_INSTALL_TIME];
   
     if ([ForkizeHelper isNilOrEmpty:installTime]) {
-        installTime = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+        installTime = [NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]];
         [[NSUserDefaults  standardUserDefaults] setObject:installTime forKey:FORKIZE_INSTALL_TIME];
         return YES;
     }
@@ -452,19 +528,19 @@ typedef enum{
     
     NSDictionary *incrementDict = [self.changeLog objectForKey:FORKIZE_INCREMENT];
     if (incrementDict != nil && [incrementDict count]) {
-        id incrementJSON = [self getJSON:incrementDict];
+        id incrementJSON = [ForkizeHelper getJSON:incrementDict];
         [changeLogJSONDict setObject:incrementJSON forKey:FORKIZE_INCREMENT];
     }
     
     NSDictionary *setDict = [self.changeLog objectForKey:FORKIZE_SET];
     if (setDict != nil && [setDict count]) {
-        id setJSON = [self getJSON:setDict];
+        id setJSON = [ForkizeHelper getJSON:setDict];
         [changeLogJSONDict setObject:setJSON forKey:FORKIZE_SET];
     }
     
     NSArray *unsetArray = [self.changeLog objectForKey:FORKIZE_UNSET];
     if (unsetArray != nil && [unsetArray count]) {
-        id unsetJSON = [self getJSON:unsetArray];
+        id unsetJSON = [ForkizeHelper getJSON:unsetArray];
         [changeLogJSONDict setObject:unsetJSON forKey:FORKIZE_UNSET];
     }
     
@@ -474,13 +550,13 @@ typedef enum{
         
         for (NSString *key in [appendDict allKeys]) {
             NSArray *keyValuesArray = [appendDict objectForKey:key];
-            id keyValuesJSON = [self getJSON:keyValuesArray];
+            id keyValuesJSON = [ForkizeHelper getJSON:keyValuesArray];
             [appendJSONDict setObject:keyValuesJSON forKey:key];
         }
         
         
         
-        id appendJSON = [self getJSON:appendJSONDict];
+        id appendJSON = [ForkizeHelper getJSON:appendJSONDict];
         [changeLogJSONDict setObject:appendJSON forKey:FORKIZE_APPEND];
     }
 
@@ -490,31 +566,20 @@ typedef enum{
         
         for (NSString *key in [prependDict allKeys]) {
             NSArray *keyValuesArray = [prependDict objectForKey:key];
-            id keyValuesJSON = [self getJSON:keyValuesArray];
+            id keyValuesJSON = [ForkizeHelper getJSON:keyValuesArray];
             [prependJSONDict setObject:keyValuesJSON forKey:key];
         }
         
         
         
-        id prependJSON = [self getJSON:prependJSONDict];
+        id prependJSON = [ForkizeHelper getJSON:prependJSONDict];
         [changeLogJSONDict setObject:prependJSON forKey:FORKIZE_PREPEND];
     }
 
-    id changeLogJSON = [self getJSON:changeLogJSONDict];
+    id changeLogJSON = [ForkizeHelper getJSON:changeLogJSONDict];
     
     return changeLogJSON;
 }
 
-// FZ::TODO why we need it here  NSJSONWritingPrettyPrinted
--(id) getJSON:(id) container{
-    
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:container options:NSJSONWritingPrettyPrinted error:&error];
-    
-    NSError *parseError = nil;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-
-    return jsonObject;
-}
 
 @end

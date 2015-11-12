@@ -15,10 +15,8 @@
 #import "DeviceInfo.h"
 #import "ForkizeHelper.h"
 
-#import <SystemConfiguration/SystemConfiguration.h>
 #import "Reachability.h"
 #import "FZEvent.h"
-#import "ForkizeInstance.h"
 
 
 
@@ -133,8 +131,8 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     if (self.scheduledEvents == nil){
         self.scheduledEvents = [NSMutableDictionary dictionary];
     }
-    // FZ::TODO which timezone is timeIntervalSince1970 ????? LOOK AT TRACK EVENT
-    [self.scheduledEvents setObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]] forKey:eventName];
+    // FZ::DONE which timezone is timeIntervalSince1970 ????? LOOK AT TRACK EVENT
+    [self.scheduledEvents setObject:[NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]] forKey:eventName];
 }
 
 -(void) setSuperProperties:(NSDictionary *) dict{
@@ -214,6 +212,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 
 -(NSString*) eventAsJSON:(NSString*) event  andValue:(NSInteger) eventValue andParameters:(NSDictionary *) parameters //throws JSONException
 {
+    NSTimeInterval timeInterval = [ForkizeHelper getTimeIntervalSince1970];
     
     NSMutableDictionary * jsonDict = [NSMutableDictionary dictionary];
     [jsonDict setObject:[[DeviceInfo getInstance] getBatteryLevel] forKey:BATTERY_LEVEL];
@@ -223,12 +222,12 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     
     [jsonDict setObject:[[UserProfile getInstance] getUserId] forKey:USER_ID];
     [jsonDict setObject:[ForkizeConfig getInstance].appId  forKey:APP_ID];
-    [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]]  forKey:EVENT_TIME];
+    [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval]  forKey:EVENT_TIME];
     
     if (self.scheduledEvents != nil){
         NSInteger time = [[self.scheduledEvents valueForKey:event] integerValue];
         if (time != 0) {
-            [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970] - time] forKey:EVENT_DURATION];
+            [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval - time] forKey:EVENT_DURATION];
             [self.scheduledEvents removeObjectForKey:event];
         }
     }

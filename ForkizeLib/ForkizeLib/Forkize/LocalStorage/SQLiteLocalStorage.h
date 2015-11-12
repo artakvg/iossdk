@@ -7,8 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ILocalStorage.h"
 
-@interface SQLiteLocalStorage : NSObject<ILocalStorage>
+@interface SQLiteLocalStorage : NSObject
+
+-(BOOL) writeArray:(NSArray *) arrayData;
+
+-(NSArray *) readWithQuantity:(NSInteger) quantity forUser:(NSString *) userId;
+
+-(BOOL) removeEvents:(NSArray *) events;
+
+-(void) reset;
+-(void) close;
 
 @end

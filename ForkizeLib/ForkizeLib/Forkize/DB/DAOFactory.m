@@ -11,7 +11,7 @@
 #import "SQLiteHelper.h"
 #import "FZUserDAO.h"
 #import "EventsDAO.h"
-#import "FZUser.h"
+
 
 static DAOFactory *defaultFactory_ = nil;
 

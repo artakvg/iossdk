@@ -12,7 +12,6 @@
 #import "FZUser.h"
 #import "ForkizeHelper.h"
 #import "ForkizeConfig.h"
-#import "ForkizeInstance.h"
 #import "UserProfile.h"
 #import "ForkizeMessage.h"
 
@@ -22,7 +21,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 #define  URL_AUTH_PATH [NSString stringWithFormat:@"%@/%@/people/identify", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION] 
 #define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/%@/people/alias", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
 
-#define URL_AUPDATE_PATH  [NSString stringWithFormat:@"%@/%@/profile/update", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
+#define URL_UPDATE_PATH  [NSString stringWithFormat:@"%@/%@/profile/update", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
 
 @implementation Request
 
@@ -36,54 +35,77 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     return sharedInstance;
 }
 
+-(NSMutableDictionary *) getCommonDict{
+    NSString *userId = [[UserProfile getInstance] getUserId];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setObject:@"ios" forKey:@"sdk"];
+    [dict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
+    [dict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
+    [dict setObject:userId forKey:@"user_id"];
+    
+    return dict;
+}
+
+-(NSDictionary*) getReponseForRequestByURL:(NSString *) urlStr andBodyDict:(NSDictionary *) dict{
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:5.0];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    // [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [request setValue:@"application/json" forHTTPHeaderField: @"Accept"];
+    [request setValue:@"close" forHTTPHeaderField: @"Connection"];
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+    NSMutableString *reqData = [NSMutableString stringWithString:jsonString];
+    [reqData replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [reqData length])];
+    [reqData replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [reqData length])];
+
+    NSData *strDictData = [reqData dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:strDictData];
+    
+    //Send the Request
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse: nil error: nil];
+    
+    //Get the Result of Request
+    NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+    NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+    return jsonDict;
+}
+
 -(NSString *) getAccessToken{
     NSString *accessToken = nil;
     @try {
         
+        NSString *userId = [[UserProfile getInstance] getUserId];
+        
         NSString *hashableString = [NSString stringWithFormat:@"%@=%@=%@=%@=%@",
                                     [ForkizeConfig getInstance].appId,
-                                    [[UserProfile getInstance] getUserId],
+                                    userId,
                                     @"ios",
                                     [ForkizeConfig getInstance].SDK_VERSION,
                                     [ForkizeConfig getInstance].appKey];
         
         NSString *hash = [ForkizeHelper md5:hashableString];
         
-        NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
+        NSMutableDictionary *mutDict = [self getCommonDict];
+        
         [mutDict setObject:hash forKey:@"hash"];
-        [mutDict setObject:@"ios" forKey:@"sdk"];
-        [mutDict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
-        [mutDict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
-        [mutDict setObject:[[UserProfile getInstance] getUserId] forKey:@"user_id"];
-        
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:mutDict options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        NSURL *url = [NSURL URLWithString:URL_AUTH_PATH];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:5.0];
-        
-        [request setHTTPMethod:@"POST"];
-        
-        NSData *strDictData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:strDictData];
-        
-        // [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        [request setValue:@"application/json" forHTTPHeaderField: @"Accept"];
-        [request setValue:@"close" forHTTPHeaderField: @"Connection"];
-        
-        
-        //Send the Request
-        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse: nil error: nil];
-        
-        //Get the Result of Request
-        NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-        NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+        NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_AUTH_PATH andBodyDict:mutDict];
         NSLog(@"getAccessToken resonse %@", jsonDict);
         accessToken = [jsonDict objectForKey:@"access_token"];
         
@@ -140,44 +162,14 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         
         NSString *hash = [ForkizeHelper md5:hashabelString];
         
-        NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
-        [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
-        [mutDict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
+        NSMutableDictionary *mutDict = [self getCommonDict];
         [mutDict setObject:userName forKey:@"user_id"];
-        [mutDict setObject:@"ios" forKey:@"sdk"];
-        [mutDict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
         [mutDict setObject:accessToken forKey:@"access_token"];
         [mutDict setObject:hash forKeyedSubscript:@"hash"];
         [mutDict setObject:aliasedName forKey:@"alias_id"];
+        [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
         
-       
-        NSData *reqJsonData = [NSJSONSerialization dataWithJSONObject:mutDict options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *reqJsonString = [[NSString alloc] initWithData:reqJsonData encoding:NSUTF8StringEncoding];
-        
-        NSURL *url = [NSURL URLWithString:URL_ALIAS_PATH];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:5.0];
-        
-        [request setHTTPMethod:@"POST"];
-        
-        NSData *strDictData = [reqJsonString dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:strDictData];
-        
-        //[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        [request setValue:@"application/json" forHTTPHeaderField: @"Accept"];
-        [request setValue:@"close" forHTTPHeaderField: @"Connection"];
-        
-        
-        //Send the Request
-        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse: nil error: nil];
-        
-        //Get the Result of Request
-        NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-        NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_ALIAS_PATH andBodyDict:mutDict];
   
         NSInteger statusCode = [[jsonDict objectForKey:@"status"] integerValue];
         NSLog(@"alias jsonDict : %@", jsonDict);
@@ -199,7 +191,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 
         NSError *parseError = nil;
         id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-//
+
         NSMutableString *apiDataString = [NSMutableString stringWithString:jsonString];
 
         
@@ -217,45 +209,13 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
                                     ];
 
         NSString *hash = [ForkizeHelper md5:hashabelString];
-
-        NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
+        
+        NSMutableDictionary *mutDict = [self getCommonDict];
         [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
-        [mutDict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
-        [mutDict setObject:[[UserProfile getInstance] getUserId]  forKey:@"user_id"];
-        [mutDict setObject:@"ios" forKey:@"sdk"];
-        [mutDict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
         [mutDict setObject:accessToken forKey:@"access_token"];
         [mutDict setObject:hash forKeyedSubscript:@"hash"];
 
-        
-        NSError *error;
-        NSData *reqJsonData = [NSJSONSerialization dataWithJSONObject:mutDict options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *reqJsonString = [[NSString alloc] initWithData:reqJsonData encoding:NSUTF8StringEncoding];
-        
-        NSURL *url = [NSURL URLWithString:URL_ALIAS_PATH];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:5.0];
-        
-        [request setHTTPMethod:@"POST"];
-        
-        NSData *strDictData = [reqJsonString dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:strDictData];
-        
-        //[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        [request setValue:@"application/json" forHTTPHeaderField: @"Accept"];
-        [request setValue:@"close" forHTTPHeaderField: @"Connection"];
-        
-        
-        //Send the Request
-        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse: nil error: nil];
-        
-        //Get the Result of Request
-        NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-        NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_UPDATE_PATH andBodyDict:mutDict];
         
         NSInteger statusCode = [[jsonDict objectForKey:@"status"] integerValue];
         NSLog(@"update user profile jsonDict : %@", jsonDict);
@@ -288,53 +248,13 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     
     NSLog(@"Hashable string: %@ \n hash: %@", hashableString, hash);
     
-    NSMutableDictionary *batchDict = [NSMutableDictionary dictionary];
-    [batchDict setObject:arrayData forKey:@"api_data"];
-    [batchDict setValue:[ForkizeConfig getInstance].appId forKey:@"app_id"];
-    [batchDict setValue:[[UserProfile getInstance] getUserId] forKey:@"user_id"];
-    [batchDict setObject:@"ios" forKey:@"sdk"];
-    [batchDict setObject:[[ForkizeConfig getInstance] SDK_VERSION] forKey:@"version"];
-    [batchDict setObject:accessToken forKey:@"access_token"];
-    [batchDict setObject:hash forKey:@"hash"];
-    // [batchDict setObject:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]] forKey:@"stamp"];
-    
-    
-    NSData *jsonBatchData = [NSJSONSerialization dataWithJSONObject:batchDict options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *batchStringJSon = [[NSString alloc] initWithData:jsonBatchData encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"Forkize SDK accessToken %@", accessToken);
-    
-    NSMutableString *reqData = [NSMutableString stringWithString:batchStringJSon];
-    [reqData replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [reqData length])];
-    [reqData replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [reqData length])];
-    
-
-    
-    NSURL *url = [NSURL URLWithString:URL_LIVE_PATH];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:5.0];
-    
-    [request setHTTPMethod:@"POST"];
-    
-    NSData *strDictData = [reqData dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:strDictData];
-   // [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField: @"Accept"];
-    [request setValue:@"close" forHTTPHeaderField: @"Connection"];
-    
-    
-    //Send the Request
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse: nil error: nil];
-    
-    //Get the Result of Request
-    NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-    NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    NSLog(@"postWIthBody %@ \nresult %@", reqData, jsonDict);
+    NSMutableDictionary *mutDict = [self getCommonDict];
+  
+    [mutDict setObject:arrayData forKey:@"api_data"];
+    [mutDict setObject:accessToken forKey:@"access_token"];
+    [mutDict setObject:hash forKey:@"hash"];
+ 
+    NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_LIVE_PATH andBodyDict:mutDict];
     
     NSInteger statusCode = [[jsonDict objectForKey:@"status"] integerValue];
     NSLog(@"postWithBody jsonDict : %@", jsonDict);

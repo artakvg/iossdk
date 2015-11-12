@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ILocalStorage.h"
+
+@class FZEvent;
 
 @interface LocalStorageManager : NSObject
 
@@ -21,6 +22,7 @@
 
 -(BOOL) removeEvents:(NSArray *) events;
 
+/*
 -(void) changeUserId;
 -(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
 
@@ -30,5 +32,5 @@
 
 -(FZUser*) getUser:(NSString*) userId;
 -(void) setUser:(FZUser*) user;
-
+*/
 @end

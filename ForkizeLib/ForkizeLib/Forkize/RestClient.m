@@ -11,7 +11,6 @@
 
 #import "ForkizeConfig.h"
 #import "ForkizeHelper.h"
-#import "ForkizeInstance.h"
 
 #import "Request.h"
 #import "SessionInstance.h"
@@ -58,7 +57,7 @@
         // 2 - not exist
         
         if ([UserProfile getInstance].aliasedLevel == 0) {
-            FZUser * user = [self.localStorage getAliasedUser:[[UserProfile getInstance] getUserId]];
+            FZUser * user = [[UserProfile getInstance] getAliasedUser];//[self.localStorage getAliasedUser:[[UserProfile getInstance] getUserId]];
             if ([ForkizeHelper isNilOrEmpty:user.aliasedName]) {
                 [UserProfile getInstance].aliasedLevel = 2;
             } else {
@@ -67,10 +66,11 @@
         }
         
         if ([UserProfile getInstance].aliasedLevel == 1) {
-            FZUser *newUser = [self.localStorage getAliasedUser:[[UserProfile getInstance] getUserId]];
+            FZUser *newUser = [[UserProfile getInstance] getAliasedUser];//[self.localStorage getAliasedUser:[[UserProfile getInstance] getUserId]];
             if ([self.request postAlias:newUser andAccessToken:[RestClient getInstance]. accessToken]) {
                 [self.localStorage flushToDatabase];
-                [self.localStorage exchangeIds:[[UserProfile getInstance] getUserId]];
+                [[UserProfile getInstance] exchangeIds];
+                //[self.localStorage exchangeIds:[[UserProfile getInstance] getUserId]];
                 
                 [UserProfile getInstance].aliasedLevel = 2;
             }

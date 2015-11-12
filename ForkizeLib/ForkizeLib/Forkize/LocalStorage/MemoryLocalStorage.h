@@ -7,8 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ILocalStorage.h"
+//#import "ILocalStorage.h"
+@class FZEvent;
 
-@interface MemoryLocalStorage : NSObject<ILocalStorage>
+@interface MemoryLocalStorage : NSObject//<ILocalStorage>
+
+-(NSArray *) read;
+-(BOOL) write:(FZEvent *) event;
+
+-(void) flush;
+
+-(void) reset;
+-(void) close;
 
 @end

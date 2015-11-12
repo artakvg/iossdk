@@ -8,20 +8,17 @@
 
 #import "SQLiteLocalStorage.h"
 #import "DAOFactory.h"
-#import "FZUserDAO.h"
 #import "EventsDAO.h"
-#import "FZUser.h"
 #import "FZEvent.h"
 
 #import "ForkizeHelper.h"
-#import "ForkizeInstance.h"
 #import "UserProfile.h"
 
 @interface SQLiteLocalStorage()
 
 @property (nonatomic, strong) EventsDAO *eventDAO;
 @property (nonatomic, strong) DAOFactory *daoFactory;
-@property (nonatomic, strong) FZUser *currentUser;
+//@property (nonatomic, strong) FZUser *currentUser;
 
 @end
 
@@ -32,11 +29,12 @@
     
     if (self) {
         self.daoFactory = [DAOFactory defaultFactory];
+        self.eventDAO = [self.daoFactory eventsDAO];
     }
     
     return self;
 }
-
+/*
 -(FZUser*) getUser:(NSString*) userId{
     FZUserDAO *userDAO = [self.daoFactory userDAO];
     
@@ -53,7 +51,7 @@
     [self.eventDAO addEvent:event];
     return YES;
 }
-
+*/
 -(BOOL) writeArray:(NSArray *) arrayData{
     BOOL result = FALSE;
     @try {
@@ -69,18 +67,19 @@
     
     return result;
 }
-
--(NSArray *) read{
+/*
+-(NSArray *) readForUser:userId{
     
-    return [self.eventDAO loadEvents];
+    return [self.eventDAO loadEventsForUser:userId];
 }
+ */
 
--(NSArray *) readWithQuantity:(NSInteger) quantity{
+-(NSArray *) readWithQuantity:(NSInteger) quantity forUser:(NSString *) userId{
  
     NSArray *resultArray = [NSArray array];
     
     @try {
-        resultArray = [self.eventDAO loadEventsWithQuantity:quantity];
+        resultArray = [self.eventDAO loadEventsWithQuantity:quantity forUser:userId];
     }
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
@@ -111,7 +110,7 @@
 
 -(void) close{
 }
-
+/*
 -(void) changeUserId{
     FZUser *newUser = [[FZUser alloc] init];
     newUser.userName = [[UserProfile getInstance] getUserId];
@@ -134,8 +133,8 @@
     }
     
     self.eventDAO = [self.daoFactory eventsDAO];
-    // FZ::TODO REMOVE USER
-    self.eventDAO.user = user;
+    // FZ::DONE REMOVE USER
+//   self.eventDAO.userId = user.userName;
 }
 
 -(void) aliasWithOldUserId:(NSString*) oldUserName andNewUserId:(NSString*) newUserName{ //  gnum gtnum enq oldUserName-ov tox@ u aliased dashtum grum enq newUserName
@@ -155,9 +154,9 @@
  
     FZUserDAO *usersDAO = [self.daoFactory userDAO];
     FZUser *user = [usersDAO getUser:userName];
-   
+ 
     EventsDAO *eventsDAO = [self.daoFactory eventsDAO];
-    NSArray *events = [eventsDAO loadEventForUser:user];
+    NSArray *events = [eventsDAO loadEventsForUser:user.userName];
     for (FZEvent *event in events) {
         event.userName = user.aliasedName;
     }
@@ -170,5 +169,7 @@
     
     [[UserProfile getInstance] identify:user.userName];
 }
+
+*/
 
 @end

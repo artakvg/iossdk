@@ -16,7 +16,7 @@
 
 -(NSInteger) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken;
 
--(BOOL) postAlias:(FZUser *)user andAccessToken:(NSString *)accessToken;
+-(BOOL) postAlias:(FZUser *)user andAccessToken:(NSString *)accessToken; //TODO remove FZUSer from here
 
 -(NSString *) getAccessToken;
 

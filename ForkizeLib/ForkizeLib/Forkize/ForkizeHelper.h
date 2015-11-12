@@ -16,4 +16,10 @@
 
 +(BOOL) isKeyValid:(NSString *) key;
 
++(NSTimeInterval) getTimeIntervalSince1970;
+
++(NSDictionary *) parseJsonString:(NSString *) jsonString;
++(NSString *) getJsonString:(NSDictionary *) dict;
++(id) getJSON:(id) container;
+
 @end

@@ -13,13 +13,11 @@
 
 -(void) authorize:(NSString *)appId andAppKey:(NSString *)appKey;
 
+-(id<IForkize>) identify:(NSString *) userId;
+
 -(void) trackEvent:(NSString*) eventName  withValue:(NSInteger)eventValue  andParams:(NSDictionary*) parameters;
 
 -(void) purchaseWithProductId:(NSString* ) productId  andCurrency:(NSString*) currency andPrice:(double) price andQuantity: (NSInteger) quantity;
-
--(void) sessionStart;
-
--(void) sessionEnd;
 
 -(void) eventDurationWithName:(NSString*) eventName;
 
@@ -27,7 +25,9 @@
 
 -(void) setSuperPropertiesOnce:(NSDictionary *) properties;
 
--(id<IForkize>) identify:(NSString *) userId;
+-(void) sessionStart;
+
+-(void) sessionEnd;
 
 -(void)  onPause;
 

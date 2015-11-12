@@ -10,26 +10,20 @@
 
 @class SQLiteDatabase;
 @class FZEvent;
-@class FZUser;
 
 @interface EventsDAO : NSObject
 
-
-@property (nonatomic, strong) FZUser *user;
-
 - (id) initWithSQLiteDatabase:(SQLiteDatabase *)database;
 
-- (NSArray *) loadEvents; // array of FZEvents
-- (NSArray *) loadEventsWithQuantity:(NSInteger) quantity; // array of FZEvents
-
-- (NSArray *) loadEventForUser:(FZUser *)user;
+- (NSArray *) loadEventsForUser:(NSString *) userId; // array of FZEvents
+- (NSArray *) loadEventsWithQuantity:(NSInteger) quantity forUser:(NSString *) userId; // array of FZEvents
 
 - (void) updateEvents:(NSArray *) events;
 
 - (FZEvent*) addEvent:(FZEvent*) event;
 - (BOOL) addEvents:(NSArray *)events; // array of FZEvents
 
-- (BOOL) removeEvents; // array of FZEvents
+- (BOOL) removeEvents; // all array 
 - (BOOL) removeEvents:(NSArray *) events; // array of FZEvents
 
 @end

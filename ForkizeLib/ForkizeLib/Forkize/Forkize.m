@@ -20,12 +20,10 @@
 
 @interface Forkize()
 
-@property (nonatomic, assign) NSInteger counter;
+//@property (nonatomic, assign) NSInteger counter;
 @property (nonatomic, assign) BOOL destroyed;
 @property (nonatomic, assign) BOOL initialized;
-//@property (nonatomic, strong) NSDate *initializedTime;
 
-@property (nonatomic, strong) ForkizeConfig* config;
 @property (nonatomic, strong) SessionInstance* sessionInstance;
 @property (nonatomic, strong) RestClient* restClient;
 @property (nonatomic, strong) LocalStorageManager *localStorage;
@@ -45,9 +43,9 @@
     
     if (self) {
         self.destroyed = YES;
-        self.counter = 0;
+        self.initialized = NO;
+   //     self.counter = 0;
         
-        self.config          = [ForkizeConfig getInstance];
         self.userProfile     = [UserProfile getInstance];
         self.sessionInstance = [SessionInstance getInstance];
         self.eventManager    = [ForkizeEventManager getInstance];
@@ -65,9 +63,67 @@
 }
 
 -(void) authorize:(NSString *)appId andAppKey:(NSString *)appKey{
-    self.config.appId = appId;
-    self.config.appKey = appKey;
+    ForkizeConfig *config = [ForkizeConfig getInstance];
+    config.appId = appId;
+    config.appKey = appKey;
 }
+
+// FZ::TODO::1 MERGE WITH IDENTIFY
+-(id<IForkize>) identify:(NSString *) userId{
+    
+    [self.userProfile identify:userId];
+    
+    self.isRunning = true;
+    
+//    if (self.counter == 1) {
+//        self.userProfile.aliasedLevel = 0;
+//    }
+//    
+//    if (self.destroyed) {
+//        self.destroyed = NO;
+//        self.initialized = NO;
+//        self.counter = 1;
+//    }
+    
+    if (!self.initialized) {
+        
+        @try {
+            
+            self.initialized = YES;
+            [self.userProfile restoreFromDatabase];
+            
+            // FZ::TODO sessionStart
+            [self sessionStart];
+            //[self.sessionInstance generateNewSessionInterval];
+            //[self.eventManager queueSessionStart];
+            
+            if ([self.userProfile isNewInstall]) {
+                [self.eventManager queueNewInstall];
+            }
+            
+            // FZ::TODO
+            //[self.eventManager queueDeviceInfo:[[DeviceInfo getInstance] getDeviceInfo]];
+            // ** FZ::TODO seems getUserInfo returns the changelog
+            
+            // FZ::TODO CHANGE WITH CHANGELOG
+            [self.eventManager queueUserInfo:[self.userProfile getUserInfo]];
+        }
+        
+        @catch (NSException *exception) {
+            NSLog(@"Forkize SDK Failed to initialize %@", exception);
+        }
+    }
+    
+  //  ++self.counter;
+    
+    
+    if (self.thread != nil)
+        [self.thread start];
+    
+    return self;
+}
+
+
 
 -(void) trackEvent:(NSString*) eventName  withValue:(NSInteger)eventValue  andParams:(NSDictionary*) parameters{
     [self.eventManager queueEventWithName:eventName andValue:eventValue andParams:parameters];
@@ -110,66 +166,11 @@
     [self.eventManager setSuperPropertiesOnce:properties];
 }
 
-// FZ::TODO::1 MERGE WITH IDENTIFY
--(id<IForkize>) identify:(NSString *) userId{
-    
-    [[UserProfile getInstance] identify:userId];
-    
-    self.isRunning = true;
-    
-    if (self.counter == 1) {
-        [UserProfile getInstance].aliasedLevel = 0;
-    }
-    
-    if (self.destroyed) {
-        self.destroyed = FALSE;
-        self.initialized = FALSE;
-        self.counter = 1;
-    }
-    
-    if (!self.initialized) {
-        
-        @try {
-            
-            self.initialized = true;
-            
-        //  self.initializedTime = [NSDate date];
-            
-            // FZ::TODO sessionStart
-            [self sessionStart];
-            //[self.sessionInstance generateNewSessionInterval];
-            //[self.eventManager queueSessionStart];
-            
-            if ([self.userProfile isNewInstall]) {
-                [self.eventManager queueNewInstall];
-            }
-            
-            // FZ::TODO
-            //[self.eventManager queueDeviceInfo:[[DeviceInfo getInstance] getDeviceInfo]];
-            // ** FZ::TODO seems getUserInfo returns the changelog
-            
-            // FZ::TODO CHANGE WITH CHANGELOG
-            [self.eventManager queueUserInfo:[self.userProfile getUserInfo]];
-        }
-        
-        @catch (NSException *exception) {
-            NSLog(@"Forkize SDK Failed to initialize %@", exception);
-        }
-    }
-    
-    ++self.counter;
-
-    
-    if (self.thread != nil)
-        [self.thread start];
-    
-    return self;
-}
 
 -(void)runOperations:(id<IForkize>) forkize{
     while (self.isRunning) {
         @try {
-            [self.userProfile printChangeLog];
+            [self.userProfile printChangeLog]; // FZ::TODO remove this in production version
             [self.restClient flush];
             [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] TIME_AFTER_FLUSH]];
         }
@@ -181,7 +182,7 @@
 
 -(void)  onPause{
     @try {
-        --self.counter;
+    //    --self.counter;
         [self.localStorage flushToDatabase];
         [self.userProfile flushToDatabase];
         
@@ -196,12 +197,12 @@
 
 -(void)  onResume{
     @try {
-        ++self.counter;
+   //     ++self.counter;
         
         [self.userProfile restoreFromDatabase];
         
-        
         [self.sessionInstance resume];
+        
     } @catch (NSException *exception) {
         NSLog(@"Forkize SDK Exception thrown onResume %@", exception);
     }
@@ -209,22 +210,35 @@
 
 -(void)  onDestroy{
     @try {
-        NSLog(@"Forkize SDK counter in time of destroy %ld" , (long)self.counter);
         
-        if (--self.counter == 0) {
-            @try {
-                [self shutDown];
-                NSLog(@"Forkize SDK Last destroy");
-            } @catch (NSException* e) {
-                NSLog(@"Forkize SDK _onDestroy %@", e);
-            }
-        }
-        
-        if (self.counter == 1) {
+        if (!self.destroyed) {
             [self.sessionInstance end];
+            
             [self.localStorage flushToDatabase];
             [self.userProfile flushToDatabase];
+            
+            self.destroyed = YES;
+            
+            [self shutDown];
         }
+        
+//        
+//        NSLog(@"Forkize SDK counter in time of destroy %ld" , (long)self.counter);
+//        
+//        if (--self.counter == 0) {
+//            @try {
+//                [self shutDown];
+//                NSLog(@"Forkize SDK Last destroy");
+//            } @catch (NSException* e) {
+//                NSLog(@"Forkize SDK _onDestroy %@", e);
+//            }
+//        }
+//        
+//        if (self.counter == 1) {
+//            [self.sessionInstance end];
+//            [self.localStorage flushToDatabase];
+//            [self.userProfile flushToDatabase];
+//        }
         
         NSLog(@"Forkize SDK onDestroy!");
 
