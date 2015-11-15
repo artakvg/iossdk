@@ -14,7 +14,7 @@
 
 -(NSArray *) readWithQuantity:(NSInteger) quantity forUser:(NSString *) userId;
 
--(BOOL) removeEvents:(NSArray *) events;
+-(BOOL) removeEventWithCount:(NSInteger ) count;
 
 -(void) reset;
 -(void) close;

@@ -128,7 +128,7 @@ typedef enum{
     
     if ([ForkizeHelper isNilOrEmpty:newUserId]) {
         // FZ::TODO why we are logging and not throwing exception ?
-        NSLog(@"Forkize SDK New user Id is nill or empty");
+        @throw [NSException  exceptionWithName:@"Forkize" reason:@"Forkize SDK New user Id is nill or empty" userInfo:nil];
         return;
     }
     
@@ -156,7 +156,7 @@ typedef enum{
 
 -(void) changeUserId{
     NSString * userName = [[UserProfile getInstance] getUserId];
-    // FZ::TODO why we need self.currentUser
+    // FZ::DONE why we need self.currentUser
     // self.currentUser = newUser;
     
    FZUser *user = [self.userDAO getUser:userName];

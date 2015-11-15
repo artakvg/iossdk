@@ -8,15 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class FZUser;
-
 @interface Request : NSObject
 
 + (Request*) getInstance;
 
 -(NSInteger) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken;
 
--(BOOL) postAlias:(FZUser *)user andAccessToken:(NSString *)accessToken; //TODO remove FZUSer from here
+-(BOOL) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken;
 
 -(NSString *) getAccessToken;
 

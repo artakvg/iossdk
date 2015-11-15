@@ -47,7 +47,7 @@
 }
 
 /*
-// FZ::TODO think getUserInfo, setUserInfo should be moved to UserProfile
+// FZ::DONE think getUserInfo, setUserInfo should be moved to UserProfile
 
 -(FZUser*) getUser:(NSString*) userId{
     @synchronized(self.eventLock) {
@@ -61,7 +61,7 @@
     
     return nil;
 }
-// FZ::TODO look at getUserInfo
+// FZ::DONE look at getUserInfo
 -(void) setUser:(FZUser*) user{
     @synchronized(self.eventLock) {
         @try {
@@ -73,7 +73,7 @@
     }
 
 }
-// FZ::TODO look at getUserInfo
+// FZ::DONE look at getUserInfo
 -(void) changeUserId{
     @synchronized(self.eventLock) {
         @try {
@@ -86,7 +86,7 @@
     }
 }
 
-// FZ::TODO look at getUserInfo
+// FZ::DONE look at getUserInfo
 -(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
     @synchronized(self.eventLock) {
         @try {
@@ -98,7 +98,7 @@
     }
 }
 
-// FZ::TODO look at getUserInfo
+// FZ::DONE look at getUserInfo
 -(FZUser*)getAliasedUser:(NSString*) userName{
     @synchronized(self.eventLock) {
         @try {
@@ -109,7 +109,7 @@
         }
     }
 }
-// FZ::TODO look at getUserInfo
+// FZ::DONE look at getUserInfo
 -(void) exchangeIds:(NSString*) userName{
     @synchronized(self.eventLock) {
         @try {
@@ -146,11 +146,11 @@
     }
 }
 
--(BOOL) removeEvents:(NSArray *) events {
+-(BOOL) removeEventWithCount:(NSInteger ) count{
     @synchronized (self.eventLock)
     {
         @try {
-            return [self.secondaryStorage removeEvents:events];
+            return [self.secondaryStorage removeEventWithCount:count];
         } @catch (NSException* e) {
             NSLog(@"Forkize SDK Exception thrown removing events %@", e);
         }

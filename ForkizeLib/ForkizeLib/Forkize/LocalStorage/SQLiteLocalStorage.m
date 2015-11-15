@@ -92,12 +92,23 @@
     [self reset];
 }
 
-// FZ::TODO Dont need that , to pass an array for event removal
--(BOOL) removeEvents:(NSArray *) events{
+// FZ::DONE Dont need that , to pass an array for event removal
+//-(BOOL) removeEvents:(NSArray *) events{
+//    BOOL result = FALSE;
+//    
+//    @try {
+//        result = [self.eventDAO removeEvents:events];
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);
+//    }
+//}
+
+-(BOOL) removeEventWithCount:(NSInteger ) count{
     BOOL result = FALSE;
     
     @try {
-        result = [self.eventDAO removeEvents:events];
+        result = [self.eventDAO removeEventWithCount:count];
     }
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);
@@ -114,7 +125,7 @@
 -(void) changeUserId{
     FZUser *newUser = [[FZUser alloc] init];
     newUser.userName = [[UserProfile getInstance] getUserId];
-    // FZ::TODO why we need self.currentUser
+    // FZ::DONE why we need self.currentUser
     self.currentUser = newUser;
     
     FZUserDAO *userDAO = [self.daoFactory userDAO];

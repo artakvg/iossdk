@@ -16,7 +16,7 @@
 - (id) initWithSQLiteDatabase:(SQLiteDatabase *)database;
 
 - (NSArray *) loadEventsForUser:(NSString *) userId; // array of FZEvents
-- (NSArray *) loadEventsWithQuantity:(NSInteger) quantity forUser:(NSString *) userId; // array of FZEvents
+- (NSArray *) loadEventsWithQuantity:(NSInteger) quantity forUser:(NSString *) userId; // array of Event.eventValues
 
 - (void) updateEvents:(NSArray *) events;
 
@@ -24,6 +24,6 @@
 - (BOOL) addEvents:(NSArray *)events; // array of FZEvents
 
 - (BOOL) removeEvents; // all array 
-- (BOOL) removeEvents:(NSArray *) events; // array of FZEvents
+-(BOOL) removeEventWithCount:(NSInteger ) count; 
 
 @end

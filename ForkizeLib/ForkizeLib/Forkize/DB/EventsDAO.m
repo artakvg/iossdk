@@ -28,6 +28,9 @@ static NSString *const kSelectEventsByCountAndNotUserSQL = @""
 static NSString *const kSelectEventWithUserSQL = @""
 "select Id, UserName, EventValue from Events where UserName=:userName order by Id";
 
+static NSString *const kSelectEventByCountWithUserSQL = @""
+"select Id, UserName, EventValue from Events where UserName=:userName order by Id asc limit %ld";
+
 static NSString *const kInsertEventSQL = @""
 "insert into Events (UserName, EventValue) values (:userName, :eventValue)";
 
@@ -41,6 +44,9 @@ static NSString *const  kDeleteEventSQL = @""
 
 static NSString *const  kDeleteEventsSQL = @""
 "delete from Events";
+
+static NSString *const  kDeleteEventsCountSQL = @""
+"delete from Events order by Id asc limit %ld";
 
 @interface EventsDAO()
 
@@ -73,33 +79,23 @@ static NSString *const  kDeleteEventsSQL = @""
 
 - (NSArray *) loadEventsWithQuantity:(NSInteger) quantity forUser:(NSString *) userId{
 
-    NSArray *curentUserEvents = [self loadEventsForUser:userId];
+    __block NSMutableArray *eventValues = [NSMutableArray array];
+    SQLiteStatement *statement = [self.database statementWithSQLString:[NSString stringWithFormat:kSelectEventByCountWithUserSQL, quantity]];
     
-//    __block NSMutableArray *events = [NSMutableArray array];
-//    
-//    if ([curentUserEvents count] < quantity) {
-//
-//        SQLiteStatement *statement = [self.database statementWithSQLString:[NSString stringWithFormat:kSelectEventsByCountAndNotUserSQL, (long)quantity - [curentUserEvents count]]];
-//        [statement setString:userId forParam:kUserNameParamName];
-//        
-//        SQLITE_ROW_CALLBACK(rowCallBack) {
-//            FZEvent *event  = [self getEventFromSQLiteRow:row];
-//            [events addObject:event];
-//            
-//            return YES;
-//        };
-//        
-//        [statement executeQueryWithCallBack:rowCallBack];
-//        
-//        [events addObjectsFromArray:curentUserEvents];
-//        
-//    } else {
-//        events = [NSMutableArray arrayWithArray:[curentUserEvents subarrayWithRange:NSMakeRange(0, quantity)]];
-//    }
-//  
-
-
-    return [curentUserEvents subarrayWithRange:NSMakeRange(0, MIN(quantity, [curentUserEvents count]))];
+    [statement setString:userId forParam:kUserNameParamName];
+    
+    
+    SQLITE_ROW_CALLBACK(rowCallBack) {
+        NSString *eventValue = [row stringAtIndex:kEventValueColIndex];
+   
+        [eventValues addObject:eventValue];
+        
+        return YES;
+    };
+    
+    [statement executeQueryWithCallBack:rowCallBack];
+    
+    return eventValues;
 }
 
 - (NSArray *) loadEventsForUser:(NSString *)userId{
@@ -166,14 +162,11 @@ static NSString *const  kDeleteEventsSQL = @""
     return [deleteStat executeUpdate];
 }
 
-- (BOOL) removeEvents:(NSArray *) events{
-    BOOL result = YES;
+-(BOOL) removeEventWithCount:(NSInteger ) count{
+    SQLiteStatement *deleteStat = [self.database statementWithSQLString:[NSString stringWithFormat:kDeleteEventsCountSQL, count]];
     
-    for (FZEvent *event in events) {
-       result &= [self removeEvent:event];
-    }
-    
-    return result;
+    return [deleteStat executeUpdate];
+
 }
 
 -(BOOL) removeEvents{

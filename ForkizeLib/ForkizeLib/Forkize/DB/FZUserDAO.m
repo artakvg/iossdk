@@ -119,12 +119,12 @@ static NSString *const kUserInfoParamName = @":userInfo";
 
 - (FZUser *) getUser:(NSString *) userName{
     
-    __block NSMutableArray *users = [NSMutableArray array];
-    
     SQLiteStatement *statement = [self.database statementWithSQLString:kSelectUserSQL];
     
     [statement setString:userName forParam:kUserNameParamName];
     
+    __block NSMutableArray *users = [NSMutableArray array];
+  
     SQLITE_ROW_CALLBACK(rowCallBack) {
         FZUser *user  = [self getUserFromSQLiteRow:row];
         [users addObject:user];

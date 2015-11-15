@@ -20,7 +20,7 @@
 -(void) addEvent:(FZEvent *) event;
 -(NSArray *) getEvents:(NSInteger) eventCount;
 
--(BOOL) removeEvents:(NSArray *) events;
+-(BOOL) removeEventWithCount:(NSInteger ) count;
 
 /*
 -(void) changeUserId;

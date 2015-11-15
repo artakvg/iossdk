@@ -6,10 +6,9 @@
 //  Copyright (c) 2015 Artak. All rights reserved.
 //
 
-// FZ::TODO refactoring needed
+// FZ::TODO refactoring needed, test after refactoring
 
 #import "Request.h"
-#import "FZUser.h"
 #import "ForkizeHelper.h"
 #import "ForkizeConfig.h"
 #import "UserProfile.h"
@@ -116,7 +115,6 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         NSDictionary * message = [jsonDict objectForKey:@"message"];
         if (message != nil) {
             [[ForkizeMessage getInstance] showMessage:message];
-             //ForkizeMessage.getInstance(null).showMessage(message); // TODO Artak
         }
         
     }
@@ -127,16 +125,14 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 }
 
 
--(BOOL) postAlias:(FZUser *)user andAccessToken:(NSString *)accessToken{
-    NSString *userName = user.userName;
-    NSString *aliasedName = user.aliasedName;
+-(BOOL) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken{
     
-    if ([ForkizeHelper isNilOrEmpty:aliasedName]) {
+    if ([ForkizeHelper isNilOrEmpty:aliasedUserId]) {
         return FALSE;
     }
     
     @try {
-        NSDictionary *api_dataDict = [NSDictionary dictionaryWithObject:aliasedName forKey:@"alias_id"];
+        NSDictionary *api_dataDict = [NSDictionary dictionaryWithObject:aliasedUserId forKey:@"alias_id"];
         
         //FZ::TODO TEST NSJSONWritingPrettyPrinted OR 0
         NSError *error;
@@ -163,10 +159,10 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         NSString *hash = [ForkizeHelper md5:hashabelString];
         
         NSMutableDictionary *mutDict = [self getCommonDict];
-        [mutDict setObject:userName forKey:@"user_id"];
+        [mutDict setObject:userId forKey:@"user_id"];
         [mutDict setObject:accessToken forKey:@"access_token"];
         [mutDict setObject:hash forKeyedSubscript:@"hash"];
-        [mutDict setObject:aliasedName forKey:@"alias_id"];
+        [mutDict setObject:aliasedUserId forKey:@"alias_id"];
         [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
         
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_ALIAS_PATH andBodyDict:mutDict];

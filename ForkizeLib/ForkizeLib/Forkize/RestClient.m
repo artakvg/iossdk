@@ -67,7 +67,8 @@
         
         if ([UserProfile getInstance].aliasedLevel == 1) {
             FZUser *newUser = [[UserProfile getInstance] getAliasedUser];//[self.localStorage getAliasedUser:[[UserProfile getInstance] getUserId]];
-            if ([self.request postAlias:newUser andAccessToken:[RestClient getInstance]. accessToken]) {
+            
+            if ([self.request postAliasWithAliasedUserId:newUser.aliasedName andUserId:newUser.userName andAccessToken:[RestClient getInstance]. accessToken]) {
                 [self.localStorage flushToDatabase];
                 [[UserProfile getInstance] exchangeIds];
                 //[self.localStorage exchangeIds:[[UserProfile getInstance] getUserId]];
@@ -85,20 +86,21 @@
         
         NSMutableArray *arrayData = [NSMutableArray array];
         
-        for (FZEvent *event in eventArray) {
+        for (NSString *eventValue in eventArray) {
             NSError *parseError = nil;
            
-            NSData *data = [event.eventValue dataUsingEncoding:NSUTF8StringEncoding];
+            NSData *data = [eventValue dataUsingEncoding:NSUTF8StringEncoding];
             id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&parseError];
-            
+            if (parseError == nil) {
             [arrayData addObject:jsonObject];
+        }
         }
         
         NSInteger responseCode = [self.request postWithBody:arrayData andAccessToken:[RestClient getInstance].accessToken];
         if (responseCode == 1) {
-            [self.localStorage removeEvents:eventArray];
+            [self.localStorage removeEventWithCount:[eventArray count]];
         } else if (responseCode == 2){
-            [RestClient getInstance].accessToken = nil;
+            [[RestClient getInstance] dropAccessToken];
         }
     }
 }
