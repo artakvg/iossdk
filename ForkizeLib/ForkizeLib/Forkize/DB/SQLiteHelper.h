@@ -10,6 +10,8 @@
 #import <sqlite3.h>
 
 #define SQLITE_ROW_CALLBACK(X) BOOL (^X)(SQLiteRow *) = ^(SQLiteRow *row)
+#define THROW_CANT_CREATE_INSTANCE 	@throw [NSException exceptionWithName:@"Can't create instance" reason:@"Default constructor must not be used" userInfo:nil]
+
 
 @class SQLiteRow;
 @interface SQLiteStatement : NSObject {

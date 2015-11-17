@@ -5,9 +5,12 @@
 //  Created by Artak Martirosyan on 9/9/15.
 //  Copyright (c) 2015 Artak. All rights reserved.
 
-#import "DBHelper.h"
 #import "SQLiteHelper.h"
 #import "DataAccessException.h"
+
+#define FORMAT(X, Y) [NSString stringWithFormat:X, Y, nil]
+#define FORMAT2(X, Y, Z) [NSString stringWithFormat:X, Y, Z, nil]
+
 
 @implementation SQLiteRow
 
@@ -32,7 +35,7 @@
 
 - (NSString *)stringAtIndex:(NSInteger)index {
 	NSParameterAssert(index>=0 && index<sqlite3_column_count(statement_));
-	const char *cString = (const char *) sqlite3_column_text(statement_, index);
+	const char *cString = (const char *) sqlite3_column_text(statement_, (int)index);
 	if (cString == NULL)
 		return nil;
 	return [[NSString alloc] initWithUTF8String:cString] ;
@@ -40,17 +43,17 @@
 
 - (NSInteger)integerAtIndex:(NSInteger)index {
     NSParameterAssert(index>=0 && index<sqlite3_column_count(statement_));
-	return sqlite3_column_int(statement_, index);
+	return sqlite3_column_int(statement_, (int)index);
 }
 
 - (NSDate *)dateAtIndex:(NSInteger)index {
 	NSParameterAssert(index>=0 && index<sqlite3_column_count(statement_));
-	return [NSDate dateWithTimeIntervalSince1970:sqlite3_column_double(statement_, index)];
+	return [NSDate dateWithTimeIntervalSince1970:sqlite3_column_double(statement_, (int)index)];
 }
 
 - (float)floatAtIndex:(NSInteger)index{
 	NSParameterAssert(index>=0 && index<sqlite3_column_count(statement_));
-	return sqlite3_column_double(statement_, index);
+	return sqlite3_column_double(statement_, (int)index);
 }
 
 @end
@@ -91,7 +94,7 @@
 	NSAssert(result == SQLITE_OK, FORMAT(@"Error clearing bindings [%d]", result));
 }
 
-- (NSInteger)indexOfParam:(NSString *)param {
+- (int)indexOfParam:(NSString *)param {
 	NSParameterAssert(param != nil);
 	int result = sqlite3_bind_parameter_index(statement_, [param cStringUsingEncoding:NSUTF8StringEncoding]);
 	NSAssert(result != SQLITE_OK, ([NSString stringWithFormat:@"Param %@ could not be found", param]));
@@ -111,7 +114,7 @@
 
 - (void)setInteger:(NSInteger)integer forParam:(NSString *)param {
 	//call of indexOfParam: message will check the param contract
-	int result = sqlite3_bind_int(statement_, [self indexOfParam:param], integer);
+	int result = sqlite3_bind_int(statement_, [self indexOfParam:param], (int)integer);
 	NSAssert(result == SQLITE_OK, ([NSString stringWithFormat:@"Param %@ could not be set", param]));
 }
 

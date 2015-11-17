@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Artak. All rights reserved.
 //
 
-#import "DBHelper.h"
 #import "DAOFactory.h"
 #import "SQLiteHelper.h"
 #import "FZUserDAO.h"

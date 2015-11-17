@@ -19,14 +19,13 @@ static NSString *const kUserNameParamName = @":userName";
 static NSString *const kEventValueParamName = @":eventValue";
 
 static NSString *const kSelectAllEventsSQL = @""
-"select Id, UserName, EventValue from Events order by Id";
+"select Id, UserName, EventValue from Events order by Id asc";
 
 static NSString *const kSelectEventsByCountAndNotUserSQL = @""
 "select Id, UserName, EventValue from Events where UserName<>:userName order by Id asc limit %ld";
 
-
 static NSString *const kSelectEventWithUserSQL = @""
-"select Id, UserName, EventValue from Events where UserName=:userName order by Id";
+"select Id, UserName, EventValue from Events where UserName=:userName order by Id asc";
 
 static NSString *const kSelectEventByCountWithUserSQL = @""
 "select Id, UserName, EventValue from Events where UserName=:userName order by Id asc limit %ld";
@@ -37,13 +36,13 @@ static NSString *const kInsertEventSQL = @""
 static NSString *const kUpdateEventsSQL = @""
 "update Events set UserName=:userName, EventValue=:eventValue where Id=:id";
 
-
-
 static NSString *const  kDeleteEventSQL = @""
 "delete from Events where Id=:id";
 
 static NSString *const  kDeleteEventsSQL = @""
 "delete from Events";
+
+//FZ::TODO modify for correct working ARTAK
 
 static NSString *const  kDeleteEventsCountSQL = @""
 "delete from Events order by Id asc limit %ld";
@@ -52,10 +51,8 @@ static NSString *const  kDeleteEventsCountSQL = @""
 
 @property (nonatomic, strong) SQLiteDatabase *database;
 
-
-
-
 @end
+
 @implementation EventsDAO
 
 @synthesize database = database_;
@@ -80,7 +77,7 @@ static NSString *const  kDeleteEventsCountSQL = @""
 - (NSArray *) loadEventsWithQuantity:(NSInteger) quantity forUser:(NSString *) userId{
 
     __block NSMutableArray *eventValues = [NSMutableArray array];
-    SQLiteStatement *statement = [self.database statementWithSQLString:[NSString stringWithFormat:kSelectEventByCountWithUserSQL, quantity]];
+    SQLiteStatement *statement = [self.database statementWithSQLString:[NSString stringWithFormat:kSelectEventByCountWithUserSQL, (long)quantity]];
     
     [statement setString:userId forParam:kUserNameParamName];
     
@@ -163,7 +160,7 @@ static NSString *const  kDeleteEventsCountSQL = @""
 }
 
 -(BOOL) removeEventWithCount:(NSInteger ) count{
-    SQLiteStatement *deleteStat = [self.database statementWithSQLString:[NSString stringWithFormat:kDeleteEventsCountSQL, count]];
+    SQLiteStatement *deleteStat = [self.database statementWithSQLString:[NSString stringWithFormat:kDeleteEventsCountSQL, (long)count]];
     
     return [deleteStat executeUpdate];
 
