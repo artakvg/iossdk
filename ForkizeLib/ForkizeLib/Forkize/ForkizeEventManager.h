@@ -25,8 +25,8 @@
 
 -(void) queueNewInstall;
 
--(void) queueDeviceInfo:(NSDictionary *) deviceInfo ;
--(void) queueUserInfo:(NSDictionary *)  userInfo;
+-(void) queueDeviceInfo;
+-(void) queueUserInfo;
 
 -(void) close;
 

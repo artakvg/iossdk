@@ -38,9 +38,9 @@
     
     if ([key length ] > 255 ||  [key length] == 0 || [[key substringToIndex:1] isEqualToString:@"$"]) {
         NSLog(@"Forkize SDK The key is not valid, it shouldn't start with $ and length must be less than 255 and more 0");
-        return FALSE;
+        return NO;
     }
-    return TRUE;
+    return YES;
 }
 
 +(NSTimeInterval) getTimeIntervalSince1970

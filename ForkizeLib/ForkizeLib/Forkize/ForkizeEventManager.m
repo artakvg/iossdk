@@ -190,18 +190,18 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     [self queueEventWithName:APP_INSTALL andValue:1 andParams:nil];
 }
 
--(void) queueDeviceInfo:(NSDictionary *) deviceInfo {
-    [self queueEventWithName:DEVICE_INFO andValue:1 andParams:deviceInfo];
+-(void) queueDeviceInfo{
+    [self queueEventWithName:DEVICE_INFO andValue:1 andParams:[[DeviceInfo getInstance] getDeviceInfo]];
 }
 
--(void) queueUserInfo:(NSDictionary *)  userInfo {
-    [self queueEventWithName:USER_INFO andValue:1 andParams:userInfo];
+-(void) queueUserInfo {
+    [self queueEventWithName:USER_INFO andValue:1 andParams:[[UserProfile getInstance] getUserInfo]];
 }
 
 
 -(void) queueEventWithName:(NSString*) eventName andValue:(NSInteger) eventValue andParams:(NSDictionary *)params{
     @try {
-         NSString *eventString = [self eventAsJSON:eventName andValue:eventValue andParameters:params];
+        NSString *eventString = [self eventAsJSON:eventName andValue:eventValue andParameters:params];
         [self.queue addOperation:[[FzEventOperation alloc] initWithEventJSON:eventString]];
     }
     @catch (NSException *exception) {

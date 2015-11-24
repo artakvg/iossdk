@@ -11,12 +11,10 @@
 #import "ForkizeConfig.h"
 #import "UserProfile.h"
 #import "SessionInstance.h"
-#import "DeviceInfo.h"
 #import "ForkizeEventManager.h"
 #import "LocalStorageManager.h"
 #import "LocationInstance.h"
 #import "RestClient.h"
-#import "ForkizeConfig.h"
 
 @interface Forkize()
 
@@ -44,8 +42,7 @@
     if (self) {
         self.destroyed = YES;
         self.initialized = NO;
-   //     self.counter = 0;
-        
+
         self.userProfile     = [UserProfile getInstance];
         self.sessionInstance = [SessionInstance getInstance];
         self.eventManager    = [ForkizeEventManager getInstance];
@@ -62,6 +59,20 @@
     return self;
 }
 
+-(void)runOperations:(id<IForkize>) forkize{
+    while (self.isRunning) {
+        @try {
+            NSLog(@"Forkize SDK %@", [self.userProfile getChangeLog]); // FZ::TODO remove this in production version
+            [self.restClient flush];
+            [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] TIME_AFTER_FLUSH]];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Forkize SDK Something went wrong in MainRunnable %@", exception);
+        }
+    }
+}
+
+
 -(void) authorize:(NSString *)appId andAppKey:(NSString *)appKey{
     ForkizeConfig *config = [ForkizeConfig getInstance];
     config.appId = appId;
@@ -75,21 +86,13 @@
     
     self.isRunning = true;
     
-//    if (self.counter == 1) {
-//        self.userProfile.aliasedLevel = 0;
-//    }
-//    
-//    if (self.destroyed) {
-//        self.destroyed = NO;
-//        self.initialized = NO;
-//        self.counter = 1;
-//    }
-    
     if (!self.initialized) {
         
         @try {
             
+          //  self.userProfile.aliasedLevel = 0;
             self.initialized = YES;
+            self.destroyed = NO;
             [self.userProfile restoreFromDatabase];
             
             // FZ::TODO sessionStart
@@ -99,23 +102,20 @@
             
             if ([self.userProfile isNewInstall]) {
                 [self.eventManager queueNewInstall];
-            }
             
             // FZ::TODO
-            //[self.eventManager queueDeviceInfo:[[DeviceInfo getInstance] getDeviceInfo]];
+                //[self.eventManager queueDeviceInfo];
             // ** FZ::TODO seems getUserInfo returns the changelog
             
             // FZ::TODO CHANGE WITH CHANGELOG
-            [self.eventManager queueUserInfo:[self.userProfile getUserInfo]];
+                [self.eventManager queueUserInfo];
+            }
         }
         
         @catch (NSException *exception) {
             NSLog(@"Forkize SDK Failed to initialize %@", exception);
         }
     }
-    
-  //  ++self.counter;
-    
     
     if (self.thread != nil)
         [self.thread start];
@@ -166,23 +166,8 @@
     [self.eventManager setSuperPropertiesOnce:properties];
 }
 
-
--(void)runOperations:(id<IForkize>) forkize{
-    while (self.isRunning) {
-        @try {
-            [self.userProfile printChangeLog]; // FZ::TODO remove this in production version
-            [self.restClient flush];
-            [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] TIME_AFTER_FLUSH]];
-        }
-        @catch (NSException *exception) {
-             NSLog(@"Forkize SDK Something went wrong in MainRunnable %@", exception);
-        }
-    }
-}
-
 -(void)  onPause{
     @try {
-    //    --self.counter;
         [self.localStorage flushToDatabase];
         [self.userProfile flushToDatabase];
         
@@ -197,8 +182,6 @@
 
 -(void)  onResume{
     @try {
-   //     ++self.counter;
-        
         [self.userProfile restoreFromDatabase];
         
         [self.sessionInstance resume];
@@ -266,10 +249,6 @@
 -(void) shutDown //@throws InterruptedException
 {
     if (!self.destroyed) {
-        NSLog(@"Forkize SDK Shutting down the SDK ...");
-        
-  //      self.initializedTime = nil;
-        
         [self.restClient close];
         self.restClient = nil;
         
@@ -279,11 +258,11 @@
         [self.localStorage close];
         self.localStorage = nil;
         
-        self.isRunning = FALSE;
-        self.destroyed = TRUE;
+        self.isRunning = NO;
+        self.initialized = NO;
+        self.destroyed = YES;
         
         // FZ::DONE what about session Instance ?
-        
         
         NSLog(@"Forkize SDK SDK is shot down!");
     }

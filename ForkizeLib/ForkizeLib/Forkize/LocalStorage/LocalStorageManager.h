@@ -20,17 +20,6 @@
 -(void) addEvent:(FZEvent *) event;
 -(NSArray *) getEvents:(NSInteger) eventCount;
 
--(BOOL) removeEventWithCount:(NSInteger ) count;
+-(BOOL) removeEventsWithCount:(NSInteger ) count;
 
-/*
--(void) changeUserId;
--(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
-
--(FZUser*)getAliasedUser:(NSString*) userName;
--(void) exchangeIds:(NSString*) userName;
-
-
--(FZUser*) getUser:(NSString*) userId;
--(void) setUser:(FZUser*) user;
-*/
 @end

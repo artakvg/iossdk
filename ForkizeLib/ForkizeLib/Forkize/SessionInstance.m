@@ -57,7 +57,7 @@
         self.sessionResumeTime = currentTime;
         self.sessionEndTime = currentTime + [[ForkizeConfig getInstance] SESSION_INTERVAL];
         self.sessionLength = 0;
-        // set isDestroyed to FALSE
+        // set isDestroyed to NO
         self.isDestroyed = NO;
         self.isPaused = NO;
         // ** generate session token

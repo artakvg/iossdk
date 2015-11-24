@@ -109,7 +109,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         accessToken = [jsonDict objectForKey:@"access_token"];
         
         if (accessToken == nil) {
-            NSLog(@"Forkize SDK accessToken is nil");
+            NSLog(@"Forkize SDK ERROR !!!!!!!! accessToken is nil");
         }
         
         NSDictionary * message = [jsonDict objectForKey:@"message"];
@@ -124,11 +124,10 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     return accessToken;
 }
 
-
 -(BOOL) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken{
     
     if ([ForkizeHelper isNilOrEmpty:aliasedUserId]) {
-        return FALSE;
+        return NO;
     }
     
     @try {
@@ -153,8 +152,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
                                     @"ios",
                                     [ForkizeConfig getInstance].SDK_VERSION,
                                     [ForkizeConfig getInstance].appKey,
-                                    apiDataString
-                                    ];
+                                    apiDataString];
         
         NSString *hash = [ForkizeHelper md5:hashabelString];
         
@@ -176,7 +174,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         
     }
 
-    return FALSE;
+    return NO;
 }
 
 -(BOOL) updateUserProfile:(NSString *) accessToken{
@@ -221,7 +219,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         
     }
     
-    return FALSE;
+    return NO;
 }
 
 -(NSInteger) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken{

@@ -20,6 +20,7 @@
 
 +(NSDictionary *) parseJsonString:(NSString *) jsonString;
 +(NSString *) getJsonString:(NSDictionary *) dict;
+
 +(id) getJSON:(id) container;
 
 @end

@@ -12,12 +12,12 @@
 
 + (Request*) getInstance;
 
--(NSInteger) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken;
+-(NSString *) getAccessToken;
 
 -(BOOL) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken;
 
--(NSString *) getAccessToken;
-
 -(BOOL) updateUserProfile:(NSString *) accessToken;
+
+-(NSInteger) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken;
 
 @end

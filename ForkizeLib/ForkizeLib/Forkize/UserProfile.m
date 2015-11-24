@@ -45,11 +45,13 @@ typedef enum{
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSString *aliasedUserId;
 
-@property (nonatomic, assign) UserGender gender;
-@property (nonatomic, assign) NSInteger age;
+
 @property (nonatomic, strong) NSMutableDictionary *userInfo;
 @property (nonatomic, strong) NSMutableDictionary *changeLog;
 
+
+@property (nonatomic, assign) UserGender gender;
+@property (nonatomic, assign) NSInteger age;
 
 @property (nonatomic, strong) LocalStorageManager *localStorage;
 
@@ -85,24 +87,154 @@ typedef enum{
     return sharedInstance;
 }
 
-
-
--(FZUser*) getUser:(NSString*) userId{
-    FZUser *user = [self.userDAO getUser:userId];
-    return user;
+-(NSString*) getUserId{
+    if ([ForkizeHelper isNilOrEmpty:self.userId]) {
+        NSString *userId = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PROFILE_USER_ID];
+        NSLog(@"From default userId %@", userId);
+        if ([ForkizeHelper isNilOrEmpty:userId]) {
+            [self identify:nil];
+        } else {
+            self.userId = userId;
+        }
+    }
+    
+    return self.userId;
 }
 
--(void) setUser:(FZUser*) user{
+-(NSString *) getAliasedUserId{
+    return self.aliasedUserId;
+}
+
+-(NSDictionary *) getUserInfo {
+    if (self.userInfo == nil) {
+        self.userInfo = [NSMutableDictionary dictionary];
+        
+        if (self.age > 0 && self.age < 100)
+            [self.userInfo setObject:[NSString stringWithFormat:@"%ld", (long)self.age] forKey:@"age"];
+        
+        NSString *gender = [self getGender];
+        if (gender != nil) {
+            [self.userInfo setObject:gender forKey:@"gender"];
+        }
+        
+        [self.userInfo setObject:[self getUserId] forKey:USER_PROFILE_USER_ID];
+    }
+    return self.userInfo;
+}
+
+
+-(BOOL) isNewInstall{
+    
+    NSString *installTime = [[NSUserDefaults standardUserDefaults] valueForKey:FORKIZE_INSTALL_TIME];
+    
+    if ([ForkizeHelper isNilOrEmpty:installTime]) {
+        installTime = [NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]];
+        [[NSUserDefaults  standardUserDefaults] setObject:installTime forKey:FORKIZE_INSTALL_TIME];
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(NSString *) generateUserId{
+    NSString *userId = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PROFILE_USER_ID];
+    
+    if (userId != nil) {
+        return userId;
+    }
+    
+    NSString *UUID = [NSUUID UUID].UUIDString;
+    return UUID;
+}
+
+-(void) identify:(NSString *) userId{
+    NSString *oldId = self.userId;
+    NSString *oldAliasedId = self.aliasedUserId;
+    
+    if (userId == nil) {
+        userId = [self generateUserId];
+    }
+    
+    [[NSUserDefaults  standardUserDefaults] setObject:userId forKey:USER_PROFILE_USER_ID];
+    
+    self.userId = userId;
+    self.aliasedUserId = @"";
+    
+    [[RestClient getInstance] dropAccessToken];
+    
+    if (self.localStorage != nil) {
+        [self.localStorage flushToDatabase];
+        
+        FZUser *user = [self.userDAO getUser:self.userId];
+        
+        if (user == nil) {
+            user = [self.userDAO addUser:self.userId];
+        }
+        
+        if (![ForkizeHelper isNilOrEmpty:oldId]) {
+            // FZ::DONE why user id and not olduser id
+            
+            FZUser *user = [[FZUser alloc] init];
+            user.userName = oldId;
+            user.changeLog = [self getChangeLog];
+           [self.userInfo setObject:oldAliasedId forKey:@"aliasedUserId"];
+            user.userInfo = [ForkizeHelper getJsonString:self.userInfo];
+            [self.userDAO updateUser:user];
+        }
+        
+        @try {
+            FZUser *user = [self.userDAO getUser:self.userId];
+            
+            if (![ForkizeHelper isNilOrEmpty:user.changeLog]) {
+                self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.changeLog]];
+            } else {
+                self.changeLog = [NSMutableDictionary dictionary];
+            }
+            
+            if (![ForkizeHelper isNilOrEmpty:user.userInfo]) {
+                self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.userInfo]];
+            } else {
+                self.userInfo = [NSMutableDictionary dictionary];
+            }
+            self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
+            
+            
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Forkize SDK User change log is not converted to JSONObject");
+        }
+    }
+}
+
+-(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
+    
+    if ([ForkizeHelper isNilOrEmpty:newUserId]) {
+        // FZ::TODO why we are logging and not throwing exception ?
+        @throw [NSException  exceptionWithName:@"Forkize" reason:@"Forkize SDK New user Id is nill or empty" userInfo:nil];
+        return;
+    }
+    
+    if ([oldUserId isEqual:newUserId]) {
+        NSLog(@"Forkize SDK Current and alias user ids are same!");
+        return;
+    }
+    
+    // NSAssert([oldUserId isEqualToString:self.userId], @"Old UserId mismatch with oldUserId in alias function");
+    
+    // FZ::TODO should local storage be aware of such kind of functionality like alias ????
+    
+    //  gnum gtnum enq oldUserName-ov tox@ u aliased dashtum grum enq newUserName
+    self.aliasedUserId = newUserId;
+    
+    FZUser *user = [self.userDAO getUser:oldUserId];
+    user.aliasedName = newUserId;
     [self.userDAO updateUser:user];
+    
+    NSLog(@"Forkize SDK userId will change");
 }
 
--(FZUser*)getAliasedUser{
-    FZUser *user = [self.userDAO getUser:[[UserProfile getInstance] getUserId]];
-    return user;
-}
 
 -(void) exchangeIds{
-  //  [self.localStorage exchangeIds:[[UserProfile getInstance] getUserId]];
     
     NSString *userName = [[UserProfile getInstance] getUserId];
     
@@ -121,53 +253,6 @@ typedef enum{
     [self.userDAO updateUser:user];
     
     [[UserProfile getInstance] identify:user.userName];
-    
-}
-
--(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
-    
-    if ([ForkizeHelper isNilOrEmpty:newUserId]) {
-        // FZ::TODO why we are logging and not throwing exception ?
-        @throw [NSException  exceptionWithName:@"Forkize" reason:@"Forkize SDK New user Id is nill or empty" userInfo:nil];
-        return;
-    }
-    
-    if ([oldUserId isEqual:newUserId]) {
-        NSLog(@"Forkize SDK Current and alias user ids are same!");
-        return;
-    }
-    
-   // NSAssert([oldUserId isEqualToString:self.userId], @"Old UserId mismatch with oldUserId in alias function");
-    
-    // FZ::TODO should local storage be aware of such kind of functionality like alias ????
-    
-    
-    //  gnum gtnum enq oldUserName-ov tox@ u aliased dashtum grum enq newUserName
-    FZUser *user = [self.userDAO getUser:oldUserId];
-    user.aliasedName = newUserId;
-    [self.userDAO updateUser:user];
-
-    
-    self.aliasedLevel = 1;
-    self.aliasedUserId = newUserId;
-    
-    NSLog(@"Forkize SDK userId will change");
-}
-
--(void) changeUserId{
-    NSString * userName = [[UserProfile getInstance] getUserId];
-    // FZ::DONE why we need self.currentUser
-    // self.currentUser = newUser;
-    
-   FZUser *user = [self.userDAO getUser:userName];
-    
-    if (user == nil) {
-        user = [self.userDAO addUser:userName];
-    }
-    
-    //   self.eventDAO = [self.daoFactory eventsDAO];
-    // FZ::DONE REMOVE USER
-    //   self.eventDAO.userId = user.userName;
 }
 
 -(void) updateProfile:(NSDictionary *) dict{
@@ -362,57 +447,9 @@ typedef enum{
     return nil;
 }
 
--(void) identify:(NSString *) userId{
-    self.aliasedLevel = 0;
-    NSString *oldId = self.userId;
-    
-    if (userId == nil) {
-        userId = [self generateUserId];
-    }
-    
-    [[NSUserDefaults  standardUserDefaults] setObject:userId forKey:USER_PROFILE_USER_ID];
-    
-    self.userId = userId;
-    
-    [[RestClient getInstance] dropAccessToken];
-    
-    if (self.localStorage != nil) {
-        [self.localStorage flushToDatabase];
-        [self changeUserId];
-        
-        if (![ForkizeHelper isNilOrEmpty:oldId]) {
-            
-            FZUser *user = [[FZUser alloc] init];
-            user.userName = oldId;
-            user.changeLog = [self getChangeLog];
-             // FZ::TODO why user id and not olduser id
-            [self.userInfo setObject:self.aliasedUserId forKey:@"aliasedUserId"];
-            user.userInfo = [ForkizeHelper getJsonString:self.userInfo];
-            [self setUser:user];
-            
-            
-            @try {
-                FZUser *user = [self getUser:self.userId];
 
-                if (![ForkizeHelper isNilOrEmpty:user.changeLog]) {
-                    self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.changeLog]];
-                } else {
-                    self.changeLog = [NSMutableDictionary dictionary];
-                }
-                
-                if (![ForkizeHelper isNilOrEmpty:user.userInfo]) {
-                    self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.userInfo]];
-                    self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
-                } else {
-                    self.userInfo = [NSMutableDictionary dictionary];
-                }
-                
-            }
-            @catch (NSException *exception) {
-                NSLog(@"Forkize SDK User change log is not converted to JSONObject");
-            }
-        }
-    }
+-(BOOL) isChangeLogEmpty{
+    return ([self.changeLog count] == 0);
 }
 
 -(NSString *) getChangeLog {
@@ -423,10 +460,6 @@ typedef enum{
     self.changeLog = [NSMutableDictionary dictionary];
 }
 
--(void) printChangeLog {
-    NSLog(@"Forkize SDK %@", [self getChangeLog]);
-}
-
 // FZ::TODO dont think we need to have such high level interface, error prone
 -(void) flushToDatabase{
     if (self.localStorage != nil) {
@@ -435,7 +468,7 @@ typedef enum{
         user.changeLog = [self getChangeLog];
         user.userInfo = [ForkizeHelper getJsonString:self.userInfo];
         [self.userInfo setObject:self.aliasedUserId forKey:@"aliasedUserId"];
-        [self setUser:user];
+        [self.userDAO updateUser:user];
     }
 }
 
@@ -443,84 +476,25 @@ typedef enum{
     if (self.localStorage != nil) {
         self.userId = [self getUserId];
         
-        FZUser *user = [self getUser:self.userId];
+        FZUser *user = [self.userDAO getUser:self.userId];
         
         if (![ForkizeHelper isNilOrEmpty:user.changeLog]) {
-        self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.changeLog]];
+            self.changeLog = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.changeLog]];
         } else {
             self.changeLog = [NSMutableDictionary dictionary];
         }
         
         if (![ForkizeHelper isNilOrEmpty:user.userInfo]) {
             self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.userInfo]];
-            self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
         } else {
             self.userInfo = [NSMutableDictionary dictionary];
         }
         self.aliasedUserId = [self.userInfo objectForKey:@"aliasedUserId"];
         
-        [self setUser:user];
-    }
-
-}
-
--(NSString *) generateUserId{
-    NSString *userId = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PROFILE_USER_ID];
-    
-    if (userId != nil) {
-        return userId;
+        [self.userDAO updateUser:user];
     }
     
-    NSString *UUID = [NSUUID UUID].UUIDString;
-    return UUID;
 }
-
-
--(NSString*) getUserId{
-    if ([ForkizeHelper isNilOrEmpty:self.userId]) {
-        NSString *userId = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PROFILE_USER_ID];
-        NSLog(@"From default userId %@", userId);
-        if ([ForkizeHelper isNilOrEmpty:userId]) {
-            [self identify:nil];
-        } else {
-            self.userId = userId;
-        }
-    }
-    
-    return self.userId;
-}
-
--(NSDictionary *) getUserInfo {
-    if (self.userInfo == nil) {
-        self.userInfo = [NSMutableDictionary dictionary];
-        
-        if (self.age > 0 && self.age < 150)
-            [self.userInfo setObject:[NSString stringWithFormat:@"%ld", (long)self.age] forKey:@"age"];
-        
-        NSString *gender = [self getGender];
-        if (gender != nil) {
-            [self.userInfo setObject:gender forKey:@"gender"];
-        }
-        
-        [self.userInfo setObject:[self getUserId] forKey:USER_PROFILE_USER_ID];
-    }
-    return self.userInfo;
-}
-
-
--(BOOL) isNewInstall{
-
-    NSString *installTime = [[NSUserDefaults standardUserDefaults] valueForKey:FORKIZE_INSTALL_TIME];
-  
-    if ([ForkizeHelper isNilOrEmpty:installTime]) {
-        installTime = [NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]];
-        [[NSUserDefaults  standardUserDefaults] setObject:installTime forKey:FORKIZE_INSTALL_TIME];
-        return YES;
-    }
-        
-    return NO;
-}
-
 
 -(id) getChangeLogJSON{
     
@@ -553,9 +527,7 @@ typedef enum{
             id keyValuesJSON = [ForkizeHelper getJSON:keyValuesArray];
             [appendJSONDict setObject:keyValuesJSON forKey:key];
         }
-        
-        
-        
+
         id appendJSON = [ForkizeHelper getJSON:appendJSONDict];
         [changeLogJSONDict setObject:appendJSON forKey:FORKIZE_APPEND];
     }
@@ -569,8 +541,6 @@ typedef enum{
             id keyValuesJSON = [ForkizeHelper getJSON:keyValuesArray];
             [prependJSONDict setObject:keyValuesJSON forKey:key];
         }
-        
-        
         
         id prependJSON = [ForkizeHelper getJSON:prependJSONDict];
         [changeLogJSONDict setObject:prependJSON forKey:FORKIZE_PREPEND];

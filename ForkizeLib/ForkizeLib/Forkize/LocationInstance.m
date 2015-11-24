@@ -92,7 +92,7 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_2){
     switch (status) {
         case kCLAuthorizationStatusNotDetermined: {
-            NSLog(@"User still thinking..");
+            NSLog(@"Forkize SDK User still thinking..");
         } break;
         case kCLAuthorizationStatusDenied: {
             NSLog(@"Forkize SDK Location manager authorization denied");

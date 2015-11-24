@@ -13,10 +13,9 @@
 #import "ForkizeHelper.h"
 
 #import "Request.h"
-#import "SessionInstance.h"
 #import "UserProfile.h"
-#import "FZEvent.h"
-#import "FZUser.h"
+#import "FZUser.h" // FZ::TODO remove this , move all stuff to userProfile
+
 
 @interface FzRestOperation : NSOperation
 
@@ -51,36 +50,21 @@
             }
         }
         
-        //aliasedLevel
-        // 0 - unknown
-        //1 - exist
-        // 2 - not exist
+        NSString *aliasedName = [[UserProfile getInstance] getAliasedUserId];
         
-        if ([UserProfile getInstance].aliasedLevel == 0) {
-            FZUser * user = [[UserProfile getInstance] getAliasedUser];//[self.localStorage getAliasedUser:[[UserProfile getInstance] getUserId]];
-            if ([ForkizeHelper isNilOrEmpty:user.aliasedName]) {
-                [UserProfile getInstance].aliasedLevel = 2;
-            } else {
-                [UserProfile getInstance].aliasedLevel = 1;
-            }
-        }
+        if (![ForkizeHelper isNilOrEmpty:aliasedName]) {
+            NSString *userId = [[UserProfile getInstance] getUserId];
         
-        if ([UserProfile getInstance].aliasedLevel == 1) {
-            FZUser *newUser = [[UserProfile getInstance] getAliasedUser];//[self.localStorage getAliasedUser:[[UserProfile getInstance] getUserId]];
+            if ([self.request postAliasWithAliasedUserId:aliasedName andUserId:userId andAccessToken:[RestClient getInstance]. accessToken]) {
             
-            if ([self.request postAliasWithAliasedUserId:newUser.aliasedName andUserId:newUser.userName andAccessToken:[RestClient getInstance]. accessToken]) {
                 [self.localStorage flushToDatabase];
                 [[UserProfile getInstance] exchangeIds];
-                //[self.localStorage exchangeIds:[[UserProfile getInstance] getUserId]];
-                
-                [UserProfile getInstance].aliasedLevel = 2;
             }
         }
         
         NSArray *eventArray = [self.localStorage getEvents:[ForkizeConfig getInstance].MAX_EVENTS_PER_FLUSH];
-        NSInteger lastEventsCount = [eventArray count];
-        
-        if (lastEventsCount == 0) {
+        NSInteger eventCount = [eventArray count];
+        if ( eventCount == 0) {
             return;
         }
         
@@ -98,7 +82,7 @@
         
         NSInteger responseCode = [self.request postWithBody:arrayData andAccessToken:[RestClient getInstance].accessToken];
         if (responseCode == 1) {
-            [self.localStorage removeEventWithCount:[eventArray count]];
+            [self.localStorage removeEventsWithCount:eventCount];
         } else if (responseCode == 2){
             [[RestClient getInstance] dropAccessToken];
         }
@@ -145,7 +129,7 @@
 -(void) flush{
     @try {
         if (self.queue == nil) {
-            NSLog(@"Forkize SDK Trying to schedule a rest client execution while shutdown");
+            @throw [NSException  exceptionWithName:@"Forkize" reason:@"Forkize SDK Trying to schedule a rest client execution while shutdown" userInfo:nil];
         } else {
             [self.queue addOperation:[[FzRestOperation alloc] init]];
         }

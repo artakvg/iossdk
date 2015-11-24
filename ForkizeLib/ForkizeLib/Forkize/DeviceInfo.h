@@ -14,7 +14,7 @@
 
 - (NSDictionary *) getDeviceInfo;
 
--(NSString *) getBatteryLevel;
+- (NSString *) getBatteryLevel;
 
 
 @end

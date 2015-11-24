@@ -46,83 +46,6 @@
     return sharedInstance;
 }
 
-/*
-// FZ::DONE think getUserInfo, setUserInfo should be moved to UserProfile
-
--(FZUser*) getUser:(NSString*) userId{
-    @synchronized(self.eventLock) {
-        @try {
-            return [self.secondaryStorage getUser:userId];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Forkize SDK get user info exception %@", exception);
-        }
-    }
-    
-    return nil;
-}
-// FZ::DONE look at getUserInfo
--(void) setUser:(FZUser*) user{
-    @synchronized(self.eventLock) {
-        @try {
-            return [self.secondaryStorage setUser:user];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Forkize SDK set user info exception %@", exception);
-        }
-    }
-
-}
-// FZ::DONE look at getUserInfo
--(void) changeUserId{
-    @synchronized(self.eventLock) {
-        @try {
-            [self.secondaryStorage changeUserId];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Forkize SDK change user exception %@", exception);
-        }
-        
-    }
-}
-
-// FZ::DONE look at getUserInfo
--(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
-    @synchronized(self.eventLock) {
-        @try {
-            [self.secondaryStorage aliasWithOldUserId:oldUserId andNewUserId:newUserId];
-        }
-        @catch (NSException *exception) {
-             NSLog(@"Forkize SDK alias exception %@", exception);
-        }
-    }
-}
-
-// FZ::DONE look at getUserInfo
--(FZUser*)getAliasedUser:(NSString*) userName{
-    @synchronized(self.eventLock) {
-        @try {
-            return [self.secondaryStorage getAliasedUser:userName];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Forkize SDK getAliasedUser exception %@", exception);
-        }
-    }
-}
-// FZ::DONE look at getUserInfo
--(void) exchangeIds:(NSString*) userName{
-    @synchronized(self.eventLock) {
-        @try {
-            [self.secondaryStorage exchangeIds:userName];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Forkize SDK exchangeIds exception %@", exception);
-        }
-    }
-}
- 
-*/
-
 -(void) addEvent:(FZEvent *) event{
     @synchronized(self.eventLock)
     {
@@ -139,18 +62,18 @@
     @synchronized(self.eventLock)
     {
         @try {
-            return [self.secondaryStorage readWithQuantity:eventCount forUser:[[UserProfile getInstance] getUserId]];
+            return [self.secondaryStorage readWithCount:eventCount forUser:[[UserProfile getInstance] getUserId]];
         } @catch (NSException *e) {
             NSLog(@"Forkize SDK Exception thrown getting events %@", e);
         }
     }
 }
 
--(BOOL) removeEventWithCount:(NSInteger ) count{
+-(BOOL) removeEventsWithCount:(NSInteger ) count{
     @synchronized (self.eventLock)
     {
         @try {
-            return [self.secondaryStorage removeEventWithCount:count];
+            return [self.secondaryStorage removeEventsWithCount:count forUser:[[UserProfile getInstance] getUserId]];
         } @catch (NSException* e) {
             NSLog(@"Forkize SDK Exception thrown removing events %@", e);
         }
@@ -166,16 +89,11 @@
     }
 }
 
--(void) reset {
-    [self.imMemoryStorage reset];
-    if (self.secondaryStorage != nil)
-        [self.secondaryStorage reset];
-}
 
 -(void) close {
-    [self.imMemoryStorage close];
-    if (self.secondaryStorage != nil)
-        [self.secondaryStorage close];
+//    [self.imMemoryStorage close];
+//    if (self.secondaryStorage != nil)
+//        [self.secondaryStorage close];
 }
 
 

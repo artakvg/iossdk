@@ -12,11 +12,11 @@
 
 -(BOOL) writeArray:(NSArray *) arrayData;
 
--(NSArray *) readWithQuantity:(NSInteger) quantity forUser:(NSString *) userId;
+-(NSArray *) readWithCount:(NSInteger) count forUser:(NSString *) userId;
 
--(BOOL) removeEventWithCount:(NSInteger ) count;
+-(BOOL) removeEventsWithCount:(NSInteger ) count forUser:(NSString *) userId;
 
--(void) reset;
--(void) close;
+//-(void) reset;
+//-(void) close;
 
 @end

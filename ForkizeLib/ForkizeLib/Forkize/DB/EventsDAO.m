@@ -45,7 +45,7 @@ static NSString *const  kDeleteEventsSQL = @""
 //FZ::TODO modify for correct working ARTAK
 
 static NSString *const  kDeleteEventsCountSQL = @""
-"delete from Events order by Id asc limit %ld";
+"delete from Events where Id=:id order by Id asc limit %ld";
 
 @interface EventsDAO()
 
@@ -74,10 +74,10 @@ static NSString *const  kDeleteEventsCountSQL = @""
     return event;
 }
 
-- (NSArray *) loadEventsWithQuantity:(NSInteger) quantity forUser:(NSString *) userId{
+- (NSArray *) loadEventsWithCount:(NSInteger ) count forUser:(NSString *) userId{
 
     __block NSMutableArray *eventValues = [NSMutableArray array];
-    SQLiteStatement *statement = [self.database statementWithSQLString:[NSString stringWithFormat:kSelectEventByCountWithUserSQL, (long)quantity]];
+    SQLiteStatement *statement = [self.database statementWithSQLString:[NSString stringWithFormat:kSelectEventByCountWithUserSQL, (long)count]];
     
     [statement setString:userId forParam:kUserNameParamName];
     
@@ -159,8 +159,10 @@ static NSString *const  kDeleteEventsCountSQL = @""
     return [deleteStat executeUpdate];
 }
 
--(BOOL) removeEventWithCount:(NSInteger ) count{
+-(BOOL) removeEventsWithCount:(NSInteger ) count forUser:(NSString *) userId;{
     SQLiteStatement *deleteStat = [self.database statementWithSQLString:[NSString stringWithFormat:kDeleteEventsCountSQL, (long)count]];
+    
+    [deleteStat setString:userId forParam:kUserNameParamName];
     
     return [deleteStat executeUpdate];
 

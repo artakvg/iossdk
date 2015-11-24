@@ -28,75 +28,25 @@
     return self;
 }
 
-/*
-// FZ::DONE why we need that
--(FZUser*) getUser:(NSString*) userId{
-    return nil;
-}
-
-// FZ::DONE why we need that
--(void) setUser:(FZUser*) user{
-
-}
- */
-
-
 -(BOOL) write:(FZEvent *) data{
     if ([self.events count] < self.eventMaxCount) {
         [self.events addObject:data];
-        return TRUE;
+        return YES;
     }
     
-    return FALSE;
+    return NO;
 }
 
-/*
--(BOOL) writeArray:(NSArray *) arrayData{
-    for (FZEvent * event in arrayData) {
-        if (![self write:event]) {
-            return FALSE;
-        }
-    }
-    return TRUE;
-}
- */
 -(NSArray *) read{
-    return [self.events subarrayWithRange:NSMakeRange(0, MIN([self.events count], self.eventMaxCount))];
+    if ([self.events count] < self.eventMaxCount) {
+        return self.events;
+    } else {
+        return [self.events subarrayWithRange:NSMakeRange(0, self.eventMaxCount)];
+    }
 }
-/*
--(NSArray *) readWithQuantity:(NSInteger) quantity forUser:(NSString *) userId{
-    NSInteger len = MIN([self.events count], quantity);
-    
-    return [self.events subarrayWithRange:NSMakeRange(0, len)];
-}*/
 
 -(void) flush{
-    [self reset];
-}
-/*
--(BOOL) removeEvents:(NSArray *) events{
-    [self.events removeObjectsInArray:events];
-    return YES;
-}*/
-
--(void) reset{
     [self.events removeAllObjects];
 }
 
--(void) close{
-}
-/*
--(void) changeUserId{
-}
-
--(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
-}
-
--(FZUser*)getAliasedUser:(NSString*) userName{
-    return nil;
-}
-
--(void) exchangeIds:(NSString*) userName{
-}
-*/
 @end
