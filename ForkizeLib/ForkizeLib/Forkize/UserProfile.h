@@ -43,11 +43,12 @@
 -(void) setValue:(id)value forKey:(NSString *)key;
 -(void) unsetForKey:(NSString *)key;
 -(void) incrementValueForKey:(NSString*) key byValue:(NSString *) value;
+-(void) appendForKey:(NSString*) key andValue:(id) value;
+-(void) prependForKey:(NSString*) key andValue:(id) value;
 
 // FZ::TODO // Why it is TODO ????
 -(void) incrementByDictonary:(NSDictionary *)dict;
--(void) appendForKey:(NSString*) key andValue:(id) value;
--(void) prependForKey:(NSString*) key andValue:(id) value;
+
 
 
 -(void) setAge:(NSInteger ) age;

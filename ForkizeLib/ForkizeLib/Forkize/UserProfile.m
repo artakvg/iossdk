@@ -283,6 +283,19 @@ typedef enum{
         [unsetArray removeObject:key];
         [self.changeLog setValue:unsetArray forKey:FORKIZE_UNSET];
         
+        NSMutableDictionary *incrementDict = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_INCREMENT] ];
+        [incrementDict removeObjectForKey:key];
+        [self.changeLog setValue:incrementDict forKey:FORKIZE_INCREMENT];
+        
+        NSMutableDictionary *appendDictonary = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_APPEND]];
+        [appendDictonary removeObjectForKey:key];
+        [self.changeLog setValue:appendDictonary forKey:FORKIZE_APPEND];
+        
+        
+        NSMutableDictionary *prependDictonary = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_PREPEND]];
+        [prependDictonary removeObjectForKey:key];
+        [self.changeLog setValue:prependDictonary forKey:FORKIZE_PREPEND];
+        
         [self.userInfo setValue:value forKey:key];
     }
  }
