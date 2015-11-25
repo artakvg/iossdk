@@ -10,16 +10,17 @@
 
 @protocol IForkize <NSObject>
 
-
 -(void) authorize:(NSString *)appId andAppKey:(NSString *)appKey;
 
--(id<IForkize>) identify:(NSString *) userId;
+-(void) identify:(NSString *) userId;
 
--(void) trackEvent:(NSString*) eventName  withValue:(NSInteger)eventValue  andParams:(NSDictionary*) parameters;
+-(void) alias:(NSString*) userId;
+
+-(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters;
 
 -(void) purchaseWithProductId:(NSString* ) productId  andCurrency:(NSString*) currency andPrice:(double) price andQuantity: (NSInteger) quantity;
 
--(void) eventDurationWithName:(NSString*) eventName;
+-(void) eventDuration:(NSString*) eventName;
 
 -(void) setSuperProperties:(NSDictionary *) properties;
 
@@ -29,15 +30,22 @@
 
 -(void) sessionEnd;
 
--(void)  onPause;
+-(void)  pause;
 
--(void)  onResume;
+-(void)  resume;
 
--(void)  onDestroy;
+-(void)  destroy;
 
 -(void)  onLowMemory;
 
 -(void)  onTerminate;
+
+-(void) advanceState:(NSString *) state;
+
+-(void) resetState:(NSString *) state;
+
+-(void) pauseState:(NSString *) state;
+
 
 @end
 

@@ -20,7 +20,7 @@
 -(void) queueSessionEnd;
 -(void) eventDuration:(NSString*) eventName;
 
--(void) queueEventWithName:(NSString*) eventName andValue:(NSInteger) value andParams:(NSDictionary *)params;
+-(void) queueEventWithName:(NSString*) eventName andParams:(NSDictionary *)params;
 -(void) queueAliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
 
 -(void) queueNewInstall;

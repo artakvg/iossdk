@@ -19,6 +19,8 @@
 #import "FZUserDAO.h"
 #import "EventsDAO.h"
 
+#import "SessionInstance.h"
+
 
 NSString *const USER_PROFILE_USER_ID = @"Forkize.UserProfile.userId";
 NSString *const FORKIZE_INSTALL_TIME = @"Forkize.Install.Time";
@@ -206,15 +208,18 @@ typedef enum{
     }
 }
 
--(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
+-(void) alias:(NSString*) userId{
+//-(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
     
-    if ([ForkizeHelper isNilOrEmpty:newUserId]) {
+    NSString *oldUserId = [self getUserId];
+    
+    if ([ForkizeHelper isNilOrEmpty:userId]) {
         // FZ::TODO why we are logging and not throwing exception ?
         @throw [NSException  exceptionWithName:@"Forkize" reason:@"Forkize SDK New user Id is nill or empty" userInfo:nil];
         return;
     }
     
-    if ([oldUserId isEqual:newUserId]) {
+    if ([oldUserId isEqual:userId]) {
         NSLog(@"Forkize SDK Current and alias user ids are same!");
         return;
     }
@@ -224,10 +229,10 @@ typedef enum{
     // FZ::TODO should local storage be aware of such kind of functionality like alias ????
     
     //  gnum gtnum enq oldUserName-ov tox@ u aliased dashtum grum enq newUserName
-    self.aliasedUserId = newUserId;
+    self.aliasedUserId = userId;
     
     FZUser *user = [self.userDAO getUser:oldUserId];
-    user.aliasedName = newUserId;
+    user.aliasedName = userId;
     [self.userDAO updateUser:user];
     
     NSLog(@"Forkize SDK userId will change");
@@ -472,6 +477,30 @@ typedef enum{
 -(void) dropChangeLog {
     self.changeLog = [NSMutableDictionary dictionary];
 }
+
+
+- (void) start{
+    [[SessionInstance getInstance] start];
+    [self restoreFromDatabase];
+}
+
+- (void) end{
+    [[SessionInstance getInstance] start];
+    [self flushToDatabase];
+}
+
+- (void) pause{
+    [[SessionInstance getInstance] pause];
+    [self flushToDatabase];
+    
+}
+
+- (void) resume{
+    [[SessionInstance getInstance] resume];
+    [self restoreFromDatabase];
+    
+}
+
 
 // FZ::TODO dont think we need to have such high level interface, error prone
 -(void) flushToDatabase{

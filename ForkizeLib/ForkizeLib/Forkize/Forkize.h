@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "IForkize.h"
 
+
 @interface Forkize : NSObject<IForkize>
+
++(id<IForkize>) getInstance;
 
 @end

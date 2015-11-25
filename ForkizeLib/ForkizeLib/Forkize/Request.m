@@ -20,7 +20,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 #define  URL_AUTH_PATH [NSString stringWithFormat:@"%@/%@/people/identify", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION] 
 #define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/%@/people/alias", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
 
-#define URL_UPDATE_PATH  [NSString stringWithFormat:@"%@/%@/profile/update", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
+#define URL_UPDATE_PATH  [NSString stringWithFormat:@"%@/%@/profile/change", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
 
 @implementation Request
 
@@ -80,7 +80,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     //Get the Result of Request
     NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
     NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
 
     return jsonDict;
 }

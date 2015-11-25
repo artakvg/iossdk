@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Forkize.h"
+#import "ForkizeFull.h"
 #import "ForkizeEmpty.h"
 
 @implementation ForkizeInstance
@@ -21,7 +21,7 @@
     dispatch_once(&onceToken, ^{
         NSInteger version = [[UIDevice currentDevice].systemVersion floatValue];
         if (version >= 8.0) {
-            sharedInstance = [[Forkize alloc] init];
+            sharedInstance = [[ForkizeFull alloc] init];
         } else {
             sharedInstance = [[ForkizeEmpty alloc] init];
         }

@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "ForkizeHelper.h"
 #import "DAOFactory.h"
-#import "ForkizeInstance.h"
+#import "Forkize.h"
 #import "UserProfile.h"
 
 @interface ViewController ()
@@ -68,12 +68,12 @@
 }
 
 -(void) generateAction:(UIButton *) button{
-    ForkizeInstance *instance = [ForkizeInstance getInstance];
-    [instance trackEvent:@"gnum" withValue:12 andParams:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]] forKey:@"stamp"]];
+    Forkize *instance = [Forkize getInstance];
+    [instance trackEvent:@"gnum" withParams:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]] forKey:@"stamp"]];
 }
 
 -(void) changeAction:(UIButton *) button{
-    [[UserProfile getInstance] aliasWithOldUserId:[[UserProfile getInstance] getUserId] andNewUserId:userTextField_.text];
+    [[UserProfile getInstance] alias:userTextField_.text];
 }
 
 -(void) incrementAction:(UIButton *) button{

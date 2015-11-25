@@ -7,8 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import "ForkizeInstance.h"
+#import "Forkize.h"
 #import "UserProfile.h"
+
+
+#define fzAppId  @"c25e58888417515c6371ee4a"
+#define fzAppKey @"e84dfc6676fab30b4d764d84"
+
 
 @interface AppDelegate ()
 
@@ -20,8 +25,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    ForkizeInstance *instance = [ForkizeInstance getInstance];
-    [instance authorize:@"06dcddf476d65c12eeb35731" andAppKey:@"a18252f6f7999c8b48602adb"];
+    Forkize *instance = [Forkize getInstance];
+                          
+    [instance authorize:fzAppId andAppKey:fzAppKey];
     
     [instance identify:nil];
     
@@ -51,7 +57,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     
-    ForkizeInstance *instance = [ForkizeInstance getInstance];
+    Forkize *instance = [Forkize getInstance];
     [instance onTerminate];
 }
 

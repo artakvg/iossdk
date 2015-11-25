@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CE63E5561BBBEFFF00A4DD79 /* ForkizeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */; };
-		CED053F11BA59E4900842D52 /* ForkizeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = CED053F01BA59E4900842D52 /* ForkizeInstance.m */; };
 		CED054611BA6C5F600842D52 /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054601BA6C5F600842D52 /* FZUserDAO.m */; };
 		CED054641BA6CC6E00842D52 /* FZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054631BA6CC6E00842D52 /* FZUser.m */; };
 		CED054661BA6F64100842D52 /* projects.db in Resources */ = {isa = PBXBuildFile; fileRef = CED054651BA6F64100842D52 /* projects.db */; };
@@ -27,7 +26,6 @@
 		CED9A9FB1BA00BE900B54B94 /* ForkizeConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9FA1BA00BE900B54B94 /* ForkizeConfig.m */; };
 		CED9A9FE1BA01B0500B54B94 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9FD1BA01B0500B54B94 /* DeviceInfo.m */; };
 		CED9AA011BA0378E00B54B94 /* ForkizeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA001BA0378E00B54B94 /* ForkizeHelper.m */; };
-		CED9AA061BA0486100B54B94 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA051BA0486100B54B94 /* Forkize.m */; };
 		CED9AA0C1BA050B000B54B94 /* SessionInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA0B1BA050B000B54B94 /* SessionInstance.m */; };
 		CED9AA151BA057E200B54B94 /* ForkizeEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */; };
 		CED9AA191BA077B100B54B94 /* LocalStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA181BA077B100B54B94 /* LocalStorageManager.m */; };
@@ -41,6 +39,8 @@
 		CED9AA341BA3209500B54B94 /* DAOFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA331BA3209500B54B94 /* DAOFactory.m */; };
 		CED9AA371BA320E100B54B94 /* EventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA361BA320E100B54B94 /* EventsDAO.m */; };
 		CEE375D01BAC1B0600E438B2 /* projects-db-structure.sql in Resources */ = {isa = PBXBuildFile; fileRef = CEE375CF1BAC1B0600E438B2 /* projects-db-structure.sql */; };
+		F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3F91C0618D600D4FF77 /* ForkizeFull.m */; settings = {ASSET_TAGS = (); }; };
+		F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3FC1C06197800D4FF77 /* Forkize.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,8 +56,6 @@
 /* Begin PBXFileReference section */
 		CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeMessage.h; path = Forkize/ForkizeMessage.h; sourceTree = "<group>"; };
 		CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeMessage.m; path = Forkize/ForkizeMessage.m; sourceTree = "<group>"; };
-		CED053EF1BA59E4900842D52 /* ForkizeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeInstance.h; path = Forkize/ForkizeInstance.h; sourceTree = "<group>"; };
-		CED053F01BA59E4900842D52 /* ForkizeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeInstance.m; path = Forkize/ForkizeInstance.m; sourceTree = "<group>"; };
 		CED0545F1BA6C5F600842D52 /* FZUserDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUserDAO.h; path = Forkize/DB/FZUserDAO.h; sourceTree = "<group>"; };
 		CED054601BA6C5F600842D52 /* FZUserDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUserDAO.m; path = Forkize/DB/FZUserDAO.m; sourceTree = "<group>"; };
 		CED054621BA6CC6E00842D52 /* FZUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUser.h; path = Forkize/DB/FZUser.h; sourceTree = "<group>"; };
@@ -93,8 +91,6 @@
 		CED9A9FF1BA0378E00B54B94 /* ForkizeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeHelper.h; path = Forkize/ForkizeHelper.h; sourceTree = "<group>"; };
 		CED9AA001BA0378E00B54B94 /* ForkizeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeHelper.m; path = Forkize/ForkizeHelper.m; sourceTree = "<group>"; };
 		CED9AA031BA039E400B54B94 /* IForkize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IForkize.h; sourceTree = "<group>"; };
-		CED9AA041BA0486100B54B94 /* Forkize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Forkize.h; path = Forkize/Forkize.h; sourceTree = "<group>"; };
-		CED9AA051BA0486100B54B94 /* Forkize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Forkize.m; path = Forkize/Forkize.m; sourceTree = "<group>"; };
 		CED9AA071BA0508100B54B94 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfile.h; path = Forkize/UserProfile.h; sourceTree = "<group>"; };
 		CED9AA081BA0508100B54B94 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfile.m; path = Forkize/UserProfile.m; sourceTree = "<group>"; };
 		CED9AA0A1BA050B000B54B94 /* SessionInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionInstance.h; path = Forkize/SessionInstance.h; sourceTree = "<group>"; };
@@ -121,6 +117,10 @@
 		CED9AA351BA320E100B54B94 /* EventsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsDAO.h; path = Forkize/DB/EventsDAO.h; sourceTree = "<group>"; };
 		CED9AA361BA320E100B54B94 /* EventsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsDAO.m; path = Forkize/DB/EventsDAO.m; sourceTree = "<group>"; };
 		CEE375CF1BAC1B0600E438B2 /* projects-db-structure.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "projects-db-structure.sql"; path = "Forkize/DB/projects-db-structure.sql"; sourceTree = "<group>"; };
+		F820E3F81C0618D600D4FF77 /* ForkizeFull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeFull.h; path = Forkize/ForkizeFull.h; sourceTree = "<group>"; };
+		F820E3F91C0618D600D4FF77 /* ForkizeFull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeFull.m; path = Forkize/ForkizeFull.m; sourceTree = "<group>"; };
+		F820E3FB1C06197800D4FF77 /* Forkize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Forkize.h; path = Forkize/Forkize.h; sourceTree = "<group>"; };
+		F820E3FC1C06197800D4FF77 /* Forkize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Forkize.m; path = Forkize/Forkize.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,10 +222,12 @@
 				CED9AA1F1BA2C7DA00B54B94 /* DB */,
 				CED9AA161BA0778800B54B94 /* LocalStorage */,
 				CED9AA031BA039E400B54B94 /* IForkize.h */,
-				CED9AA041BA0486100B54B94 /* Forkize.h */,
-				CED9AA051BA0486100B54B94 /* Forkize.m */,
+				F820E3FB1C06197800D4FF77 /* Forkize.h */,
+				F820E3FC1C06197800D4FF77 /* Forkize.m */,
 				CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */,
 				CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */,
+				F820E3F81C0618D600D4FF77 /* ForkizeFull.h */,
+				F820E3F91C0618D600D4FF77 /* ForkizeFull.m */,
 				CED9A9F91BA00BE900B54B94 /* ForkizeConfig.h */,
 				CED9A9FA1BA00BE900B54B94 /* ForkizeConfig.m */,
 				CED9A9FC1BA01B0500B54B94 /* DeviceInfo.h */,
@@ -238,8 +240,6 @@
 				CED9AA0B1BA050B000B54B94 /* SessionInstance.m */,
 				CED9AA0D1BA050DE00B54B94 /* ForkizeEventManager.h */,
 				CED9AA0E1BA050DE00B54B94 /* ForkizeEventManager.m */,
-				CED053EF1BA59E4900842D52 /* ForkizeInstance.h */,
-				CED053F01BA59E4900842D52 /* ForkizeInstance.m */,
 				CED0546E1BA7FDEC00842D52 /* LocationInstance.h */,
 				CED0546F1BA7FDEC00842D52 /* LocationInstance.m */,
 				CED054751BA9C03200842D52 /* Request.h */,
@@ -408,13 +408,13 @@
 				CED9A9FB1BA00BE900B54B94 /* ForkizeConfig.m in Sources */,
 				CED054611BA6C5F600842D52 /* FZUserDAO.m in Sources */,
 				CED054771BA9C03200842D52 /* Request.m in Sources */,
-				CED053F11BA59E4900842D52 /* ForkizeInstance.m in Sources */,
-				CED9AA061BA0486100B54B94 /* Forkize.m in Sources */,
+				F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */,
 				CED9AA0C1BA050B000B54B94 /* SessionInstance.m in Sources */,
 				CED9AA271BA2C7F500B54B94 /* SQLiteHelper.m in Sources */,
 				CED9AA151BA057E200B54B94 /* ForkizeEmpty.m in Sources */,
 				CED9AA191BA077B100B54B94 /* LocalStorageManager.m in Sources */,
 				CED9A9D51BA00B9500B54B94 /* main.m in Sources */,
+				F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */,
 				CED054691BA6FE1C00842D52 /* FZEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,23 +33,29 @@
 
 -(void) identify:(NSString *) userId;
 
--(void) aliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
+-(void) alias:(NSString*) userId;
 
 -(void) exchangeIds;
 
--(void) updateProfile:(NSDictionary *) dict;
--(void) setProfile:(NSDictionary *) dict;
+//-(void) updateProfile:(NSDictionary *) dict;
+//-(void) setProfile:(NSDictionary *) dict;
 
 -(void) setValue:(id)value forKey:(NSString *)key;
+-(void) setOnceValue:(id)value forKey:(NSString *)key;
+-(void) setBatch:(NSDictionary *) dict;
+
 -(void) unsetForKey:(NSString *)key;
--(void) incrementValueForKey:(NSString*) key byValue:(NSString *) value;
+-(void) unsetBatch:(NSArray *) array;
+
+//-(void) incrementValueForKey:(NSString*) key byValue:(NSString *) value;
+
+-(void) incrementValue:(NSString *)value  forKey:(NSString*) key;
 -(void) appendForKey:(NSString*) key andValue:(id) value;
 -(void) prependForKey:(NSString*) key andValue:(id) value;
 
-// FZ::TODO // Why it is TODO ????
--(void) incrementByDictonary:(NSDictionary *)dict;
+-(void) incrementBatch:(NSDictionary *)dict;
 
-
+-(void) syncProfile; // profile version
 
 -(void) setAge:(NSInteger ) age;
 -(NSInteger) getAge;
@@ -62,7 +68,10 @@
 -(id) getChangeLogJSON;
 -(void) dropChangeLog;
 
--(void) flushToDatabase;
--(void) restoreFromDatabase;
+- (void) start;
+- (void) end;
+- (void) pause;
+- (void) resume;
+
 
 @end

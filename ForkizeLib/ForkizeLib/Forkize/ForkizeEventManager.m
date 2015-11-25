@@ -21,12 +21,13 @@
 
 
 
-NSString *const EVENT_TYPE = @"$event";
-NSString *const EVENT_VALUE = @"$value";
+NSString *const EVENT_NAME = @"evn";
+NSString *const EVENT_DATA = @"evd";
+
 NSString *const EVENT_DURATION = @"$event_duration";
 NSString *const BATTERY_LEVEL = @"$battery_level";
 
-NSString *const EVENT_TIME = @"Forkize.event.time";
+NSString *const EVENT_TIME = @"$utc_time";
 NSString *const PARAMS = @"Forkize.event.params";
 NSString *const SESSION_START = @"Forkize.session.start";
 NSString *const SESSION_END = @"Forkize.session.end";
@@ -38,9 +39,9 @@ NSString *const USER_ID = @"Forkize.userId";
 NSString *const APP_ID = @"Forkize.appId";
 // FZ::DONE remove SESSION_TOKEN
 //NSString *const SESSION_TOKEN = @"Forkize.session.token";
-NSString *const LATITUDE = @"Forkize.latitude";
-NSString *const LONGITUDE = @"Forkize.longitude";
-NSString *const CONNECTION_TYPE = @"Forkize.connection.type";
+NSString *const LATITUDE = @"$latitude";
+NSString *const LONGITUDE = @"$longitude";
+NSString *const CONNECTION_TYPE = @"$connection";
 NSString *const OLD_USER = @"Forkize.userId.old";
 NSString *const NEW_USER = @"Forkize.userId.new";
 
@@ -170,12 +171,12 @@ NSString *const NEW_USER = @"Forkize.userId.new";
                              oldUserId, OLD_USER,
                              newUserId, NEW_USER,
                              nil];
-    [self queueEventWithName:@"alias" andValue:0 andParams:params];
+    [self queueEventWithName:@"alias" andParams:params];
     NSLog(@"Forkize SDK queueAlias has been ended job");
 }
 
 -(void) queueSessionStart {
-    [self queueEventWithName:SESSION_START andValue:1 andParams:nil];
+    [self queueEventWithName:SESSION_START andParams:nil];
 }
 
 // FZ::DONE , think session time should be retrieved from session instance
@@ -183,25 +184,25 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     
     NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [[SessionInstance getInstance] getSessionLength]] forKey:SESSION_LENGTH];
     
-    [self queueEventWithName:SESSION_END andValue:1 andParams:params];
+    [self queueEventWithName:SESSION_END andParams:params];
 }
 
 -(void) queueNewInstall {
-    [self queueEventWithName:APP_INSTALL andValue:1 andParams:nil];
+    [self queueEventWithName:APP_INSTALL andParams:nil];
 }
 
 -(void) queueDeviceInfo{
-    [self queueEventWithName:DEVICE_INFO andValue:1 andParams:[[DeviceInfo getInstance] getDeviceInfo]];
+    [self queueEventWithName:DEVICE_INFO andParams:[[DeviceInfo getInstance] getDeviceInfo]];
 }
 
 -(void) queueUserInfo {
-    [self queueEventWithName:USER_INFO andValue:1 andParams:[[UserProfile getInstance] getUserInfo]];
+    [self queueEventWithName:USER_INFO andParams:[[UserProfile getInstance] getUserInfo]];
 }
 
 
--(void) queueEventWithName:(NSString*) eventName andValue:(NSInteger) eventValue andParams:(NSDictionary *)params{
+-(void) queueEventWithName:(NSString*) eventName andParams:(NSDictionary *)params{
     @try {
-        NSString *eventString = [self eventAsJSON:eventName andValue:eventValue andParameters:params];
+        NSString *eventString = [self eventAsJSON:eventName andParameters:params];
         [self.queue addOperation:[[FzEventOperation alloc] initWithEventJSON:eventString]];
     }
     @catch (NSException *exception) {
@@ -210,24 +211,22 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 }
 
 
--(NSString*) eventAsJSON:(NSString*) event  andValue:(NSInteger) eventValue andParameters:(NSDictionary *) parameters //throws JSONException
+-(NSString*) eventAsJSON:(NSString*) event andParameters:(NSDictionary *) parameters //throws JSONException
 {
     NSTimeInterval timeInterval = [ForkizeHelper getTimeIntervalSince1970];
     
-    NSMutableDictionary * jsonDict = [NSMutableDictionary dictionary];
-    [jsonDict setObject:[[DeviceInfo getInstance] getBatteryLevel] forKey:BATTERY_LEVEL];
+    NSMutableDictionary * jsonEVDDict = [NSMutableDictionary dictionary];
+    [jsonEVDDict setObject:[[DeviceInfo getInstance] getBatteryLevel] forKey:BATTERY_LEVEL];
     
-    [jsonDict setObject:event forKey:EVENT_TYPE];
-    [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long) eventValue] forKey:EVENT_VALUE];
     
-    [jsonDict setObject:[[UserProfile getInstance] getUserId] forKey:USER_ID];
-    [jsonDict setObject:[ForkizeConfig getInstance].appId  forKey:APP_ID];
-    [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval]  forKey:EVENT_TIME];
+   // [jsonDict setObject:[[UserProfile getInstance] getUserId] forKey:USER_ID];
+   // [jsonDict setObject:[ForkizeConfig getInstance].appId  forKey:APP_ID];
+    [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval]  forKey:EVENT_TIME];
     
     if (self.scheduledEvents != nil){
         NSInteger time = [[self.scheduledEvents valueForKey:event] integerValue];
         if (time != 0) {
-            [jsonDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval - time] forKey:EVENT_DURATION];
+            [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval - time] forKey:EVENT_DURATION];
             [self.scheduledEvents removeObjectForKey:event];
         }
     }
@@ -236,8 +235,8 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     self.longitude = [[LocationInstance getInstance] longitude];
     
     if (self.latitude != 0 && self.longitude != 0) {
-        [jsonDict setObject:[NSString stringWithFormat:@"%f", self.longitude] forKey:LONGITUDE];
-        [jsonDict setObject:[NSString stringWithFormat:@"%f", self.latitude] forKey:LATITUDE];
+        [jsonEVDDict setObject:[NSString stringWithFormat:@"%f", self.longitude] forKey:LONGITUDE];
+        [jsonEVDDict setObject:[NSString stringWithFormat:@"%f", self.latitude] forKey:LATITUDE];
     }
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
@@ -263,30 +262,35 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     }
     
     if (![type isEqualToString:@"ncon"])
-         [jsonDict setObject:type forKey:CONNECTION_TYPE];
+         [jsonEVDDict setObject:type forKey:CONNECTION_TYPE];
     
     if (parameters != nil && [parameters count] > 0) {
      
-        
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:&error];
-//        NSError *parseError = nil;
-//        id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-//
-        NSMutableString *paramsString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        if (!error) {
-            [jsonDict setObject:paramsString forKey:PARAMS];
+        for (NSString *key in parameters) {
+            [jsonEVDDict setObject:[parameters objectForKey:key] forKey:key];
         }
+        
+//        NSError *error;
+//        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:&error];
+////        NSError *parseError = nil;
+////        id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
+////
+//        NSMutableString *paramsString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//        
+//        if (!error) {
+//            [jsonEVDDict setObject:paramsString forKey:PARAMS];
+//        }
     }
     
     for (NSString *key in [self.superPropertiesInternal allKeys]) {
-        [jsonDict setObject:[self.superPropertiesInternal objectForKey:key]  forKey:key];
+        [jsonEVDDict setObject:[self.superPropertiesInternal objectForKey:key]  forKey:key];
     }
     
     for (NSString *key in [self.superPropertiesOnceInternal allKeys]) {
-        [jsonDict setObject:[self.superPropertiesOnceInternal objectForKey:key]  forKey:key];
+        [jsonEVDDict setObject:[self.superPropertiesOnceInternal objectForKey:key]  forKey:key];
     }
+    
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjectsAndKeys:jsonEVDDict, EVENT_DATA, event, EVENT_NAME, nil];
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONWritingPrettyPrinted error:&error];

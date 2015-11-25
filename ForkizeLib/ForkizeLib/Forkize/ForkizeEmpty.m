@@ -14,7 +14,7 @@
 
 }
 
--(void) trackEvent:(NSString*) eventName  withValue:(NSInteger)eventValue  andParams:(NSDictionary*) parameters{
+-(void) trackEvent:(NSString*) eventName andParams:(NSDictionary*) parameters{
 }
 
 -(void) purchaseWithProductId:(NSString* ) productId  andCurrency:(NSString*) currency andPrice:(double) price andQuantity: (NSInteger) quantity{
@@ -41,8 +41,12 @@
 
 }
 
--(id<IForkize>) identify:(NSString *) userId{
-    return nil;
+-(void) identify:(NSString *) userId{
+
+}
+
+-(void) alias:(NSString*) userId{
+
 }
 
 -(void)  onPause{

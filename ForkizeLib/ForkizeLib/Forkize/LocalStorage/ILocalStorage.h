@@ -11,8 +11,6 @@
 
 @protocol ILocalStorage <NSObject>
 
-
-
 -(FZUser*) getUser:(NSString*) userId;
 -(void) setUser:(FZUser*) user;
 

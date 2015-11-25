@@ -45,10 +45,10 @@ static NSString *const  kDeleteEventsSQL = @""
 //FZ::TODO modify for correct working ARTAK
 
 static NSString *const  kDeleteEventsCountSQL = @""
-"delete from Events where Id=:id order by Id asc limit %ld";
+"delete from Events where Id in (select Id from Events where UserName=:userName order by Id asc limit %ld)";
 
 @interface EventsDAO()
-
+//UserName=:userName order by Id asc limit %ld
 @property (nonatomic, strong) SQLiteDatabase *database;
 
 @end
