@@ -305,6 +305,21 @@ typedef enum{
     }
  }
 
+-(void) setOnceValue:(id)value forKey:(NSString *)key{
+    if ([ForkizeHelper isKeyValid:key]) {
+        if (![self.userInfo objectForKey:key]) {
+            [self setValue:value forKey:key];
+        }
+    }
+}
+
+-(void) setBatch:(NSDictionary *) dict{
+    for (NSString *key in [dict allKeys]){
+        [self setValue:[dict objectForKey:key] forKey:key];
+    }
+}
+
+
 -(void) unsetForKey:(NSString *)key{
     // FZ::TODO why we are not removing prev inc and prepend operations ???
     if ([ForkizeHelper isKeyValid:key]) {
@@ -340,8 +355,14 @@ typedef enum{
     }
 }
 
+-(void) unsetBatch:(NSArray *) array{
+    for (NSString *key in array) {
+        [self unsetForKey:key];
+    }
+}
 
--(void) incrementValueForKey:(NSString*) key byValue:(NSString *) value {
+
+-(void) incrementValue:(NSString *)value  forKey:(NSString*) key {
     if ([ForkizeHelper isKeyValid:key]) {
         NSMutableDictionary *incrementDict = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_INCREMENT] ];
         
@@ -363,12 +384,12 @@ typedef enum{
     }
 }
 
--(void) incrementByDictonary:(NSDictionary *)dict{
+-(void) incrementBatch:(NSDictionary *)dict{
     NSArray *allKeys = [dict allKeys];
     
     for (NSString *key in allKeys){
         if ([ForkizeHelper isKeyValid:key]) {
-            [self incrementValueForKey:key byValue:[dict objectForKey:key]];
+            [self incrementValue:[dict objectForKey:key] forKey:key];
         }
     }
 }

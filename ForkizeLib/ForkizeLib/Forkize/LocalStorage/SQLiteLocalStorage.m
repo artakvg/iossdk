@@ -18,7 +18,6 @@
 
 @property (nonatomic, strong) EventsDAO *eventDAO;
 @property (nonatomic, strong) DAOFactory *daoFactory;
-//@property (nonatomic, strong) FZUser *currentUser;
 
 @end
 

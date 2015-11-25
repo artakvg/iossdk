@@ -113,7 +113,7 @@
     [self.userProfile alias:userId];
 }
 
--(void) trackEvent:(NSString*) eventName andParams:(NSDictionary*) parameters{
+-(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters{
     [self.eventManager queueEventWithName:eventName andParams:parameters];
 }
 
@@ -137,7 +137,7 @@
     [self.userProfile end];
 }
 
--(void) eventDurationWithName:(NSString *)eventName{
+-(void) eventDuration:(NSString *)eventName{
     [self.eventManager eventDuration:eventName];
 }
 
@@ -149,7 +149,7 @@
     [self.eventManager setSuperPropertiesOnce:properties];
 }
 
--(void)  onPause{
+-(void)  pause{
     @try {
         [self.localStorage flushToDatabase];
         
@@ -162,7 +162,7 @@
     }
 }
 
--(void)  onResume{
+-(void)  resume{
     @try {
         
         [self.userProfile resume];
@@ -172,7 +172,7 @@
     }
 }
 
--(void)  onDestroy{
+-(void)  destroy{
     @try {
         
         if (!self.destroyed) {

@@ -39,8 +39,8 @@
 		CED9AA341BA3209500B54B94 /* DAOFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA331BA3209500B54B94 /* DAOFactory.m */; };
 		CED9AA371BA320E100B54B94 /* EventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA361BA320E100B54B94 /* EventsDAO.m */; };
 		CEE375D01BAC1B0600E438B2 /* projects-db-structure.sql in Resources */ = {isa = PBXBuildFile; fileRef = CEE375CF1BAC1B0600E438B2 /* projects-db-structure.sql */; };
-		F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3F91C0618D600D4FF77 /* ForkizeFull.m */; settings = {ASSET_TAGS = (); }; };
-		F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3FC1C06197800D4FF77 /* Forkize.m */; settings = {ASSET_TAGS = (); }; };
+		F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3F91C0618D600D4FF77 /* ForkizeFull.m */; };
+		F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3FC1C06197800D4FF77 /* Forkize.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,7 +109,6 @@
 		CED9AA281BA2C81E00B54B94 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		CED9AA2B1BA2F04300B54B94 /* MemoryLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryLocalStorage.h; path = Forkize/LocalStorage/MemoryLocalStorage.h; sourceTree = "<group>"; };
 		CED9AA2C1BA2F04300B54B94 /* MemoryLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryLocalStorage.m; path = Forkize/LocalStorage/MemoryLocalStorage.m; sourceTree = "<group>"; };
-		CED9AA2E1BA2F05D00B54B94 /* ILocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILocalStorage.h; path = Forkize/LocalStorage/ILocalStorage.h; sourceTree = "<group>"; };
 		CED9AA2F1BA3057400B54B94 /* SQLiteLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteLocalStorage.h; path = Forkize/LocalStorage/SQLiteLocalStorage.h; sourceTree = "<group>"; };
 		CED9AA301BA3057400B54B94 /* SQLiteLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteLocalStorage.m; path = Forkize/LocalStorage/SQLiteLocalStorage.m; sourceTree = "<group>"; };
 		CED9AA321BA3209500B54B94 /* DAOFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DAOFactory.h; path = Forkize/DB/DAOFactory.h; sourceTree = "<group>"; };
@@ -257,7 +256,6 @@
 			children = (
 				CED9AA171BA077B100B54B94 /* LocalStorageManager.h */,
 				CED9AA181BA077B100B54B94 /* LocalStorageManager.m */,
-				CED9AA2E1BA2F05D00B54B94 /* ILocalStorage.h */,
 				CED9AA2B1BA2F04300B54B94 /* MemoryLocalStorage.h */,
 				CED9AA2C1BA2F04300B54B94 /* MemoryLocalStorage.m */,
 				CED9AA2F1BA3057400B54B94 /* SQLiteLocalStorage.h */,

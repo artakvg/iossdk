@@ -77,7 +77,7 @@
 }
 
 -(void) incrementAction:(UIButton *) button{
-    [[UserProfile getInstance] incrementValueForKey:valueTextField_.text byValue:keyTextField_.text];
+    [[UserProfile getInstance] incrementValue:valueTextField_.text forKey:keyTextField_.text];
 }
 
 -(void) setAction:(UIButton *) button{

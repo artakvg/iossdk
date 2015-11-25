@@ -24,6 +24,6 @@
 - (BOOL) addEvents:(NSArray *)events; // array of FZEvents
 
 - (BOOL) removeEvents; // all array 
--(BOOL) removeEventsWithCount:(NSInteger ) count forUser:(NSString *) userId; 
+- (BOOL) removeEventsWithCount:(NSInteger ) count forUser:(NSString *) userId;
 
 @end

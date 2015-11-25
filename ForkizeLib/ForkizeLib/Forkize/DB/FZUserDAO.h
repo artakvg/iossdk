@@ -17,9 +17,9 @@
 
 - (NSArray *) loadUsers;
 
-- (FZUser *)addUser:(NSString *) userName;
+- (FZUser *) addUser:(NSString *) userName;
 
-- (BOOL)removeUser:(NSString *) userName;
+- (BOOL) removeUser:(NSString *) userName;
 
 - (FZUser *) getUser:(NSString *) userName;
 

@@ -14,7 +14,7 @@
 
 }
 
--(void) trackEvent:(NSString*) eventName andParams:(NSDictionary*) parameters{
+-(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters{
 }
 
 -(void) purchaseWithProductId:(NSString* ) productId  andCurrency:(NSString*) currency andPrice:(double) price andQuantity: (NSInteger) quantity{
@@ -29,7 +29,7 @@
 
 }
 
--(void) eventDurationWithName:(NSString*) eventName{
+-(void) eventDuration:(NSString*) eventName{
 
 }
 
@@ -49,15 +49,15 @@
 
 }
 
--(void)  onPause{
+-(void)  pause{
 
 }
 
--(void)  onResume{
+-(void)  resume{
 
 }
 
--(void)  onDestroy{
+-(void)  destroy{
 
 }
 
@@ -68,5 +68,19 @@
 -(void) onTerminate{
 
 }
+
+-(void) advanceState:(NSString *) state{
+
+}
+
+-(void) resetState:(NSString *) state{
+
+}
+
+-(void) pauseState:(NSString *) state{
+
+}
+
+
 
 @end
