@@ -8,42 +8,14 @@
 
 #import "ForkizeEventManager.h"
 #import "UserProfile.h"
-#import "ForkizeConfig.h"
 #import "SessionInstance.h"
 #import "LocationInstance.h"
 #import "LocalStorageManager.h"
 #import "DeviceInfo.h"
 #import "ForkizeHelper.h"
 
-
 #import "FZEvent.h"
 
-
-
-
-NSString *const EVENT_NAME = @"evn";
-NSString *const EVENT_DATA = @"evd";
-
-NSString *const EVENT_DURATION = @"$event_duration";
-NSString *const BATTERY_LEVEL = @"$battery_level";
-
-NSString *const EVENT_TIME = @"$utc_time";
-NSString *const PARAMS = @"Forkize.event.params";
-NSString *const SESSION_START = @"Forkize.session.start";
-NSString *const SESSION_END = @"Forkize.session.end";
-NSString *const SESSION_LENGTH = @"Forkize.session.length";
-NSString *const APP_INSTALL = @"Forkize.app.install";
-NSString *const DEVICE_INFO = @"Forkize.device.info";
-NSString *const USER_INFO = @"Forkize.user.info";
-NSString *const USER_ID = @"Forkize.userId";
-NSString *const APP_ID = @"Forkize.appId";
-// FZ::DONE remove SESSION_TOKEN
-//NSString *const SESSION_TOKEN = @"Forkize.session.token";
-NSString *const LATITUDE = @"$latitude";
-NSString *const LONGITUDE = @"$longitude";
-NSString *const CONNECTION_TYPE = @"$connection";
-NSString *const OLD_USER = @"Forkize.userId.old";
-NSString *const NEW_USER = @"Forkize.userId.new";
 
 
 @interface FzEventOperation : NSOperation{
@@ -93,7 +65,6 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 
 @property (nonatomic, strong) NSMutableDictionary *scheduledEvents;
 @property (nonatomic, strong) NSMutableDictionary *superPropertiesInternal;
-@property (nonatomic, strong) NSMutableDictionary *superPropertiesOnceInternal;
 
 @property (nonatomic, assign) double latitude;
 @property (nonatomic, assign) double longitude;
@@ -156,15 +127,15 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 }
 
 -(void) setSuperPropertiesOnce:(NSDictionary *) dict{
-    if (self.superPropertiesOnceInternal == nil) {
-        self.superPropertiesOnceInternal = [NSMutableDictionary dictionary];
+    if (self.superPropertiesInternal == nil) {
+        self.superPropertiesInternal = [NSMutableDictionary dictionary];
     }
     
     NSArray *keys = [dict allKeys];
     
     for (NSString *key in keys) {
-        if ([ForkizeHelper isKeyValid:key] && ([self.superPropertiesOnceInternal objectForKey:key] == nil)) {
-            [self.superPropertiesOnceInternal setValue:[dict objectForKey:key] forKey:key];
+        if ([ForkizeHelper isKeyValid:key] && ([self.superPropertiesInternal objectForKey:key] == nil)) {
+            [self.superPropertiesInternal setValue:[dict objectForKey:key] forKey:key];
         }
     }
 }
@@ -173,35 +144,35 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 -(void) queueAliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
     
     NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
-                             oldUserId, OLD_USER,
-                             newUserId, NEW_USER,
+                             oldUserId, @"Forkize.userId.old",
+                             newUserId, @"Forkize.userId.new",
                              nil];
     [self queueEventWithName:@"alias" andParams:params];
     NSLog(@"Forkize SDK queueAlias has been ended job");
 }
 
 -(void) queueSessionStart {
-    [self queueEventWithName:SESSION_START andParams:nil];
+    [self queueEventWithName:@"Forkize.session.start" andParams:nil];
 }
 
 // FZ::DONE , think session time should be retrieved from session instance
 -(void) queueSessionEnd{
     
-    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [SessionInstance getInstance].sessionLength] forKey:SESSION_LENGTH];
+    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [SessionInstance getInstance].sessionLength] forKey:@"Forkize.session.length"];
     
-    [self queueEventWithName:SESSION_END andParams:params];
+    [self queueEventWithName:@"Forkize.session.end" andParams:params];
 }
 
 -(void) queueNewInstall {
-    [self queueEventWithName:APP_INSTALL andParams:nil];
+    [self queueEventWithName:@"Forkize.app.install" andParams:nil];
 }
 
 -(void) queueDeviceInfo{
-    [self queueEventWithName:DEVICE_INFO andParams:[[DeviceInfo getInstance] getDeviceInfo]];
+    [self queueEventWithName:@"Forkize.device.info" andParams:[[DeviceInfo getInstance] getDeviceInfo]];
 }
 
 -(void) queueUserInfo {
-    [self queueEventWithName:USER_INFO andParams:[[UserProfile getInstance] getUserInfo]];
+    [self queueEventWithName:@"Forkize.user.info" andParams:[[UserProfile getInstance] getUserInfo]];
 }
 
 
@@ -223,7 +194,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     NSTimeInterval sessionTime = timeInterval -[SessionInstance getInstance].sessionStartTime;
                                   
     NSMutableDictionary * jsonEVDDict = [NSMutableDictionary dictionary];
-    [jsonEVDDict setObject:[[DeviceInfo getInstance] getBatteryLevel] forKey:BATTERY_LEVEL];
+    [jsonEVDDict setObject:[[DeviceInfo getInstance] getBatteryLevel] forKey:@"$battery_level"];
     
     
    // [jsonDict setObject:[[UserProfile getInstance] getUserId] forKey:USER_ID];
@@ -265,7 +236,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     NSString *connectionType = [ForkizeHelper getConnectionType];
     
     if (![connectionType isEqualToString:@"ncon"])
-         [jsonEVDDict setObject:connectionType forKey:CONNECTION_TYPE];
+         [jsonEVDDict setObject:connectionType forKey:@"$connection"];
     
     if (parameters != nil && [parameters count] > 0) {
      
@@ -278,11 +249,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
         [jsonEVDDict setObject:[self.superPropertiesInternal objectForKey:key]  forKey:key];
     }
     
-    for (NSString *key in [self.superPropertiesOnceInternal allKeys]) {
-        [jsonEVDDict setObject:[self.superPropertiesOnceInternal objectForKey:key]  forKey:key];
-    }
-    
-    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjectsAndKeys:jsonEVDDict, EVENT_DATA, event, EVENT_NAME, nil];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjectsAndKeys:jsonEVDDict, @"evd", event, @"evn", nil];
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONWritingPrettyPrinted error:&error];

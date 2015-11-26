@@ -340,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/ForkizeEventManager.m"
-            timestampString = "470240910.18922"
+            timestampString = "470254405.99619"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-eventAsJSON:andParameters:"
             landmarkType = "5">
          </BreakpointContent>
