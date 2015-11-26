@@ -124,7 +124,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     return accessToken;
 }
 
--(BOOL) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken{
+-(NSDictionary *) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken{
     
     if ([ForkizeHelper isNilOrEmpty:aliasedUserId]) {
         return NO;
@@ -164,17 +164,15 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
         
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_ALIAS_PATH andBodyDict:mutDict];
-  
-        NSInteger statusCode = [[jsonDict objectForKey:@"status"] integerValue];
         NSLog(@"alias jsonDict : %@", jsonDict);
-        return (statusCode == 1);
+        return jsonDict;
     }
     
     @catch (NSException *exception) {
         
     }
 
-    return NO;
+    return nil;
 }
 
 -(BOOL) updateUserProfile:(NSString *) accessToken{
@@ -222,7 +220,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     return NO;
 }
 
--(NSInteger) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken{
+-(NSDictionary *) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken{
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayData options:NSJSONWritingPrettyPrinted error:&error];
     
@@ -250,17 +248,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
  
     NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_LIVE_PATH andBodyDict:mutDict];
     
-    NSInteger statusCode = [[jsonDict objectForKey:@"status"] integerValue];
-    NSLog(@"postWithBody jsonDict : %@", jsonDict);
-
-    if (statusCode == 1) {
-        return 1;
-    } else if (statusCode == 2){
-         NSLog(@"Forkize SDK Invalid access token response");
-        return 2;
-    }
-    
-    return 0;
+    return jsonDict;
 }
 
 

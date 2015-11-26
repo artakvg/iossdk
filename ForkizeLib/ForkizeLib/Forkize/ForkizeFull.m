@@ -229,4 +229,16 @@
     }
 }
 
+-(void) advanceState:(NSString *) state{
+    [self.eventManager advanceState:state];
+}
+
+-(void) resetState:(NSString *) state{
+    [self.eventManager resetState:state];
+}
+
+-(void) pauseState:(NSString *) state{
+    [self.eventManager pauseState:state];
+}
+
 @end

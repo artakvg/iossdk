@@ -46,6 +46,5 @@
 
 -(void) pauseState:(NSString *) state;
 
-
 @end
 

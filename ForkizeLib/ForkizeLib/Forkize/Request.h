@@ -14,10 +14,10 @@
 
 -(NSString *) getAccessToken;
 
--(BOOL) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken;
+-(NSDictionary *) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken;
 
 -(BOOL) updateUserProfile:(NSString *) accessToken;
 
--(NSInteger) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken;
+-(NSDictionary *) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken;
 
 @end

@@ -123,7 +123,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "-postAlias:andAccessToken:"
+            landmarkName = "-getAccessToken"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -134,12 +134,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "467542073.650373"
+            timestampString = "470242406.864712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "-postAlias:andAccessToken:"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "-postAliasWithAliasedUserId:andUserId:andAccessToken:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -155,7 +155,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "-postAlias:andAccessToken:"
+            landmarkName = "-postAliasWithAliasedUserId:andUserId:andAccessToken:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -171,7 +171,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "145"
             endingLineNumber = "145"
-            landmarkName = "-postAlias:andAccessToken:"
+            landmarkName = "-postAliasWithAliasedUserId:andUserId:andAccessToken:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -328,7 +328,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
-            endingLineNumber = "68">
+            endingLineNumber = "68"
+            landmarkName = "-sessionEnd"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -338,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/ForkizeEventManager.m"
-            timestampString = "467126679.606287"
+            timestampString = "470240910.18922"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
             landmarkName = "-eventAsJSON:andParameters:"
             landmarkType = "5">
          </BreakpointContent>

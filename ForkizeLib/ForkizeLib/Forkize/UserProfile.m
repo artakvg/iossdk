@@ -260,19 +260,19 @@ typedef enum{
     [[UserProfile getInstance] identify:user.userName];
 }
 
--(void) updateProfile:(NSDictionary *) dict{
-    NSArray *keys = [dict allKeys];
-    
-    for (NSString *key in keys) {
-        [self setValue:[dict objectForKey:key]  forKey:key];
-    }
-}
-
--(void) setProfile:(NSDictionary *) dict{
-    self.userInfo = [NSMutableDictionary dictionary];
-    
-    [self updateProfile:dict];
-}
+//-(void) updateProfile:(NSDictionary *) dict{
+//    NSArray *keys = [dict allKeys];
+//    
+//    for (NSString *key in keys) {
+//        [self setValue:[dict objectForKey:key]  forKey:key];
+//    }
+//}
+//
+//-(void) setProfile:(NSDictionary *) dict{
+//    self.userInfo = [NSMutableDictionary dictionary];
+//    
+//    [self updateProfile:dict];
+//}
 
 -(void) setValue:(id)value forKey:(NSString *)key{
      // FZ::TODO why we are not removing prev inc and prepend operations ???

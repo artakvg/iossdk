@@ -30,4 +30,11 @@
 
 -(void) close;
 
+-(void) advanceState:(NSString *) state;
+
+-(void) resetState:(NSString *) state;
+
+-(void) pauseState:(NSString *) state;
+
+
 @end

@@ -14,7 +14,6 @@
 
 #import "Request.h"
 #import "UserProfile.h"
-#import "FZUser.h" // FZ::TODO remove this , move all stuff to userProfile
 
 
 @interface FzRestOperation : NSOperation
@@ -55,8 +54,12 @@
         if (![ForkizeHelper isNilOrEmpty:aliasedName]) {
             NSString *userId = [[UserProfile getInstance] getUserId];
         
-            if ([self.request postAliasWithAliasedUserId:aliasedName andUserId:userId andAccessToken:[RestClient getInstance]. accessToken]) {
+            NSDictionary *aliasResponseDict = [self.request postAliasWithAliasedUserId:aliasedName andUserId:userId andAccessToken:[RestClient getInstance]. accessToken];
+             NSInteger statusCode = [[aliasResponseDict objectForKey:@"status"] integerValue];
             
+            if (statusCode == 1) {
+            
+                [RestClient getInstance].accessToken = [aliasResponseDict objectForKey:@"access_token"];
                 [self.localStorage flushToDatabase];
                 [[UserProfile getInstance] exchangeIds];
             }
@@ -80,7 +83,11 @@
         }
         }
         
-        NSInteger responseCode = [self.request postWithBody:arrayData andAccessToken:[RestClient getInstance].accessToken];
+        NSDictionary *postResponseDict = [self.request postWithBody:arrayData andAccessToken:[RestClient getInstance].accessToken];
+        
+        NSInteger responseCode = [[postResponseDict objectForKey:@"status"] integerValue];
+        NSLog(@"postWithBody jsonDict : %@", postResponseDict);
+        
         if (responseCode == 1) {
             [self.localStorage removeEventsWithCount:eventCount];
         } else if (responseCode == 2){

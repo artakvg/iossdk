@@ -98,6 +98,15 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 @property (nonatomic, assign) double latitude;
 @property (nonatomic, assign) double longitude;
 
+@property (nonatomic, strong) NSString *state;
+@property (nonatomic, assign) long stateStartTime;
+@property (nonatomic, assign) long statePauseTime;
+@property (nonatomic, assign) long stateResumeTime;
+
+
+
+
+
 @end
 
 @implementation ForkizeEventManager
@@ -302,6 +311,34 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 -(void) close{
     [self.queue cancelAllOperations];
     self.queue = nil;
+}
+
+
+-(void) advanceState:(NSString *) state{
+    long currentTime = [ForkizeHelper getTimeIntervalSince1970];
+
+    NSString *oldState = self.state;
+    self.state = state;
+    
+    if (oldState != nil ) {
+        long duration = currentTime - self.stateStartTime;
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                oldState, @"$oldState",
+                                self.state, @"$newState",
+                                [NSString stringWithFormat:@"%ld", duration], @"$state_duration", nil];
+        [self queueEventWithName:@"state" andParams:params];
+    }
+    
+    self.stateStartTime = currentTime;
+}
+
+
+-(void) resetState:(NSString *) state{
+
+}
+
+-(void) pauseState:(NSString *) state{
+
 }
 
 @end
