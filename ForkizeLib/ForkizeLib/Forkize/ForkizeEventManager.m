@@ -15,7 +15,7 @@
 #import "DeviceInfo.h"
 #import "ForkizeHelper.h"
 
-#import "Reachability.h"
+
 #import "FZEvent.h"
 
 
@@ -103,10 +103,6 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 @property (nonatomic, assign) long statePauseTime;
 @property (nonatomic, assign) long stateResumeTime;
 
-
-
-
-
 @end
 
 @implementation ForkizeEventManager
@@ -191,7 +187,7 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 // FZ::DONE , think session time should be retrieved from session instance
 -(void) queueSessionEnd{
     
-    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [[SessionInstance getInstance] getSessionLength]] forKey:SESSION_LENGTH];
+    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [SessionInstance getInstance].sessionLength] forKey:SESSION_LENGTH];
     
     [self queueEventWithName:SESSION_END andParams:params];
 }
@@ -224,71 +220,58 @@ NSString *const NEW_USER = @"Forkize.userId.new";
 {
     NSTimeInterval timeInterval = [ForkizeHelper getTimeIntervalSince1970];
     
+    NSTimeInterval sessionTime = timeInterval -[SessionInstance getInstance].sessionStartTime;
+                                  
     NSMutableDictionary * jsonEVDDict = [NSMutableDictionary dictionary];
     [jsonEVDDict setObject:[[DeviceInfo getInstance] getBatteryLevel] forKey:BATTERY_LEVEL];
     
     
    // [jsonDict setObject:[[UserProfile getInstance] getUserId] forKey:USER_ID];
    // [jsonDict setObject:[ForkizeConfig getInstance].appId  forKey:APP_ID];
-    [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval]  forKey:EVENT_TIME];
+    [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval]  forKey:@"$utc_time"];
+    [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)sessionTime]  forKey:@"$session_time"];
+   
+    NSString *sessionToken = [[SessionInstance getInstance] getSessionToken];
+    if (sessionToken != nil && [sessionToken length] == 0) {
+        [jsonEVDDict setObject:sessionToken forKey:@"$sid"];
+    }
+    
     
     if (self.scheduledEvents != nil){
         NSInteger time = [[self.scheduledEvents valueForKey:event] integerValue];
         if (time != 0) {
-            [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval - time] forKey:EVENT_DURATION];
+            [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval - time] forKey:@"$event_duration"];
             [self.scheduledEvents removeObjectForKey:event];
         }
+    }
+    
+    
+    if (self.state != nil) {
+        [jsonEVDDict setObject:self.state forKey:@"$state"];
+        NSTimeInterval stateTime = timeInterval - self.stateStartTime;
+        
+        [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)stateTime] forKey:@"$state_time"];
+        
     }
     
     self.latitude = [[LocationInstance getInstance] latitude];
     self.longitude = [[LocationInstance getInstance] longitude];
     
     if (self.latitude != 0 && self.longitude != 0) {
-        [jsonEVDDict setObject:[NSString stringWithFormat:@"%f", self.longitude] forKey:LONGITUDE];
-        [jsonEVDDict setObject:[NSString stringWithFormat:@"%f", self.latitude] forKey:LATITUDE];
+        [jsonEVDDict setObject:[NSString stringWithFormat:@"%f", self.longitude] forKey:@"$longitude"];
+        [jsonEVDDict setObject:[NSString stringWithFormat:@"%f", self.latitude] forKey:@"$latitude"];
     }
     
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
+    NSString *connectionType = [ForkizeHelper getConnectionType];
     
-    NSString *type = @"";
-    NetworkStatus status = [reachability currentReachabilityStatus];
-    
-    if(status == NotReachable)
-    {
-        //No internet
-        type = @"ncon";
-    }
-    else if (status == ReachableViaWiFi)
-    {
-        //WiFi
-        type = @"wifi";
-    }
-    else if (status == ReachableViaWWAN)
-    {
-        //3G
-        type = @"mobile";
-    }
-    
-    if (![type isEqualToString:@"ncon"])
-         [jsonEVDDict setObject:type forKey:CONNECTION_TYPE];
+    if (![connectionType isEqualToString:@"ncon"])
+         [jsonEVDDict setObject:connectionType forKey:CONNECTION_TYPE];
     
     if (parameters != nil && [parameters count] > 0) {
      
         for (NSString *key in parameters) {
             [jsonEVDDict setObject:[parameters objectForKey:key] forKey:key];
         }
-        
-//        NSError *error;
-//        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:&error];
-////        NSError *parseError = nil;
-////        id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-////
-//        NSMutableString *paramsString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//        
-//        if (!error) {
-//            [jsonEVDDict setObject:paramsString forKey:PARAMS];
-//        }
     }
     
     for (NSString *key in [self.superPropertiesInternal allKeys]) {
@@ -323,23 +306,41 @@ NSString *const NEW_USER = @"Forkize.userId.new";
     if (oldState != nil ) {
         long duration = currentTime - self.stateStartTime;
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                oldState, @"$oldState",
-                                self.state, @"$newState",
+                                oldState, @"$state_prev",
+                                self.state, @"$state_next",
                                 [NSString stringWithFormat:@"%ld", duration], @"$state_duration", nil];
-        [self queueEventWithName:@"state" andParams:params];
+        [self queueEventWithName:@"$state_advance" andParams:params];
     }
     
     self.stateStartTime = currentTime;
+    self.stateResumeTime = currentTime;
 }
 
 
 -(void) resetState:(NSString *) state{
-
+    long currentTime = [ForkizeHelper getTimeIntervalSince1970];
+    
+    long duration = currentTime - self.stateStartTime;
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"", @"$state_prev",
+                            self.state, @"$state_next",
+                            [NSString stringWithFormat:@"%ld", duration], @"$state_duration", nil];
+    [self queueEventWithName:@"$state_advance" andParams:params];
+    
+    self.state = nil;
 }
 
 -(void) pauseState:(NSString *) state{
-
+    long currentTime = [ForkizeHelper getTimeIntervalSince1970];
+    self.statePauseTime = currentTime;
 }
+
+-(void) resumeState:(NSString *) state{
+    long currentTime = [ForkizeHelper getTimeIntervalSince1970];
+    self.stateResumeTime = currentTime;
+    self.stateStartTime += (self.stateResumeTime - self.statePauseTime);
+}
+
 
 @end
 

@@ -10,6 +10,8 @@
 // FZ::DONE why we need it ?
 #import <CommonCrypto/CommonDigest.h>
 
+#import "Reachability.h"
+
 @implementation ForkizeHelper
 
 
@@ -83,6 +85,32 @@
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
     
     return jsonObject;
+}
+
++(NSString *) getConnectionType{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NSString *type = @"";
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    if(status == NotReachable)
+    {
+        //No internet
+        type = @"ncon";
+    }
+    else if (status == ReachableViaWiFi)
+    {
+        //WiFi
+        type = @"wifi";
+    }
+    else if (status == ReachableViaWWAN)
+    {
+        //3G
+        type = @"mobile";
+    }
+    
+    return type;
 }
 
 

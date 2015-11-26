@@ -241,4 +241,8 @@
     [self.eventManager pauseState:state];
 }
 
+-(void) resumeState:(NSString *) state{
+    [self.eventManager resumeState:state];
+}
+
 @end

@@ -18,6 +18,7 @@
 
 @property (nonatomic, assign) long sessionStartTime;
 @property (nonatomic, assign) long sessionResumeTime;
+@property (nonatomic, assign) long sessionPauseTime;
 @property (nonatomic, assign) long sessionEndTime;
 @property (nonatomic, assign) long sessionLength;
 
@@ -57,7 +58,6 @@
         self.sessionResumeTime = currentTime;
         self.sessionEndTime = currentTime + [[ForkizeConfig getInstance] SESSION_INTERVAL];
         self.sessionLength = 0;
-        // set isDestroyed to NO
         self.isDestroyed = NO;
         self.isPaused = NO;
         // ** generate session token
@@ -70,15 +70,17 @@
     if(!self.isDestroyed) {
         self.isDestroyed = YES;
         self.sessionLength += [ForkizeHelper getTimeIntervalSince1970] - self.sessionResumeTime;
+        self.sessionLength = 0;
+
         return [[ForkizeEventManager getInstance] queueSessionEnd];
     }
-    self.sessionLength = 0; // FZ::TODO why we not do this before
 }
 
 -(void) pause{
     if(!self.isPaused) {
         self.isPaused = YES;
-        self.sessionLength += [ForkizeHelper getTimeIntervalSince1970] - self.sessionResumeTime;
+        self.sessionPauseTime = [ForkizeHelper getTimeIntervalSince1970];
+        self.sessionLength += self.sessionPauseTime - self.sessionResumeTime;
     }
 }
 
@@ -86,20 +88,24 @@
     if(self.isPaused) {
         self.isPaused = NO;
         self.sessionResumeTime = [ForkizeHelper getTimeIntervalSince1970];
+        self.sessionEndTime += (self.sessionResumeTime - self.sessionPauseTime);
         if (self.sessionResumeTime > self.sessionEndTime) {
             [self end];
             [self start];
         }
     }
 }
-//FZ::TODO Artak where it calls
 
 -(NSString*) getSessionToken{
-    return  [self generateSessionToken];
+    return self.sessionToken;
 }
 
 - (long) getSessionLength{
     return self.sessionLength;
+}
+
+- (long) getSessionStartTime{
+    return self.sessionStartTime;
 }
 
 -(NSString*) generateSessionToken {

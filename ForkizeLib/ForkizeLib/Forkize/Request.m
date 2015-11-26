@@ -127,7 +127,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 -(NSDictionary *) postAliasWithAliasedUserId:(NSString*) aliasedUserId andUserId:(NSString*) userId andAccessToken:(NSString *)accessToken{
     
     if ([ForkizeHelper isNilOrEmpty:aliasedUserId]) {
-        return NO;
+        return nil;
     }
     
     @try {

@@ -12,12 +12,18 @@
 
 -(NSString*) getSessionToken; //FZ::TODO why we need it
 
-- (long) getSessionLength;
+//- (long) getSessionLength;
+//- (long) getSessionStart;
+
 
 - (void) start;
 - (void) end;
 - (void) pause;
 - (void) resume;
+
+@property (nonatomic, readonly) long sessionLength;
+@property (nonatomic, readonly) long sessionStartTime;
+
 
 + (SessionInstance*) getInstance;
 

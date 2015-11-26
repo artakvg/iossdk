@@ -81,6 +81,9 @@
 
 }
 
+-(void) resumeState:(NSString *) state{
+    
+}
 
 
 @end

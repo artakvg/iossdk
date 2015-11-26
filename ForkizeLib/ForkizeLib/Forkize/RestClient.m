@@ -43,6 +43,10 @@
             [RestClient getInstance].accessToken = [self.request getAccessToken];
         }
         
+        if ([RestClient getInstance].accessToken) {
+            return;
+        }
+        
         if (![[[UserProfile getInstance] getChangeLog] isEqualToString:@"{}"]) {
             if ([self.request  updateUserProfile:[RestClient getInstance].accessToken]){
                 [[UserProfile getInstance] dropChangeLog];

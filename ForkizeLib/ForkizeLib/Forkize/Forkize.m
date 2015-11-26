@@ -102,4 +102,8 @@
     [[Forkize getInstance]  pauseState:state];
 }
 
+-(void) resumeState:(NSString *)state{
+    [[Forkize getInstance]  resumeState:state];
+}
+
 @end
