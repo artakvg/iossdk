@@ -29,6 +29,15 @@
 
 }
 
+-(void) sessionPause{
+
+}
+
+-(void) sessionResume{
+
+}
+
+
 -(void) eventDuration:(NSString*) eventName{
 
 }
@@ -40,6 +49,11 @@
 -(void) setSuperPropertiesOnce:(NSDictionary *) properties{
 
 }
+
+-(BOOL) isNewInstall{
+    return YES;
+}
+
 
 -(void) identify:(NSString *) userId{
 

@@ -13,18 +13,16 @@
 #import "RestClient.h"
 
 #import "FZUser.h"
-#import "FZEvent.h"
+//#import "FZEvent.h"
 
 #import "DAOFactory.h"
 #import "FZUserDAO.h"
-#import "EventsDAO.h"
+//#import "EventsDAO.h"
 
 #import "SessionInstance.h"
 
 
 NSString *const USER_PROFILE_USER_ID = @"Forkize.UserProfile.userId";
-NSString *const FORKIZE_INSTALL_TIME = @"Forkize.Install.Time";
-
 
 NSString *const FORKIZE_USER_ID = @"user_id";
 
@@ -75,9 +73,16 @@ typedef enum{
         self.changeLog = [NSMutableDictionary dictionary];
         self.localStorage = [LocalStorageManager getInstance];
         self.userDAO = [[DAOFactory defaultFactory] userDAO];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:@"KUKU" selector:@selector(postListen:) name:@"KUKU" object:nil];
     }
     
     return self;
+}
+
+-(void) postListen:(NSNotification *) notifiatication{
+    NSLog(@"test listen ");
+    
 }
 
 + (UserProfile*) getInstance {
@@ -107,35 +112,8 @@ typedef enum{
     return self.aliasedUserId;
 }
 
--(NSDictionary *) getUserInfo {
-    if (self.userInfo == nil) {
-        self.userInfo = [NSMutableDictionary dictionary];
-        
-        if (self.age > 0 && self.age < 100)
-            [self.userInfo setObject:[NSString stringWithFormat:@"%ld", (long)self.age] forKey:@"age"];
-        
-        NSString *gender = [self getGender];
-        if (gender != nil) {
-            [self.userInfo setObject:gender forKey:@"gender"];
-        }
-        
-        [self.userInfo setObject:[self getUserId] forKey:USER_PROFILE_USER_ID];
-    }
-    return self.userInfo;
-}
-
-
--(BOOL) isNewInstall{
-    
-    NSString *installTime = [[NSUserDefaults standardUserDefaults] valueForKey:FORKIZE_INSTALL_TIME];
-    
-    if ([ForkizeHelper isNilOrEmpty:installTime]) {
-        installTime = [NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]];
-        [[NSUserDefaults  standardUserDefaults] setObject:installTime forKey:FORKIZE_INSTALL_TIME];
-        return YES;
-    }
-    
-    return NO;
+-(id) objectForKey:(NSString *) key{
+    return [self.userInfo objectForKey:key];
 }
 
 -(NSString *) generateUserId{
@@ -238,27 +216,39 @@ typedef enum{
     NSLog(@"Forkize SDK userId will change");
 }
 
-
--(void) exchangeIds{
-    
-    NSString *userName = [[UserProfile getInstance] getUserId];
-    
-    FZUser *user = [self.userDAO getUser:userName];
-    
-    EventsDAO *eventsDAO = [[DAOFactory defaultFactory] eventsDAO];
-    NSArray *events = [eventsDAO loadEventsForUser:user.userName];
-    for (FZEvent *event in events) {
-        event.userName = user.aliasedName;
+-(void) applyAlias{
+    if (self.aliasedUserId != nil && [self.aliasedUserId length] > 0) {
+        NSString *userName = [[UserProfile getInstance] getUserId];
+        
+        self.userId =  self.aliasedUserId;
+        
+        FZUser *user = [self.userDAO getUser:userName];
+        user.userName = user.aliasedName;
+        user.aliasedName = @"";
+        [self.userDAO updateUser:user];
     }
-    
-    [eventsDAO updateEvents:events];
-    
-    user.userName = user.aliasedName;
-    user.aliasedName = @"";
-    [self.userDAO updateUser:user];
-    
-    [[UserProfile getInstance] identify:user.userName];
 }
+
+//-(void) exchangeIds{
+//    
+//    NSString *userName = [[UserProfile getInstance] getUserId];
+//    
+//    FZUser *user = [self.userDAO getUser:userName];
+//    
+//    EventsDAO *eventsDAO = [[DAOFactory defaultFactory] eventsDAO];
+//    NSArray *events = [eventsDAO loadEventsForUser:user.userName];
+//    for (FZEvent *event in events) {
+//        event.userName = user.aliasedName;
+//    }
+//    
+//    [eventsDAO updateEvents:events];
+//    
+//    user.userName = user.aliasedName;
+//    user.aliasedName = @"";
+//    [self.userDAO updateUser:user];
+//    
+//    [[UserProfile getInstance] identify:user.userName];
+//}
 
 //-(void) updateProfile:(NSDictionary *) dict{
 //    NSArray *keys = [dict allKeys];
@@ -506,7 +496,7 @@ typedef enum{
 }
 
 - (void) end{
-    [[SessionInstance getInstance] start];
+    [[SessionInstance getInstance] end];
     [self flushToDatabase];
 }
 
@@ -519,7 +509,6 @@ typedef enum{
 - (void) resume{
     [[SessionInstance getInstance] resume];
     [self restoreFromDatabase];
-    
 }
 
 

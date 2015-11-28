@@ -64,6 +64,19 @@
     return resultArray;
 }
 
+-(NSArray *) readForUser:(NSString *) userId{
+    NSArray *resultArray = [NSArray array];
+    
+    @try {
+        resultArray = [self.eventDAO loadEventsForUser:userId];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
+    }
+    
+    return resultArray;
+}
+
 -(void) flush{
      [self.eventDAO removeEvents];
 }
@@ -73,6 +86,18 @@
     
     @try {
         result = [self.eventDAO removeEventsWithCount:count forUser:userId];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);
+    }
+    return result;
+}
+
+-(BOOL) updateEvents:(NSArray *) events{
+    BOOL result = NO;
+    
+    @try {
+        result = [self.eventDAO updateEvents:events];
     }
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);

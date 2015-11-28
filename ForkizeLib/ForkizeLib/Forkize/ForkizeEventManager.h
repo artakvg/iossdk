@@ -25,9 +25,6 @@
 
 -(void) queueNewInstall;
 
--(void) queueDeviceInfo;
--(void) queueUserInfo;
-
 -(void) close;
 
 -(void) advanceState:(NSString *) state;
@@ -38,5 +35,6 @@
 
 -(void) resumeState:(NSString *) state;
 
+-(void) flushCacheToDatabase;
 
 @end

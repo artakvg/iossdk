@@ -19,7 +19,9 @@
 
 -(void) addEvent:(FZEvent *) event;
 -(NSArray *) getEvents:(NSInteger) eventCount;
+-(NSArray *) getEvents;
 
 -(BOOL) removeEventsWithCount:(NSInteger ) count;
+-(BOOL) updateEvents:(NSArray *) events;
 
 @end

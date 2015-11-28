@@ -62,7 +62,19 @@
     @synchronized(self.eventLock)
     {
         @try {
+            NSLog(@"getEvetns");
             return [self.secondaryStorage readWithCount:eventCount forUser:[[UserProfile getInstance] getUserId]];
+        } @catch (NSException *e) {
+            NSLog(@"Forkize SDK Exception thrown getting events %@", e);
+        }
+    }
+}
+
+-(NSArray *) getEvents{
+    @synchronized(self.eventLock)
+    {
+        @try {
+            return [self.secondaryStorage readForUser:[[UserProfile getInstance] getUserId]];
         } @catch (NSException *e) {
             NSLog(@"Forkize SDK Exception thrown getting events %@", e);
         }
@@ -74,6 +86,17 @@
     {
         @try {
             return [self.secondaryStorage removeEventsWithCount:count forUser:[[UserProfile getInstance] getUserId]];
+        } @catch (NSException* e) {
+            NSLog(@"Forkize SDK Exception thrown removing events %@", e);
+        }
+    }
+}
+
+-(BOOL) updateEvents:(NSArray *) events{
+    @synchronized (self.eventLock)
+    {
+        @try {
+            return [self.secondaryStorage updateEvents:events];
         } @catch (NSException* e) {
             NSLog(@"Forkize SDK Exception thrown removing events %@", e);
         }

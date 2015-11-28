@@ -26,7 +26,13 @@
 
 -(void) setSuperPropertiesOnce:(NSDictionary *) properties;
 
+-(BOOL) isNewInstall;
+
 -(void) sessionStart;
+
+-(void) sessionPause;
+
+-(void) sessionResume;
 
 -(void) sessionEnd;
 
@@ -34,7 +40,7 @@
 
 -(void)  resume;
 
--(void)  destroy;
+-(void)  destroy;  // FZInstance destroy
 
 -(void)  onLowMemory;
 

@@ -14,7 +14,11 @@
 
 -(NSArray *) readWithCount:(NSInteger) count forUser:(NSString *) userId;
 
+-(NSArray *) readForUser:(NSString *) userId;
+
 -(BOOL) removeEventsWithCount:(NSInteger ) count forUser:(NSString *) userId;
+
+-(BOOL) updateEvents:(NSArray *) events;
 
 //-(void) reset;
 //-(void) close;

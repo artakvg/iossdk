@@ -18,7 +18,7 @@
 - (NSArray *) loadEventsForUser:(NSString *) userId; // array of FZEvents
 - (NSArray *) loadEventsWithCount:(NSInteger ) count forUser:(NSString *) userId; // array of Event.eventValues
 
-- (void) updateEvents:(NSArray *) events;
+- (BOOL) updateEvents:(NSArray *) events;
 
 - (FZEvent*) addEvent:(FZEvent*) event;
 - (BOOL) addEvents:(NSArray *)events; // array of FZEvents

@@ -11,9 +11,13 @@
 #import "ForkizeConfig.h"
 #import "UserProfile.h"
 #import "ForkizeEventManager.h"
-#import "LocalStorageManager.h"
 #import "LocationInstance.h"
 #import "RestClient.h"
+#import "ForkizeHelper.h"
+
+
+NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
+
 
 @interface ForkizeFull()
 
@@ -21,7 +25,6 @@
 @property (nonatomic, assign) BOOL initialized;
 
 @property (nonatomic, strong) RestClient* restClient;
-@property (nonatomic, strong) LocalStorageManager *localStorage;
 @property (nonatomic, strong) UserProfile *userProfile;
 @property (nonatomic, strong) ForkizeEventManager *eventManager;
 
@@ -42,7 +45,6 @@
         
         self.userProfile     = [UserProfile getInstance];
         self.eventManager    = [ForkizeEventManager getInstance];
-        self.localStorage    = [LocalStorageManager getInstance];
         self.restClient      = [RestClient getInstance];
         
         self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runOperations:) object:self];
@@ -75,33 +77,29 @@
     config.appKey = appKey;
 }
 
-// FZ::TODO::1 MERGE WITH IDENTIFY
 -(void) identify:(NSString *) userId{
-    
-    [self.userProfile identify:userId];
-    
-    self.isRunning = true;
     
     if (!self.initialized) {
         
         @try {
-            
             self.initialized = YES;
             self.destroyed = NO;
             
+            [self.userProfile identify:userId];
             [self sessionStart];
             
-            if ([self.userProfile isNewInstall]) {
-                [self.eventManager queueNewInstall];
-                
-                //[self.eventManager queueDeviceInfo];
-                
-                // [self.eventManager queueUserInfo];
+            self.isRunning = true;
+            
+            if ([self isNewInstall]) {
+                // FZ::POINT just setting new install on device storage
+                NSString *installTime = [[NSUserDefaults standardUserDefaults] valueForKey:FORKIZE_INSTALL_TIME];
+                installTime = [NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]];
+                [[NSUserDefaults  standardUserDefaults] setObject:installTime forKey:FORKIZE_INSTALL_TIME];
             }
         }
         
         @catch (NSException *exception) {
-            NSLog(@"Forkize SDK Failed to initialize %@", exception);
+            NSLog(@"Forkize SDK Failed to identify %@", exception);
         }
     }
     
@@ -118,15 +116,21 @@
 }
 
 -(void) purchaseWithProductId:(NSString *)productId andCurrency:(NSString *)currency andPrice:(double)price andQuantity:(NSInteger)quantity{
-    // FZ::DONE
+
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          productId, @"product_id",
-                          currency,  @"currency",
-                          price,     @"price",
-                          quantity,  @"quantity",
+                          productId, @"$product_id",
+                          currency,  @"$currency",
+                          price,     @"$price",
+                          quantity,  @"$quantity",
                           nil];
     
-    [self.eventManager queueEventWithName:@"purchase" andParams:dict];
+    [self.eventManager queueEventWithName:@"$purchase" andParams:dict];
+}
+
+-(BOOL) isNewInstall{
+    NSString *installTime = [[NSUserDefaults standardUserDefaults] valueForKey:FORKIZE_INSTALL_TIME];
+    
+    return [ForkizeHelper isNilOrEmpty:installTime];
 }
 
 -(void) sessionStart{
@@ -136,6 +140,15 @@
 -(void) sessionEnd{
     [self.userProfile end];
 }
+
+-(void) sessionPause{
+    [self.userProfile pause];
+}
+
+-(void) sessionResume{
+    [self.userProfile resume];
+}
+
 
 -(void) eventDuration:(NSString *)eventName{
     [self.eventManager eventDuration:eventName];
@@ -151,7 +164,7 @@
 
 -(void)  pause{
     @try {
-        [self.localStorage flushToDatabase];
+        [self.eventManager flushCacheToDatabase];
         
         [self.userProfile pause];
         
@@ -178,7 +191,7 @@
         if (!self.destroyed) {
             [self.userProfile end];
             
-            [self.localStorage flushToDatabase];
+            [self.eventManager flushCacheToDatabase];
             
             self.destroyed = YES;
             
@@ -195,9 +208,8 @@
 
 -(void)  onLowMemory{
     @try {
-        if (self.localStorage != nil){
-            [self.localStorage flushToDatabase];
-        }
+        
+        [self.eventManager flushCacheToDatabase];
     } @catch (NSException* e) {
         NSLog(@"Forkize SDK Exception thrown onLowMemory %@", e);
     }
@@ -212,18 +224,17 @@
     if (!self.destroyed) {
         [self.restClient close];
         self.restClient = nil;
+        // ** we should close user profile befor eventmanager
+        // ** userprofile end queues sessionEnd event
+        [self.userProfile end];
         
         [self.eventManager close];
         self.eventManager = nil;
         
-        [self.localStorage close];
-        self.localStorage = nil;
-        
         self.isRunning = NO;
         self.initialized = NO;
         self.destroyed = YES;
-        
-        // FZ::DONE what about session Instance ?
+
         
         NSLog(@"Forkize SDK SDK is shot down!");
     }

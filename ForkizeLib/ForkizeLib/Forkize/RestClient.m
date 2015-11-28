@@ -14,6 +14,7 @@
 
 #import "Request.h"
 #import "UserProfile.h"
+#import "FZEvent.h"
 
 
 @interface FzRestOperation : NSOperation
@@ -43,7 +44,7 @@
             [RestClient getInstance].accessToken = [self.request getAccessToken];
         }
         
-        if ([RestClient getInstance].accessToken) {
+        if ([RestClient getInstance].accessToken == nil) {
             return;
         }
         
@@ -65,7 +66,24 @@
             
                 [RestClient getInstance].accessToken = [aliasResponseDict objectForKey:@"access_token"];
                 [self.localStorage flushToDatabase];
-                [[UserProfile getInstance] exchangeIds];
+      //          [[UserProfile getInstance] exchangeIds];
+                
+                
+                NSArray *events = [self.localStorage getEvents];
+                
+                for (FZEvent *event in events) {
+                    event.userName = aliasedName;
+                }
+                
+                [self.localStorage updateEvents:events];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"KUKU" object:nil];
+                
+              //  [[UserProfile getInstance] applyAlias];
+
+//                user.userName = user.aliasedName;
+//                user.aliasedName = @"";
+//                [self.userDAO updateUser:user];
             }
         }
         

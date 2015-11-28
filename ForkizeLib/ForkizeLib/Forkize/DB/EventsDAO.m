@@ -123,11 +123,13 @@ static NSString *const  kDeleteEventsCountSQL = @""
     return [statement executeUpdate];
 }
 
-- (void) updateEvents:(NSArray *) events{
+- (BOOL) updateEvents:(NSArray *) events{
     
     for (FZEvent *event in events) {
         [self updateEvent:event];
     }
+    
+    return YES;
 }
 
 - (FZEvent *) addEvent:(FZEvent*) event{

@@ -14,28 +14,18 @@
 
 + (UserProfile*) getInstance;
 
-//aliasedLevel
-// 0 - unknown
-//1 - exist
-// 2 - not exist
-
-//@property (nonatomic, assign) NSInteger aliasedLevel;
-
-
-
 -(NSString*) getUserId;
 -(NSString*) getAliasedUserId;
 
--(NSDictionary *) getUserInfo;
-
-
--(BOOL) isNewInstall;
+-(id) objectForKey:(NSString *) key;
 
 -(void) identify:(NSString *) userId;
 
 -(void) alias:(NSString*) userId;
 
--(void) exchangeIds;
+-(void) applyAlias;
+
+//-(void) exchangeIds;
 
 //-(void) updateProfile:(NSDictionary *) dict;
 //-(void) setProfile:(NSDictionary *) dict;
@@ -46,8 +36,6 @@
 
 -(void) unsetForKey:(NSString *)key;
 -(void) unsetBatch:(NSArray *) array;
-
-//-(void) incrementValueForKey:(NSString*) key byValue:(NSString *) value;
 
 -(void) incrementValue:(NSString *)value  forKey:(NSString*) key;
 -(void) appendForKey:(NSString*) key andValue:(id) value;
@@ -72,6 +60,5 @@
 - (void) end;
 - (void) pause;
 - (void) resume;
-
 
 @end

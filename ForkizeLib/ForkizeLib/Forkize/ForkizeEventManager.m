@@ -167,15 +167,6 @@
     [self queueEventWithName:@"Forkize.app.install" andParams:nil];
 }
 
--(void) queueDeviceInfo{
-    [self queueEventWithName:@"Forkize.device.info" andParams:[[DeviceInfo getInstance] getDeviceInfo]];
-}
-
--(void) queueUserInfo {
-    [self queueEventWithName:@"Forkize.user.info" andParams:[[UserProfile getInstance] getUserInfo]];
-}
-
-
 -(void) queueEventWithName:(NSString*) eventName andParams:(NSDictionary *)params{
     @try {
         NSString *eventString = [self eventAsJSON:eventName andParameters:params];
@@ -261,6 +252,7 @@
 -(void) close{
     [self.queue cancelAllOperations];
     self.queue = nil;
+    [[LocalStorageManager getInstance] close];
 }
 
 
@@ -306,6 +298,10 @@
     long currentTime = [ForkizeHelper getTimeIntervalSince1970];
     self.stateResumeTime = currentTime;
     self.stateStartTime += (self.stateResumeTime - self.statePauseTime);
+}
+
+-(void) flushCacheToDatabase{
+    [[LocalStorageManager getInstance] flushToDatabase];
 }
 
 
