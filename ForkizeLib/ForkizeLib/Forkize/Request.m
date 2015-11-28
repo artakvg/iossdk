@@ -12,6 +12,7 @@
 #import "ForkizeHelper.h"
 #import "ForkizeConfig.h"
 #import "UserProfile.h"
+#import "UserProfileInternal.h"
 #import "ForkizeMessage.h"
 
 NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
@@ -175,10 +176,10 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     return nil;
 }
 
--(BOOL) updateUserProfile:(NSString *) accessToken{
+-(NSDictionary *) updateUserProfile:(NSString *) accessToken{
     @try {
         
-        NSString *jsonString = [[UserProfile getInstance] getChangeLogJSON];
+        NSString *jsonString = [[UserProfileInternal getInstance] getChangeLogJSON];
         NSData *jsonData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
 
         NSError *parseError = nil;
@@ -208,16 +209,13 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         [mutDict setObject:hash forKeyedSubscript:@"hash"];
 
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_UPDATE_PATH andBodyDict:mutDict];
-        
-        NSInteger statusCode = [[jsonDict objectForKey:@"status"] integerValue];
         NSLog(@"update user profile jsonDict : %@", jsonDict);
-        return (statusCode == 1);
-    }
+        
+        return jsonDict;
+      }
     @catch (NSException *exception) {
         
     }
-    
-    return NO;
 }
 
 -(NSDictionary *) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken{

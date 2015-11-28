@@ -13,6 +13,7 @@
 #import "ForkizeHelper.h"
 
 #import "Request.h"
+#import "UserProfileInternal.h"
 #import "UserProfile.h"
 #import "FZEvent.h"
 
@@ -49,8 +50,11 @@
         }
         
         if (![[[UserProfile getInstance] getChangeLog] isEqualToString:@"{}"]) {
-            if ([self.request  updateUserProfile:[RestClient getInstance].accessToken]){
-                [[UserProfile getInstance] dropChangeLog];
+            NSDictionary * updateResponseDict = [self.request  updateUserProfile:[RestClient getInstance].accessToken];
+            
+            NSInteger statusCode = [[updateResponseDict objectForKey:@"status"] integerValue];
+            if (statusCode == 1){
+                [[UserProfileInternal getInstance] dropChangeLog];
             }
         }
         
@@ -77,9 +81,8 @@
                 
                 [self.localStorage updateEvents:events];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"KUKU" object:nil];
                 
-              //  [[UserProfile getInstance] applyAlias];
+                [[UserProfileInternal getInstance] applyAlias];
 
 //                user.userName = user.aliasedName;
 //                user.aliasedName = @"";

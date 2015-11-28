@@ -62,8 +62,20 @@
     [[Forkize getInstance]  setSuperPropertiesOnce:properties];
 }
 
+-(BOOL) isNewInstall{
+    return [[Forkize getInstance] isNewInstall];
+}
+
 -(void) sessionStart{
     [[Forkize getInstance]  sessionStart];
+}
+
+-(void) sessionPause{
+    [[Forkize getInstance]  sessionPause];
+}
+
+-(void) sessionResume{
+    [[Forkize getInstance]  sessionResume];
 }
 
 -(void) sessionEnd{

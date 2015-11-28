@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE63E5561BBBEFFF00A4DD79 /* ForkizeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */; };
+		CEB760221C0A45E90091B9ED /* UserProfileInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB760211C0A45E90091B9ED /* UserProfileInternal.m */; };
 		CED054611BA6C5F600842D52 /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054601BA6C5F600842D52 /* FZUserDAO.m */; };
 		CED054641BA6CC6E00842D52 /* FZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054631BA6CC6E00842D52 /* FZUser.m */; };
 		CED054661BA6F64100842D52 /* projects.db in Resources */ = {isa = PBXBuildFile; fileRef = CED054651BA6F64100842D52 /* projects.db */; };
@@ -56,6 +57,8 @@
 /* Begin PBXFileReference section */
 		CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeMessage.h; path = Forkize/ForkizeMessage.h; sourceTree = "<group>"; };
 		CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeMessage.m; path = Forkize/ForkizeMessage.m; sourceTree = "<group>"; };
+		CEB760201C0A45E90091B9ED /* UserProfileInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileInternal.h; path = Forkize/UserProfileInternal.h; sourceTree = "<group>"; };
+		CEB760211C0A45E90091B9ED /* UserProfileInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileInternal.m; path = Forkize/UserProfileInternal.m; sourceTree = "<group>"; };
 		CED0545F1BA6C5F600842D52 /* FZUserDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUserDAO.h; path = Forkize/DB/FZUserDAO.h; sourceTree = "<group>"; };
 		CED054601BA6C5F600842D52 /* FZUserDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUserDAO.m; path = Forkize/DB/FZUserDAO.m; sourceTree = "<group>"; };
 		CED054621BA6CC6E00842D52 /* FZUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUser.h; path = Forkize/DB/FZUser.h; sourceTree = "<group>"; };
@@ -216,37 +219,39 @@
 		CED9A9F81BA00B9E00B54B94 /* Forkize */ = {
 			isa = PBXGroup;
 			children = (
-				CED054711BA81B0700842D52 /* Reachability.h */,
-				CED054721BA81B0700842D52 /* Reachability.m */,
 				CED9AA1F1BA2C7DA00B54B94 /* DB */,
-				CED9AA161BA0778800B54B94 /* LocalStorage */,
-				CED9AA031BA039E400B54B94 /* IForkize.h */,
-				F820E3FB1C06197800D4FF77 /* Forkize.h */,
-				F820E3FC1C06197800D4FF77 /* Forkize.m */,
-				CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */,
-				CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */,
-				F820E3F81C0618D600D4FF77 /* ForkizeFull.h */,
-				F820E3F91C0618D600D4FF77 /* ForkizeFull.m */,
-				CED9A9F91BA00BE900B54B94 /* ForkizeConfig.h */,
-				CED9A9FA1BA00BE900B54B94 /* ForkizeConfig.m */,
 				CED9A9FC1BA01B0500B54B94 /* DeviceInfo.h */,
 				CED9A9FD1BA01B0500B54B94 /* DeviceInfo.m */,
-				CED9A9FF1BA0378E00B54B94 /* ForkizeHelper.h */,
-				CED9AA001BA0378E00B54B94 /* ForkizeHelper.m */,
-				CED9AA071BA0508100B54B94 /* UserProfile.h */,
-				CED9AA081BA0508100B54B94 /* UserProfile.m */,
-				CED9AA0A1BA050B000B54B94 /* SessionInstance.h */,
-				CED9AA0B1BA050B000B54B94 /* SessionInstance.m */,
+				F820E3FB1C06197800D4FF77 /* Forkize.h */,
+				F820E3FC1C06197800D4FF77 /* Forkize.m */,
+				CED9A9F91BA00BE900B54B94 /* ForkizeConfig.h */,
+				CED9A9FA1BA00BE900B54B94 /* ForkizeConfig.m */,
+				CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */,
+				CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */,
 				CED9AA0D1BA050DE00B54B94 /* ForkizeEventManager.h */,
 				CED9AA0E1BA050DE00B54B94 /* ForkizeEventManager.m */,
+				F820E3F81C0618D600D4FF77 /* ForkizeFull.h */,
+				F820E3F91C0618D600D4FF77 /* ForkizeFull.m */,
+				CED9A9FF1BA0378E00B54B94 /* ForkizeHelper.h */,
+				CED9AA001BA0378E00B54B94 /* ForkizeHelper.m */,
+				CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */,
+				CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */,
+				CED9AA031BA039E400B54B94 /* IForkize.h */,
+				CED9AA161BA0778800B54B94 /* LocalStorage */,
 				CED0546E1BA7FDEC00842D52 /* LocationInstance.h */,
 				CED0546F1BA7FDEC00842D52 /* LocationInstance.m */,
+				CED054711BA81B0700842D52 /* Reachability.h */,
+				CED054721BA81B0700842D52 /* Reachability.m */,
 				CED054751BA9C03200842D52 /* Request.h */,
 				CED054761BA9C03200842D52 /* Request.m */,
 				CED054781BA9C08300842D52 /* RestClient.h */,
 				CED054791BA9C08300842D52 /* RestClient.m */,
-				CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */,
-				CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */,
+				CED9AA0A1BA050B000B54B94 /* SessionInstance.h */,
+				CED9AA0B1BA050B000B54B94 /* SessionInstance.m */,
+				CED9AA071BA0508100B54B94 /* UserProfile.h */,
+				CED9AA081BA0508100B54B94 /* UserProfile.m */,
+				CEB760201C0A45E90091B9ED /* UserProfileInternal.h */,
+				CEB760211C0A45E90091B9ED /* UserProfileInternal.m */,
 			);
 			name = Forkize;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 				CED054771BA9C03200842D52 /* Request.m in Sources */,
 				F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */,
 				CED9AA0C1BA050B000B54B94 /* SessionInstance.m in Sources */,
+				CEB760221C0A45E90091B9ED /* UserProfileInternal.m in Sources */,
 				CED9AA271BA2C7F500B54B94 /* SQLiteHelper.m in Sources */,
 				CED9AA151BA057E200B54B94 /* ForkizeEmpty.m in Sources */,
 				CED9AA191BA077B100B54B94 /* LocalStorageManager.m in Sources */,

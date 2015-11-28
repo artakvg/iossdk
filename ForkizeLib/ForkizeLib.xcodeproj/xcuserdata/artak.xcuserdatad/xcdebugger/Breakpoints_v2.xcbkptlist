@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Forkize.m"
-            timestampString = "465304725.639836"
+            timestampString = "470440242.665263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177">
+            startingLineNumber = "189"
+            endingLineNumber = "189">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -85,28 +85,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/UserProfile.m"
-            timestampString = "465316383.692452"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "-identify:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "467542073.650373"
+            timestampString = "470440242.665263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "-getAccessToken"
             landmarkType = "5">
          </BreakpointContent>
@@ -118,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "467542073.650373"
+            timestampString = "470440242.665263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "-getAccessToken"
             landmarkType = "5">
          </BreakpointContent>
@@ -134,11 +118,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "470242406.864712"
+            timestampString = "470440242.665263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-postAliasWithAliasedUserId:andUserId:andAccessToken:"
             landmarkType = "5">
          </BreakpointContent>
@@ -150,11 +134,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "467542073.650373"
+            timestampString = "470440242.665263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "-postAliasWithAliasedUserId:andUserId:andAccessToken:"
             landmarkType = "5">
          </BreakpointContent>
@@ -166,11 +150,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "467542073.650373"
+            timestampString = "470440242.665263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "-postAliasWithAliasedUserId:andUserId:andAccessToken:"
             landmarkType = "5">
          </BreakpointContent>
@@ -203,6 +187,53 @@
             endingLineNumber = "132"
             landmarkName = "-getUser:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__21-[FZUserDAO getUser:]_block_invoke"
+                  moduleName = "ForkizeLib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/DB/FZUserDAO.m"
+                  timestampString = "470440243.841168"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "133"
+                  endingLineNumber = "133"
+                  offsetFromSymbolStart = "155">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_80"
+                  moduleName = "ForkizeLib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/DB/FZUserDAO.m"
+                  timestampString = "470440243.841437"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_81"
+                  moduleName = "ForkizeLib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/DB/FZUserDAO.m"
+                  timestampString = "470440243.841681"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "14">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -227,62 +258,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/UserProfile.m"
-            timestampString = "465316383.692452"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "-identify:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/ForkizeEventManager.m"
             timestampString = "465315829.796127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
             endingLineNumber = "79"
-            landmarkName = "-main"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FzEventOperation main]"
-                  moduleName = "ForkizeLib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak/Projects/ForkizeLib/ForkizeLib/Forkize/ForkizeEventManager.m"
-                  timestampString = "467542074.732392"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "79"
-                  endingLineNumber = "79"
-                  offsetFromSymbolStart = "480">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FzEventOperation main]"
-                  moduleName = "ForkizeLib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak/Projects/ForkizeLib/ForkizeLib/Forkize/ForkizeEventManager.m"
-                  timestampString = "467542074.732525"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "79"
-                  endingLineNumber = "79"
-                  offsetFromSymbolStart = "534">
-               </Location>
-            </Locations>
+            landmarkName = "@implementation ForkizeEventManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -307,28 +290,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/UserProfile.m"
-            timestampString = "465316430.072784"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-identify:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Forkize.m"
-            timestampString = "467126638.175951"
+            timestampString = "470440242.665263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-sessionEnd"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,6 +313,22 @@
             startingLineNumber = "247"
             endingLineNumber = "247"
             landmarkName = "-eventAsJSON:andParameters:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/UserProfile.m"
+            timestampString = "470439879.497939"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "-start"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

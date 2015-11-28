@@ -1,18 +1,16 @@
 //
-//  UserProfile.h
+//  UserProfileInternal.h
 //  ForkizeLib
 //
-//  Created by Artak on 9/9/15.
-//  Copyright (c) 2015 Artak. All rights reserved.
+//  Created by Artak Martirosyan on 11/29/15.
+//  Copyright © 2015 Artak. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@class FZUser;
+@interface UserProfileInternal : NSObject
 
-@interface UserProfile : NSObject
-
-+ (UserProfile*) getInstance;
++ (UserProfileInternal*) getInstance;
 
 -(NSString*) getUserId;
 -(NSString*) getAliasedUserId;
@@ -22,6 +20,13 @@
 -(void) identify:(NSString *) userId;
 
 -(void) alias:(NSString*) userId;
+
+-(void) applyAlias;
+
+//-(void) exchangeIds;
+
+//-(void) updateProfile:(NSDictionary *) dict;
+//-(void) setProfile:(NSDictionary *) dict;
 
 -(void) setValue:(id)value forKey:(NSString *)key;
 -(void) setOnceValue:(id)value forKey:(NSString *)key;
@@ -46,10 +51,13 @@
 -(NSString*) getGender;
 
 -(NSString *) getChangeLog;
+-(id) getChangeLogJSON;
+-(void) dropChangeLog;
 
 - (void) start;
 - (void) end;
 - (void) pause;
 - (void) resume;
+
 
 @end
