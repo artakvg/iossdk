@@ -161,7 +161,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         [mutDict setObject:userId forKey:@"user_id"];
         [mutDict setObject:accessToken forKey:@"access_token"];
         [mutDict setObject:hash forKeyedSubscript:@"hash"];
-        [mutDict setObject:aliasedUserId forKey:@"alias_id"];
+    //    [mutDict setObject:aliasedUserId forKey:@"alias_id"];
         [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
         
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_ALIAS_PATH andBodyDict:mutDict];
@@ -179,7 +179,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 -(NSDictionary *) updateUserProfile:(NSString *) accessToken{
     @try {
         
-        NSString *jsonString = [[UserProfileInternal getInstance] getChangeLogJSON];
+        NSString *jsonString = [[UserProfileInternal getInstance] getChangeLog];
         NSData *jsonData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
 
         NSError *parseError = nil;

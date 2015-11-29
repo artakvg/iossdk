@@ -49,26 +49,31 @@
             return;
         }
         
-        if (![[[UserProfile getInstance] getChangeLog] isEqualToString:@"{}"]) {
+        if (![[UserProfileInternal getInstance] isChangeLogEmpty]) {
             NSDictionary * updateResponseDict = [self.request  updateUserProfile:[RestClient getInstance].accessToken];
             
             NSInteger statusCode = [[updateResponseDict objectForKey:@"status"] integerValue];
+            NSString *upv = [updateResponseDict objectForKey:@"upv"];
+            
             if (statusCode == 1){
                 [[UserProfileInternal getInstance] dropChangeLog];
+                [[UserProfileInternal getInstance] setProfileVersion:upv];
             }
         }
         
-        NSString *aliasedName = [[UserProfile getInstance] getAliasedUserId];
+        NSString *aliasedName = [[UserProfileInternal getInstance] getAliasedUserId];
         
         if (![ForkizeHelper isNilOrEmpty:aliasedName]) {
             NSString *userId = [[UserProfile getInstance] getUserId];
         
             NSDictionary *aliasResponseDict = [self.request postAliasWithAliasedUserId:aliasedName andUserId:userId andAccessToken:[RestClient getInstance]. accessToken];
-             NSInteger statusCode = [[aliasResponseDict objectForKey:@"status"] integerValue];
+         //    NSInteger statusCode = [[aliasResponseDict objectForKey:@"status"] integerValue];
             
-            if (statusCode == 1) {
+            NSString * accessToken = [aliasResponseDict objectForKey:@"access_token"];
             
-                [RestClient getInstance].accessToken = [aliasResponseDict objectForKey:@"access_token"];
+            if (accessToken != nil) {
+            
+                [RestClient getInstance].accessToken = accessToken;
                 [self.localStorage flushToDatabase];
       //          [[UserProfile getInstance] exchangeIds];
                 

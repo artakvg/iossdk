@@ -10,29 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/UserProfile.m"
-            timestampString = "470409874.740924"
+            timestampString = "470489759.313185"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "-setValue:forKey:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "470157895.454712"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-getReponseForRequestByURL:andBodyDict:"
-            landmarkType = "5">
+            startingLineNumber = "218"
+            endingLineNumber = "218">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,59 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/RestClient.m"
-            timestampString = "470409874.740924"
+            timestampString = "470493173.627411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "-main"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FzRestOperation main]"
-                  moduleName = "ForkizeLib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak1/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/RestClient.m"
-                  timestampString = "470410081.188484"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "106"
-                  endingLineNumber = "106"
-                  offsetFromSymbolStart = "3202">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FzRestOperation main]"
-                  moduleName = "ForkizeLib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak1/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/RestClient.m"
-                  timestampString = "470410081.188715"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "106"
-                  endingLineNumber = "106"
-                  offsetFromSymbolStart = "3239">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/RestClient.m"
-            timestampString = "470409874.740924"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "-main"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,45 +40,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/RestClient.m"
-            timestampString = "470409874.740924"
+            timestampString = "470493173.627411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "-main"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FzRestOperation main]"
-                  moduleName = "ForkizeLib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak1/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/RestClient.m"
-                  timestampString = "470410081.19026"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "106"
-                  endingLineNumber = "106"
-                  offsetFromSymbolStart = "3202">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FzRestOperation main]"
-                  moduleName = "ForkizeLib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak1/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/RestClient.m"
-                  timestampString = "470410081.190407"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "106"
-                  endingLineNumber = "106"
-                  offsetFromSymbolStart = "3239">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/RestClient.m"
+            timestampString = "470493173.627411"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-main"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -160,54 +78,6 @@
             startingLineNumber = "165"
             endingLineNumber = "165"
             landmarkName = "-removeEventsWithCount:forUser:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/DB/DAOFactory.m"
-            timestampString = "470165076.929467"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "+defaultFactory"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/DB/DAOFactory.m"
-            timestampString = "470165138.315563"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "+defaultFactory"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/DB/DAOFactory.m"
-            timestampString = "470165148.299572"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "+defaultFactory"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,28 +103,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/UserProfile.m"
-            timestampString = "470409874.740924"
+            filePath = "ForkizeLib/Forkize/RestClient.m"
+            timestampString = "470493173.627411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
-            landmarkName = "-postListen:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/RestClient.m"
-            timestampString = "470409954.099714"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
             landmarkName = "-main"
             landmarkType = "5">
          </BreakpointContent>
@@ -265,13 +119,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/RestClient.m"
-            timestampString = "470409986.589701"
+            filePath = "ForkizeLib/Forkize/UserProfileInternal.m"
+            timestampString = "470493173.627411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "-main"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "-identify:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/ForkizeHelper.m"
+            timestampString = "470490089.825428"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "+isKeyValid:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/Request.m"
+            timestampString = "470490751.352269"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "-postWithBody:andAccessToken:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/DB/DAOFactory.m"
+            timestampString = "470491671.50749"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "+defaultFactory"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -282,11 +184,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/RestClient.m"
-            timestampString = "470410009.293398"
+            timestampString = "470493173.627411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-main"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/Request.m"
+            timestampString = "470492426.402927"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-updateUserProfile:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/Request.m"
+            timestampString = "470493331.028465"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "-updateUserProfile:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/RestClient.m"
+            timestampString = "470494084.842607"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "-main"
             landmarkType = "5">
          </BreakpointContent>

@@ -152,15 +152,15 @@
 }
 
 -(void) queueSessionStart {
-    [self queueEventWithName:@"Forkize.session.start" andParams:nil];
+    [self queueEventWithName:@"$session_start" andParams:nil];
 }
 
 // FZ::DONE , think session time should be retrieved from session instance
 -(void) queueSessionEnd{
     
-    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [SessionInstance getInstance].sessionLength] forKey:@"Forkize.session.length"];
+    NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [SessionInstance getInstance].sessionLength] forKey:@"$session_duration"];
     
-    [self queueEventWithName:@"Forkize.session.end" andParams:params];
+    [self queueEventWithName:@"$session_end" andParams:params];
 }
 
 -(void) queueNewInstall {

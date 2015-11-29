@@ -9,7 +9,9 @@
 #import "ForkizeFull.h"
 
 #import "ForkizeConfig.h"
+#import "UserProfileInternal.h"
 #import "UserProfile.h"
+
 #import "ForkizeEventManager.h"
 #import "LocationInstance.h"
 #import "RestClient.h"
@@ -25,7 +27,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 @property (nonatomic, assign) BOOL initialized;
 
 @property (nonatomic, strong) RestClient* restClient;
-@property (nonatomic, strong) UserProfile *userProfile;
+@property (nonatomic, strong) UserProfileInternal *userProfile;
 @property (nonatomic, strong) ForkizeEventManager *eventManager;
 
 @property (nonatomic, assign) BOOL isRunning;
@@ -41,16 +43,6 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
     
     if (self) {
         self.destroyed = YES;
-        self.initialized = NO;
-        
-        self.userProfile     = [UserProfile getInstance];
-        self.eventManager    = [ForkizeEventManager getInstance];
-        self.restClient      = [RestClient getInstance];
-        
-        self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runOperations:) object:self];
-        
-        [[LocationInstance getInstance] setListeners];
-        
         NSLog(@"Forkize SDK Forkize constructor called !");
     }
     
@@ -75,10 +67,27 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
     ForkizeConfig *config = [ForkizeConfig getInstance];
     config.appId = appId;
     config.appKey = appKey;
+    
+    if (self.destroyed) {
+        self.initialized = NO;
+        self.destroyed = NO;
+        
+        self.userProfile   = [UserProfileInternal getInstance];
+        self.eventManager  = [ForkizeEventManager getInstance];
+        self.restClient    = [RestClient getInstance];
+        
+        self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runOperations:) object:self];
+       [[LocationInstance getInstance] setListeners];
+    }
+    
 }
 
 -(void) identify:(NSString *) userId{
     
+    if (self.destroyed) {
+        //FZ::Point
+        @throw [NSException  exceptionWithName:@"Forkize" reason:@"authorize must be called before identify" userInfo:nil];
+    }
     if (!self.initialized) {
         
         @try {
@@ -234,6 +243,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         self.isRunning = NO;
         self.initialized = NO;
         self.destroyed = YES;
+        
 
         
         NSLog(@"Forkize SDK SDK is shot down!");

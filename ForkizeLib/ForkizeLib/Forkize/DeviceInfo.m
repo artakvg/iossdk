@@ -36,6 +36,7 @@
 }
 
 -(NSString *) getBatteryLevel{
+    //FZ::Point if permission denied return -100
     return [NSString stringWithFormat:@"%ld", (long)( [UIDevice currentDevice].batteryLevel * 100)];
 }
 
@@ -55,7 +56,7 @@
                                                 [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0], @"language",
                                                 [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], @"app_major_version",
                                                 [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], @"app_minor_version",
-                                                [self getBatteryLevel], @"battery_level",
+                                            //    [self getBatteryLevel], @"battery_level",
                                                 nil];
 
     }

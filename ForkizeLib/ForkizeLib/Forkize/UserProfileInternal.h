@@ -18,24 +18,23 @@
 -(id) objectForKey:(NSString *) key;
 
 -(void) identify:(NSString *) userId;
+-(void) logout;
 
 -(void) alias:(NSString*) userId;
 
 -(void) applyAlias;
 
-//-(void) exchangeIds;
-
-//-(void) updateProfile:(NSDictionary *) dict;
-//-(void) setProfile:(NSDictionary *) dict;
+-(void) setProfileVersion:(NSString *) version;
 
 -(void) setValue:(id)value forKey:(NSString *)key;
 -(void) setOnceValue:(id)value forKey:(NSString *)key;
 -(void) setBatch:(NSDictionary *) dict;
+-(void) setOnceBatch:(NSDictionary *) dict;
 
 -(void) unsetForKey:(NSString *)key;
 -(void) unsetBatch:(NSArray *) array;
 
--(void) incrementValue:(NSString *)value  forKey:(NSString*) key;
+-(void) incrementValue:(NSNumber *)value  forKey:(NSString*) key;
 -(void) appendForKey:(NSString*) key andValue:(id) value;
 -(void) prependForKey:(NSString*) key andValue:(id) value;
 
@@ -51,6 +50,7 @@
 -(NSString*) getGender;
 
 -(NSString *) getChangeLog;
+-(BOOL) isChangeLogEmpty;
 -(id) getChangeLogJSON;
 -(void) dropChangeLog;
 
