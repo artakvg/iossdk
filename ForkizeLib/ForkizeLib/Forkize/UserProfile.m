@@ -119,20 +119,4 @@
     return [self.internal getGender];
 }
 
-- (void) start{
-    [self.internal start];
-}
-
-- (void) end{
-    [self.internal end];
-}
-
-- (void) pause{
-    [self.internal pause];
-}
-
-- (void) resume{
-    [self.internal resume];
-}
-
 @end

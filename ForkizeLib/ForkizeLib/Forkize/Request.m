@@ -35,17 +35,58 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     return sharedInstance;
 }
 
--(NSMutableDictionary *) getCommonDict{
-    NSString *userId = [[UserProfile getInstance] getUserId];
+-(NSMutableDictionary *) getCommonDict:(NSData *)jsonData{
     
+    
+    NSError *parseError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
+    
+    NSMutableString *apiDataString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [apiDataString replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
+    [apiDataString replaceOccurrencesOfString:@" " withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
+
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    if (jsonData == nil) {
+        apiDataString = nil;
+        [dict setObject:jsonObject forKeyedSubscript:@"api_data"];
+    }
+    
+    NSString *hash = [self constructHash:apiDataString];
     
     [dict setObject:@"ios" forKey:@"sdk"];
     [dict setObject:[ForkizeConfig getInstance].SDK_VERSION forKey:@"version"];
     [dict setObject:[ForkizeConfig getInstance].appId forKey:@"app_id"];
-    [dict setObject:userId forKey:@"user_id"];
+    [dict setObject:[[UserProfile getInstance] getUserId] forKey:@"user_id"];
+    [dict setObject:hash forKey:@"hash"];
     
     return dict;
+}
+
+-(NSString *) constructHash:(NSString *) apiDataString{
+    NSString * hashableString = @"";
+    
+    if (apiDataString == nil) {
+        hashableString = [NSString stringWithFormat:@"%@=%@=%@=%@=%@",
+                                   [ForkizeConfig getInstance].appId,
+                                   [[UserProfile getInstance] getUserId],
+                                   @"ios",
+                                   [ForkizeConfig getInstance].SDK_VERSION,
+                                   [ForkizeConfig getInstance].appKey];
+    } else {
+        hashableString = [NSString stringWithFormat:@"%@=%@=%@=%@=%@=%@",
+                                   [ForkizeConfig getInstance].appId,
+                                   [[UserProfile getInstance] getUserId],
+                                   @"ios",
+                                   [ForkizeConfig getInstance].SDK_VERSION,
+                                   [ForkizeConfig getInstance].appKey,
+                                   apiDataString];
+    }
+    
+    NSString *hash = [ForkizeHelper md5:hashableString];
+    NSLog(@"Hashable string: %@ \n hash: %@", hashableString, hash);
+    return hash;
 }
 
 -(NSDictionary*) getReponseForRequestByURL:(NSString *) urlStr andBodyDict:(NSDictionary *) dict{
@@ -90,21 +131,8 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     NSString *accessToken = nil;
     @try {
         
-        NSString *userId = [[UserProfile getInstance] getUserId];
-        
-        NSString *hashableString = [NSString stringWithFormat:@"%@=%@=%@=%@=%@",
-                                    [ForkizeConfig getInstance].appId,
-                                    userId,
-                                    @"ios",
-                                    [ForkizeConfig getInstance].SDK_VERSION,
-                                    [ForkizeConfig getInstance].appKey];
-        
-        NSString *hash = [ForkizeHelper md5:hashableString];
-        
-        NSMutableDictionary *mutDict = [self getCommonDict];
-        
-        [mutDict setObject:hash forKey:@"hash"];
-
+        NSMutableDictionary *mutDict = [self getCommonDict:nil];
+     
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_AUTH_PATH andBodyDict:mutDict];
         NSLog(@"getAccessToken resonse %@", jsonDict);
         accessToken = [jsonDict objectForKey:@"access_token"];
@@ -138,31 +166,9 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:api_dataDict options:NSJSONWritingPrettyPrinted error:&error];
         
-        NSError *parseError = nil;
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-
-        NSMutableString *apiDataString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        [apiDataString replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
-        [apiDataString replaceOccurrencesOfString:@" " withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
-        
-        
-        NSString *hashabelString = [NSString stringWithFormat:@"%@=%@=%@=%@=%@=%@",
-                                    [ForkizeConfig getInstance].appId,
-                                    [[UserProfile getInstance] getUserId],
-                                    @"ios",
-                                    [ForkizeConfig getInstance].SDK_VERSION,
-                                    [ForkizeConfig getInstance].appKey,
-                                    apiDataString];
-        
-        NSString *hash = [ForkizeHelper md5:hashabelString];
-        
-        NSMutableDictionary *mutDict = [self getCommonDict];
+        NSMutableDictionary *mutDict = [self getCommonDict:jsonData];
         [mutDict setObject:userId forKey:@"user_id"];
         [mutDict setObject:accessToken forKey:@"access_token"];
-        [mutDict setObject:hash forKeyedSubscript:@"hash"];
-    //    [mutDict setObject:aliasedUserId forKey:@"alias_id"];
-        [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
         
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_ALIAS_PATH andBodyDict:mutDict];
         NSLog(@"alias jsonDict : %@", jsonDict);
@@ -182,31 +188,8 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
         NSString *jsonString = [[UserProfileInternal getInstance] getChangeLog];
         NSData *jsonData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
 
-        NSError *parseError = nil;
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-
-        NSMutableString *apiDataString = [NSMutableString stringWithString:jsonString];
-
-        
-        [apiDataString replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
-        [apiDataString replaceOccurrencesOfString:@" " withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
-        
-        
-        NSString *hashabelString = [NSString stringWithFormat:@"%@=%@=%@=%@=%@=%@",
-                                    [ForkizeConfig getInstance].appId,
-                                    [[UserProfile getInstance] getUserId],
-                                    @"ios",
-                                    [ForkizeConfig getInstance].SDK_VERSION,
-                                    [ForkizeConfig getInstance].appKey,
-                                    apiDataString
-                                    ];
-
-        NSString *hash = [ForkizeHelper md5:hashabelString];
-        
-        NSMutableDictionary *mutDict = [self getCommonDict];
-        [mutDict setObject:jsonObject forKeyedSubscript:@"api_data"];
+        NSMutableDictionary *mutDict = [self getCommonDict:jsonData];
         [mutDict setObject:accessToken forKey:@"access_token"];
-        [mutDict setObject:hash forKeyedSubscript:@"hash"];
 
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_UPDATE_PATH andBodyDict:mutDict];
         NSLog(@"update user profile jsonDict : %@", jsonDict);
@@ -222,27 +205,9 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayData options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSMutableString *jsonString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    [jsonString replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[jsonString length] - 1)];
-    [jsonString replaceOccurrencesOfString:@" " withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[jsonString length] - 1)];
-    
-    NSString *hashableString = [NSString stringWithFormat:@"%@=%@=%@=%@=%@=%@",
-                                [ForkizeConfig getInstance].appId,
-                                [[UserProfile getInstance] getUserId],
-                                @"ios",
-                                [ForkizeConfig getInstance].SDK_VERSION,
-                                [ForkizeConfig getInstance].appKey,
-                                jsonString];
-    
-    NSString *hash = [ForkizeHelper md5:hashableString];
-    
-    NSLog(@"Hashable string: %@ \n hash: %@", hashableString, hash);
-    
-    NSMutableDictionary *mutDict = [self getCommonDict];
+    NSMutableDictionary *mutDict = [self getCommonDict:jsonData];
   
-    [mutDict setObject:arrayData forKey:@"api_data"];
     [mutDict setObject:accessToken forKey:@"access_token"];
-    [mutDict setObject:hash forKey:@"hash"];
  
     NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_LIVE_PATH andBodyDict:mutDict];
     

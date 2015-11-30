@@ -7,10 +7,7 @@
 //
 
 
-
-
 #import "ForkizeMessage.h"
-
 
 static NSString *const  FZ_MESSAGE = @"message";
 static NSString *const  FZ_ID = @"id";

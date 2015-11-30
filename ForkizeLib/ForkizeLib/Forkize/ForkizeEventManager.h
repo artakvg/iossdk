@@ -15,15 +15,12 @@
 -(void) setSuperProperties:(NSDictionary *) dict;
 -(void) setSuperPropertiesOnce:(NSDictionary *) dict;
 
-
 -(void) queueSessionStart;
 -(void) queueSessionEnd;
 -(void) eventDuration:(NSString*) eventName;
 
 -(void) queueEventWithName:(NSString*) eventName andParams:(NSDictionary *)params;
 -(void) queueAliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
-
--(void) queueNewInstall;
 
 -(void) close;
 

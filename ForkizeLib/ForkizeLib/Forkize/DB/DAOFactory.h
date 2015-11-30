@@ -16,8 +16,8 @@
 
 + (DAOFactory *)defaultFactory;
 
--(FZUserDAO *) userDAO;
+- (FZUserDAO *) userDAO;
 
--(EventsDAO *) eventsDAO;
+- (EventsDAO *) eventsDAO;
 
 @end

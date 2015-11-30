@@ -27,7 +27,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 @property (nonatomic, assign) BOOL initialized;
 
 @property (nonatomic, strong) RestClient* restClient;
-@property (nonatomic, strong) UserProfileInternal *userProfile;
+@property (nonatomic, strong) UserProfileInternal *userProfileInternal;
 @property (nonatomic, strong) ForkizeEventManager *eventManager;
 
 @property (nonatomic, assign) BOOL isRunning;
@@ -52,7 +52,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 -(void)runOperations:(id<IForkize>) forkize{
     while (self.isRunning) {
         @try {
-            NSLog(@"Forkize SDK %@", [self.userProfile getChangeLog]); // FZ::TODO remove this in production version
+            NSLog(@"Forkize SDK %@", [self.userProfileInternal getChangeLog]); // FZ::TODO remove this in production version
             [self.restClient flush];
             [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] TIME_AFTER_FLUSH]];
         }
@@ -61,7 +61,6 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         }
     }
 }
-
 
 -(void) authorize:(NSString *)appId andAppKey:(NSString *)appKey{
     ForkizeConfig *config = [ForkizeConfig getInstance];
@@ -72,14 +71,13 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         self.initialized = NO;
         self.destroyed = NO;
         
-        self.userProfile   = [UserProfileInternal getInstance];
+        self.userProfileInternal   = [UserProfileInternal getInstance];
         self.eventManager  = [ForkizeEventManager getInstance];
         self.restClient    = [RestClient getInstance];
         
         self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runOperations:) object:self];
        [[LocationInstance getInstance] setListeners];
     }
-    
 }
 
 -(void) identify:(NSString *) userId{
@@ -94,7 +92,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
             self.initialized = YES;
             self.destroyed = NO;
             
-            [self.userProfile identify:userId];
+            [self.userProfileInternal identify:userId];
             [self sessionStart];
             
             self.isRunning = true;
@@ -117,7 +115,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 }
 
 -(void) alias:(NSString*) userId{
-    [self.userProfile alias:userId];
+    [self.userProfileInternal alias:userId];
 }
 
 -(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters{
@@ -143,21 +141,20 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 }
 
 -(void) sessionStart{
-    [self.userProfile start];
+    [self.userProfileInternal start];
 }
 
 -(void) sessionEnd{
-    [self.userProfile end];
+    [self.userProfileInternal end];
 }
 
 -(void) sessionPause{
-    [self.userProfile pause];
+    [self.userProfileInternal pause];
 }
 
 -(void) sessionResume{
-    [self.userProfile resume];
+    [self.userProfileInternal resume];
 }
-
 
 -(void) eventDuration:(NSString *)eventName{
     [self.eventManager eventDuration:eventName];
@@ -175,7 +172,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
     @try {
         [self.eventManager flushCacheToDatabase];
         
-        [self.userProfile pause];
+        [self.userProfileInternal pause];
         
         NSLog(@"Forkize SDK On Pause");
         
@@ -187,7 +184,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 -(void)  resume{
     @try {
         
-        [self.userProfile resume];
+        [self.userProfileInternal resume];
         
     } @catch (NSException *exception) {
         NSLog(@"Forkize SDK Exception thrown onResume %@", exception);
@@ -198,7 +195,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
     @try {
         
         if (!self.destroyed) {
-            [self.userProfile end];
+            [self.userProfileInternal end];
             
             [self.eventManager flushCacheToDatabase];
             
@@ -235,7 +232,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         self.restClient = nil;
         // ** we should close user profile befor eventmanager
         // ** userprofile end queues sessionEnd event
-        [self.userProfile end];
+        [self.userProfileInternal end];
         
         [self.eventManager close];
         self.eventManager = nil;
@@ -243,8 +240,6 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         self.isRunning = NO;
         self.initialized = NO;
         self.destroyed = YES;
-        
-
         
         NSLog(@"Forkize SDK SDK is shot down!");
     }

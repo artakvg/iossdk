@@ -8,10 +8,10 @@
 
 #import "Forkize.h"
 
-#import <UIKit/UIKit.h>
-
 #import "ForkizeFull.h"
 #import "ForkizeEmpty.h"
+
+#import <UIKit/UIKit.h>
 
 @implementation Forkize
 

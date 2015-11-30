@@ -67,7 +67,6 @@
             NSString *userId = [[UserProfile getInstance] getUserId];
         
             NSDictionary *aliasResponseDict = [self.request postAliasWithAliasedUserId:aliasedName andUserId:userId andAccessToken:[RestClient getInstance]. accessToken];
-         //    NSInteger statusCode = [[aliasResponseDict objectForKey:@"status"] integerValue];
             
             NSString * accessToken = [aliasResponseDict objectForKey:@"access_token"];
             
@@ -75,23 +74,15 @@
             
                 [RestClient getInstance].accessToken = accessToken;
                 [self.localStorage flushToDatabase];
-      //          [[UserProfile getInstance] exchangeIds];
-                
                 
                 NSArray *events = [self.localStorage getEvents];
                 
                 for (FZEvent *event in events) {
                     event.userName = aliasedName;
                 }
-                
                 [self.localStorage updateEvents:events];
                 
-                
                 [[UserProfileInternal getInstance] applyAlias];
-
-//                user.userName = user.aliasedName;
-//                user.aliasedName = @"";
-//                [self.userDAO updateUser:user];
             }
         }
         
@@ -109,8 +100,8 @@
             NSData *data = [eventValue dataUsingEncoding:NSUTF8StringEncoding];
             id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&parseError];
             if (parseError == nil) {
-            [arrayData addObject:jsonObject];
-        }
+                [arrayData addObject:jsonObject];
+            }
         }
         
         NSDictionary *postResponseDict = [self.request postWithBody:arrayData andAccessToken:[RestClient getInstance].accessToken];
@@ -156,7 +147,6 @@
     });
     return sharedInstance;
 }
-
 
 -(void) close{
     [self.queue cancelAllOperations];

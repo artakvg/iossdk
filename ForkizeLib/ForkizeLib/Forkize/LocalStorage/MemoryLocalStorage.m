@@ -24,7 +24,6 @@
         self.eventMaxCount =  [[ForkizeConfig getInstance] MAX_EVENTS_PER_FLUSH];
         self.events = [NSMutableArray array];
     }
-    
     return self;
 }
 

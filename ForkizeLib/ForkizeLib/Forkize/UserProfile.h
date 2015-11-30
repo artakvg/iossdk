@@ -46,9 +46,4 @@
 
 // FZ::TODO set birthday, 
 
-- (void) start;
-- (void) end;
-- (void) pause;
-- (void) resume;
-
 @end

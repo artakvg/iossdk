@@ -60,7 +60,6 @@
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
     }
-
     return resultArray;
 }
 
@@ -73,7 +72,6 @@
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
     }
-    
     return resultArray;
 }
 

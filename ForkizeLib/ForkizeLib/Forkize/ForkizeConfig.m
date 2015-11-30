@@ -12,9 +12,6 @@ NSString *const FORKIZE_SDK_VERION = @"1.0";
 
 @interface ForkizeConfig()
 
-@property (nonatomic, strong) NSString *dbName;
-@property (nonatomic, assign) long maxSQLiteDBSize;
-
 @property (nonatomic, assign) NSInteger MAX_EVENTS_PER_FLUSH;
 @property (nonatomic, assign) NSInteger TIME_AFTER_FLUSH;
 @property (nonatomic, assign) NSInteger SESSION_INTERVAL;
@@ -28,9 +25,6 @@ NSString *const FORKIZE_SDK_VERION = @"1.0";
 -(instancetype) init{
     self = [super init];
     if (self) {
-        self.dbName = @"forkize.db";
-        self.maxSQLiteDBSize = 1048576L;
-        
         self.MAX_EVENTS_PER_FLUSH = 10;
         self.TIME_AFTER_FLUSH = 10;
         self.SESSION_INTERVAL = 30000L;

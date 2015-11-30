@@ -7,6 +7,7 @@
 //
 
 #import "ForkizeEventManager.h"
+
 #import "UserProfile.h"
 #import "SessionInstance.h"
 #import "LocationInstance.h"
@@ -16,10 +17,7 @@
 
 #import "FZEvent.h"
 
-
-
 @interface FzEventOperation : NSOperation{
-    
     NSString *eventJSON_;
 }
 
@@ -108,7 +106,7 @@
     if (self.scheduledEvents == nil){
         self.scheduledEvents = [NSMutableDictionary dictionary];
     }
-    // FZ::DONE which timezone is timeIntervalSince1970 ????? LOOK AT TRACK EVENT
+
     [self.scheduledEvents setObject:[NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970]] forKey:eventName];
 }
 
@@ -140,31 +138,15 @@
     }
 }
 
-// FZ::DONE THINK IT SHOULD BE REMOVED from where it was called
--(void) queueAliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId{
-    
-    NSDictionary * params = [NSDictionary dictionaryWithObjectsAndKeys:
-                             oldUserId, @"Forkize.userId.old",
-                             newUserId, @"Forkize.userId.new",
-                             nil];
-    [self queueEventWithName:@"alias" andParams:params];
-    NSLog(@"Forkize SDK queueAlias has been ended job");
-}
-
 -(void) queueSessionStart {
     [self queueEventWithName:@"$session_start" andParams:nil];
 }
 
-// FZ::DONE , think session time should be retrieved from session instance
 -(void) queueSessionEnd{
     
     NSDictionary * params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", [SessionInstance getInstance].sessionLength] forKey:@"$session_duration"];
     
     [self queueEventWithName:@"$session_end" andParams:params];
-}
-
--(void) queueNewInstall {
-    [self queueEventWithName:@"Forkize.app.install" andParams:nil];
 }
 
 -(void) queueEventWithName:(NSString*) eventName andParams:(NSDictionary *)params{
@@ -213,7 +195,6 @@
         NSTimeInterval stateTime = timeInterval - self.stateStartTime;
         
         [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)stateTime] forKey:@"$state_time"];
-        
     }
     
     self.latitude = [[LocationInstance getInstance] latitude];
@@ -246,7 +227,7 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONWritingPrettyPrinted error:&error];
     NSString *resultString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
-     return resultString;
+    return resultString;
 }
 
 -(void) close{
@@ -303,7 +284,6 @@
 -(void) flushCacheToDatabase{
     [[LocalStorageManager getInstance] flushToDatabase];
 }
-
 
 @end
 

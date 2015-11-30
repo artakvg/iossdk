@@ -49,10 +49,15 @@
 -(void) addEvent:(FZEvent *) event{
     @synchronized(self.eventLock)
     {
-        if (![self.imMemoryStorage write:event] ) {
-            [self.secondaryStorage writeArray:[self.imMemoryStorage read]];
-            [self.imMemoryStorage flush];
-            [self.imMemoryStorage write:event];
+        
+        @try {
+            if (![self.imMemoryStorage write:event] ) {
+                [self.secondaryStorage writeArray:[self.imMemoryStorage read]];
+                [self.imMemoryStorage flush];
+                [self.imMemoryStorage write:event];
+            }
+        } @catch (NSException *e) {
+            NSLog(@"Forkize SDK Exception thrown adding event %@", e);
         }
     }
 }
@@ -98,17 +103,20 @@
         @try {
             return [self.secondaryStorage updateEvents:events];
         } @catch (NSException* e) {
-            NSLog(@"Forkize SDK Exception thrown removing events %@", e);
+            NSLog(@"Forkize SDK Exception thrown updating events %@", e);
         }
     }
 }
 
 -(void) flushToDatabase {
-    @try {
-        [self.secondaryStorage writeArray:[self.imMemoryStorage read]];
-        [self.imMemoryStorage flush];
-    } @catch (NSException *e) {
-        NSLog(@"Forkize SDK Exception thrown flushing data to database");
+    @synchronized (self.eventLock)
+    {
+        @try {
+            [self.secondaryStorage writeArray:[self.imMemoryStorage read]];
+            [self.imMemoryStorage flush];
+        } @catch (NSException *e) {
+            NSLog(@"Forkize SDK Exception thrown flushing data to database");
+        }
     }
 }
 

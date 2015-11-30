@@ -76,7 +76,7 @@ static DAOFactory *defaultFactory_ = nil;
 	return [[FZUserDAO alloc] initWithSQLiteDatabase:self.database];
 }
 
--(EventsDAO *) eventsDAO{
+- (EventsDAO *) eventsDAO{
     return  [[EventsDAO alloc] initWithSQLiteDatabase:self.database];
 }
 

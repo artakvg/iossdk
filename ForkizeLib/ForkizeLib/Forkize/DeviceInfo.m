@@ -63,7 +63,6 @@
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Exception thrown when device info collecting %@", exception);
     }
-  
 }
 
 @end

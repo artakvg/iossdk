@@ -12,6 +12,6 @@
 
 @property (nonatomic, assign) NSInteger Id;
 @property (nonatomic, strong) NSString *userName;
-@property (nonatomic, strong) NSString * eventValue;
+@property (nonatomic, strong) NSString *eventValue;
 
 @end
