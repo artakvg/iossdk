@@ -85,22 +85,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "470577701.481511"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "-postAliasWithAliasedUserId:andUserId:andAccessToken:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/LocalStorage/SQLiteLocalStorage.m"
             timestampString = "466117229.740694"
             startingColumnNumber = "9223372036854775807"
@@ -258,12 +242,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "470668260.5866"
+            timestampString = "470668028.006868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-getCommonDict:"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "-getAccessToken"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -273,13 +257,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ForkizeLib/Forkize/Request.m"
-            timestampString = "470668028.006868"
+            filePath = "ForkizeLib/Forkize/RestClient.m"
+            timestampString = "470673968.63103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "-getAccessToken"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-main"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

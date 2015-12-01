@@ -211,7 +211,7 @@ typedef enum{
         NSString *userName = [[UserProfileInternal getInstance] getUserId];
 
         self.userId =  self.aliasedUserId;
-
+        self.aliasedUserId = @"";
         FZUser *user = [self.userDAO getUser:userName];
         user.userName = user.aliasedName;
         user.aliasedName = @"";
