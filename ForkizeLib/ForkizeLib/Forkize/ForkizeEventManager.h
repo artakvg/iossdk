@@ -20,7 +20,6 @@
 -(void) eventDuration:(NSString*) eventName;
 
 -(void) queueEventWithName:(NSString*) eventName andParams:(NSDictionary *)params;
--(void) queueAliasWithOldUserId:(NSString*) oldUserId andNewUserId:(NSString*) newUserId;
 
 -(void) close;
 

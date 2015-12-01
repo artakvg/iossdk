@@ -219,10 +219,6 @@ typedef enum{
     }
 }
 
--(void) setProfileVersion:(NSString *) version{
-    self.upv = version;
-}
-
 -(void) setValue:(id)value forKey:(NSString *)key{
     // FZ::TODO why we are not removing prev inc and prepend operations ???
     if ([ForkizeHelper isKeyValid:key]) {
@@ -502,6 +498,10 @@ typedef enum{
     self.changeLog = [NSMutableDictionary dictionary];
 }
 
+-(void) syncProfile:(NSDictionary *) dict{//FZ::TODO Artak implement this
+
+    self.upv = [dict objectForKey:@"upv"];
+}
 
 - (void) start{
     [[SessionInstance getInstance] start];

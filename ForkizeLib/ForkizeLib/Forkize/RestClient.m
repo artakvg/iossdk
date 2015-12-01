@@ -53,12 +53,11 @@
             NSDictionary * updateResponseDict = [self.request  updateUserProfile:[RestClient getInstance].accessToken];
             
             NSInteger statusCode = [[updateResponseDict objectForKey:@"status"] integerValue];
-            NSString *upv = [updateResponseDict objectForKey:@"upv"];
             
             if (statusCode == 1){
+                [[UserProfileInternal getInstance] syncProfile:updateResponseDict];
                 [[UserProfileInternal getInstance] dropChangeLog];
-                [[UserProfileInternal getInstance] setProfileVersion:upv];
-            }
+             }
         }
         
         NSString *aliasedName = [[UserProfileInternal getInstance] getAliasedUserId];

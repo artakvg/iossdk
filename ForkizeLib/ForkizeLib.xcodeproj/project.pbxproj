@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE4A31461C0DC7980013E83C /* LocalStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31411C0DC7980013E83C /* LocalStorageManager.m */; };
+		CE4A31471C0DC7980013E83C /* MemoryLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31431C0DC7980013E83C /* MemoryLocalStorage.m */; };
+		CE4A31481C0DC7980013E83C /* SQLiteLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31451C0DC7980013E83C /* SQLiteLocalStorage.m */; };
+		CE4A314D1C0DC7A90013E83C /* FZEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A314A1C0DC7A90013E83C /* FZEvent.m */; };
+		CE4A314E1C0DC7A90013E83C /* FZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A314C1C0DC7A90013E83C /* FZUser.m */; };
+		CE4A315C1C0DC7C20013E83C /* DAOFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31501C0DC7C20013E83C /* DAOFactory.m */; };
+		CE4A315D1C0DC7C20013E83C /* DataAccessException.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31521C0DC7C20013E83C /* DataAccessException.m */; };
+		CE4A315E1C0DC7C20013E83C /* EventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31551C0DC7C20013E83C /* EventsDAO.m */; };
+		CE4A315F1C0DC7C20013E83C /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31571C0DC7C20013E83C /* FZUserDAO.m */; };
+		CE4A31601C0DC7C20013E83C /* projects-db-structure.sql in Resources */ = {isa = PBXBuildFile; fileRef = CE4A31581C0DC7C20013E83C /* projects-db-structure.sql */; };
+		CE4A31611C0DC7C20013E83C /* projects.db in Resources */ = {isa = PBXBuildFile; fileRef = CE4A31591C0DC7C20013E83C /* projects.db */; };
+		CE4A31621C0DC7C20013E83C /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A315B1C0DC7C20013E83C /* SQLiteHelper.m */; };
 		CE63E5561BBBEFFF00A4DD79 /* ForkizeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */; };
 		CEB760221C0A45E90091B9ED /* UserProfileInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB760211C0A45E90091B9ED /* UserProfileInternal.m */; };
-		CED054611BA6C5F600842D52 /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054601BA6C5F600842D52 /* FZUserDAO.m */; };
-		CED054641BA6CC6E00842D52 /* FZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054631BA6CC6E00842D52 /* FZUser.m */; };
-		CED054661BA6F64100842D52 /* projects.db in Resources */ = {isa = PBXBuildFile; fileRef = CED054651BA6F64100842D52 /* projects.db */; };
-		CED054691BA6FE1C00842D52 /* FZEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054681BA6FE1C00842D52 /* FZEvent.m */; };
 		CED054701BA7FDEC00842D52 /* LocationInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = CED0546F1BA7FDEC00842D52 /* LocationInstance.m */; };
 		CED054731BA81B0700842D52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054721BA81B0700842D52 /* Reachability.m */; };
 		CED054771BA9C03200842D52 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054761BA9C03200842D52 /* Request.m */; };
@@ -29,17 +37,9 @@
 		CED9AA011BA0378E00B54B94 /* ForkizeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA001BA0378E00B54B94 /* ForkizeHelper.m */; };
 		CED9AA0C1BA050B000B54B94 /* SessionInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA0B1BA050B000B54B94 /* SessionInstance.m */; };
 		CED9AA151BA057E200B54B94 /* ForkizeEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */; };
-		CED9AA191BA077B100B54B94 /* LocalStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA181BA077B100B54B94 /* LocalStorageManager.m */; };
 		CED9AA1D1BA2B90800B54B94 /* ForkizeEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA0E1BA050DE00B54B94 /* ForkizeEventManager.m */; };
 		CED9AA1E1BA2B91100B54B94 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA081BA0508100B54B94 /* UserProfile.m */; };
-		CED9AA261BA2C7F500B54B94 /* DataAccessException.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA221BA2C7F500B54B94 /* DataAccessException.m */; };
-		CED9AA271BA2C7F500B54B94 /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA251BA2C7F500B54B94 /* SQLiteHelper.m */; };
 		CED9AA291BA2C81E00B54B94 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED9AA281BA2C81E00B54B94 /* libsqlite3.dylib */; };
-		CED9AA2D1BA2F04300B54B94 /* MemoryLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA2C1BA2F04300B54B94 /* MemoryLocalStorage.m */; };
-		CED9AA311BA3057400B54B94 /* SQLiteLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA301BA3057400B54B94 /* SQLiteLocalStorage.m */; };
-		CED9AA341BA3209500B54B94 /* DAOFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA331BA3209500B54B94 /* DAOFactory.m */; };
-		CED9AA371BA320E100B54B94 /* EventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA361BA320E100B54B94 /* EventsDAO.m */; };
-		CEE375D01BAC1B0600E438B2 /* projects-db-structure.sql in Resources */ = {isa = PBXBuildFile; fileRef = CEE375CF1BAC1B0600E438B2 /* projects-db-structure.sql */; };
 		F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3F91C0618D600D4FF77 /* ForkizeFull.m */; };
 		F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3FC1C06197800D4FF77 /* Forkize.m */; };
 /* End PBXBuildFile section */
@@ -55,17 +55,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE4A31401C0DC7980013E83C /* LocalStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalStorageManager.h; path = Forkize/LocalStorageManager.h; sourceTree = "<group>"; };
+		CE4A31411C0DC7980013E83C /* LocalStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalStorageManager.m; path = Forkize/LocalStorageManager.m; sourceTree = "<group>"; };
+		CE4A31421C0DC7980013E83C /* MemoryLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryLocalStorage.h; path = Forkize/MemoryLocalStorage.h; sourceTree = "<group>"; };
+		CE4A31431C0DC7980013E83C /* MemoryLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryLocalStorage.m; path = Forkize/MemoryLocalStorage.m; sourceTree = "<group>"; };
+		CE4A31441C0DC7980013E83C /* SQLiteLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteLocalStorage.h; path = Forkize/SQLiteLocalStorage.h; sourceTree = "<group>"; };
+		CE4A31451C0DC7980013E83C /* SQLiteLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteLocalStorage.m; path = Forkize/SQLiteLocalStorage.m; sourceTree = "<group>"; };
+		CE4A31491C0DC7A90013E83C /* FZEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZEvent.h; path = Forkize/FZEvent.h; sourceTree = "<group>"; };
+		CE4A314A1C0DC7A90013E83C /* FZEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZEvent.m; path = Forkize/FZEvent.m; sourceTree = "<group>"; };
+		CE4A314B1C0DC7A90013E83C /* FZUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUser.h; path = Forkize/FZUser.h; sourceTree = "<group>"; };
+		CE4A314C1C0DC7A90013E83C /* FZUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUser.m; path = Forkize/FZUser.m; sourceTree = "<group>"; };
+		CE4A314F1C0DC7C20013E83C /* DAOFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DAOFactory.h; path = Forkize/DAOFactory.h; sourceTree = "<group>"; };
+		CE4A31501C0DC7C20013E83C /* DAOFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAOFactory.m; path = Forkize/DAOFactory.m; sourceTree = "<group>"; };
+		CE4A31511C0DC7C20013E83C /* DataAccessException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataAccessException.h; path = Forkize/DataAccessException.h; sourceTree = "<group>"; };
+		CE4A31521C0DC7C20013E83C /* DataAccessException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataAccessException.m; path = Forkize/DataAccessException.m; sourceTree = "<group>"; };
+		CE4A31531C0DC7C20013E83C /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBHelper.h; path = Forkize/DBHelper.h; sourceTree = "<group>"; };
+		CE4A31541C0DC7C20013E83C /* EventsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsDAO.h; path = Forkize/EventsDAO.h; sourceTree = "<group>"; };
+		CE4A31551C0DC7C20013E83C /* EventsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsDAO.m; path = Forkize/EventsDAO.m; sourceTree = "<group>"; };
+		CE4A31561C0DC7C20013E83C /* FZUserDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUserDAO.h; path = Forkize/FZUserDAO.h; sourceTree = "<group>"; };
+		CE4A31571C0DC7C20013E83C /* FZUserDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUserDAO.m; path = Forkize/FZUserDAO.m; sourceTree = "<group>"; };
+		CE4A31581C0DC7C20013E83C /* projects-db-structure.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "projects-db-structure.sql"; path = "Forkize/projects-db-structure.sql"; sourceTree = "<group>"; };
+		CE4A31591C0DC7C20013E83C /* projects.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = projects.db; path = Forkize/projects.db; sourceTree = "<group>"; };
+		CE4A315A1C0DC7C20013E83C /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteHelper.h; path = Forkize/SQLiteHelper.h; sourceTree = "<group>"; };
+		CE4A315B1C0DC7C20013E83C /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteHelper.m; path = Forkize/SQLiteHelper.m; sourceTree = "<group>"; };
 		CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeMessage.h; path = Forkize/ForkizeMessage.h; sourceTree = "<group>"; };
 		CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeMessage.m; path = Forkize/ForkizeMessage.m; sourceTree = "<group>"; };
 		CEB760201C0A45E90091B9ED /* UserProfileInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileInternal.h; path = Forkize/UserProfileInternal.h; sourceTree = "<group>"; };
 		CEB760211C0A45E90091B9ED /* UserProfileInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileInternal.m; path = Forkize/UserProfileInternal.m; sourceTree = "<group>"; };
-		CED0545F1BA6C5F600842D52 /* FZUserDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUserDAO.h; path = Forkize/DB/FZUserDAO.h; sourceTree = "<group>"; };
-		CED054601BA6C5F600842D52 /* FZUserDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUserDAO.m; path = Forkize/DB/FZUserDAO.m; sourceTree = "<group>"; };
-		CED054621BA6CC6E00842D52 /* FZUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUser.h; path = Forkize/DB/FZUser.h; sourceTree = "<group>"; };
-		CED054631BA6CC6E00842D52 /* FZUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUser.m; path = Forkize/DB/FZUser.m; sourceTree = "<group>"; };
-		CED054651BA6F64100842D52 /* projects.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = projects.db; path = Forkize/DB/projects.db; sourceTree = "<group>"; };
-		CED054671BA6FE1C00842D52 /* FZEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZEvent.h; path = Forkize/DB/FZEvent.h; sourceTree = "<group>"; };
-		CED054681BA6FE1C00842D52 /* FZEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZEvent.m; path = Forkize/DB/FZEvent.m; sourceTree = "<group>"; };
 		CED0546E1BA7FDEC00842D52 /* LocationInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationInstance.h; path = Forkize/LocationInstance.h; sourceTree = "<group>"; };
 		CED0546F1BA7FDEC00842D52 /* LocationInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationInstance.m; path = Forkize/LocationInstance.m; sourceTree = "<group>"; };
 		CED054711BA81B0700842D52 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Forkize/Reachability.h; sourceTree = "<group>"; };
@@ -102,23 +118,7 @@
 		CED9AA0E1BA050DE00B54B94 /* ForkizeEventManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeEventManager.m; path = Forkize/ForkizeEventManager.m; sourceTree = "<group>"; };
 		CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeEmpty.h; path = Forkize/ForkizeEmpty.h; sourceTree = "<group>"; };
 		CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeEmpty.m; path = Forkize/ForkizeEmpty.m; sourceTree = "<group>"; };
-		CED9AA171BA077B100B54B94 /* LocalStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalStorageManager.h; path = Forkize/LocalStorage/LocalStorageManager.h; sourceTree = "<group>"; };
-		CED9AA181BA077B100B54B94 /* LocalStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalStorageManager.m; path = Forkize/LocalStorage/LocalStorageManager.m; sourceTree = "<group>"; };
-		CED9AA211BA2C7F500B54B94 /* DataAccessException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataAccessException.h; path = Forkize/DB/DataAccessException.h; sourceTree = "<group>"; };
-		CED9AA221BA2C7F500B54B94 /* DataAccessException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataAccessException.m; path = Forkize/DB/DataAccessException.m; sourceTree = "<group>"; };
-		CED9AA231BA2C7F500B54B94 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBHelper.h; path = Forkize/DB/DBHelper.h; sourceTree = "<group>"; };
-		CED9AA241BA2C7F500B54B94 /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteHelper.h; path = Forkize/DB/SQLiteHelper.h; sourceTree = "<group>"; };
-		CED9AA251BA2C7F500B54B94 /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteHelper.m; path = Forkize/DB/SQLiteHelper.m; sourceTree = "<group>"; };
 		CED9AA281BA2C81E00B54B94 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		CED9AA2B1BA2F04300B54B94 /* MemoryLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryLocalStorage.h; path = Forkize/LocalStorage/MemoryLocalStorage.h; sourceTree = "<group>"; };
-		CED9AA2C1BA2F04300B54B94 /* MemoryLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryLocalStorage.m; path = Forkize/LocalStorage/MemoryLocalStorage.m; sourceTree = "<group>"; };
-		CED9AA2F1BA3057400B54B94 /* SQLiteLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteLocalStorage.h; path = Forkize/LocalStorage/SQLiteLocalStorage.h; sourceTree = "<group>"; };
-		CED9AA301BA3057400B54B94 /* SQLiteLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteLocalStorage.m; path = Forkize/LocalStorage/SQLiteLocalStorage.m; sourceTree = "<group>"; };
-		CED9AA321BA3209500B54B94 /* DAOFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DAOFactory.h; path = Forkize/DB/DAOFactory.h; sourceTree = "<group>"; };
-		CED9AA331BA3209500B54B94 /* DAOFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAOFactory.m; path = Forkize/DB/DAOFactory.m; sourceTree = "<group>"; };
-		CED9AA351BA320E100B54B94 /* EventsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsDAO.h; path = Forkize/DB/EventsDAO.h; sourceTree = "<group>"; };
-		CED9AA361BA320E100B54B94 /* EventsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsDAO.m; path = Forkize/DB/EventsDAO.m; sourceTree = "<group>"; };
-		CEE375CF1BAC1B0600E438B2 /* projects-db-structure.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "projects-db-structure.sql"; path = "Forkize/DB/projects-db-structure.sql"; sourceTree = "<group>"; };
 		F820E3F81C0618D600D4FF77 /* ForkizeFull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeFull.h; path = Forkize/ForkizeFull.h; sourceTree = "<group>"; };
 		F820E3F91C0618D600D4FF77 /* ForkizeFull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeFull.m; path = Forkize/ForkizeFull.m; sourceTree = "<group>"; };
 		F820E3FB1C06197800D4FF77 /* Forkize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Forkize.h; path = Forkize/Forkize.h; sourceTree = "<group>"; };
@@ -147,10 +147,10 @@
 		CED054741BA96DFF00842D52 /* DBObjects */ = {
 			isa = PBXGroup;
 			children = (
-				CED054621BA6CC6E00842D52 /* FZUser.h */,
-				CED054631BA6CC6E00842D52 /* FZUser.m */,
-				CED054671BA6FE1C00842D52 /* FZEvent.h */,
-				CED054681BA6FE1C00842D52 /* FZEvent.m */,
+				CE4A31491C0DC7A90013E83C /* FZEvent.h */,
+				CE4A314A1C0DC7A90013E83C /* FZEvent.m */,
+				CE4A314B1C0DC7A90013E83C /* FZUser.h */,
+				CE4A314C1C0DC7A90013E83C /* FZUser.m */,
 			);
 			name = DBObjects;
 			sourceTree = "<group>";
@@ -259,12 +259,12 @@
 		CED9AA161BA0778800B54B94 /* LocalStorage */ = {
 			isa = PBXGroup;
 			children = (
-				CED9AA171BA077B100B54B94 /* LocalStorageManager.h */,
-				CED9AA181BA077B100B54B94 /* LocalStorageManager.m */,
-				CED9AA2B1BA2F04300B54B94 /* MemoryLocalStorage.h */,
-				CED9AA2C1BA2F04300B54B94 /* MemoryLocalStorage.m */,
-				CED9AA2F1BA3057400B54B94 /* SQLiteLocalStorage.h */,
-				CED9AA301BA3057400B54B94 /* SQLiteLocalStorage.m */,
+				CE4A31401C0DC7980013E83C /* LocalStorageManager.h */,
+				CE4A31411C0DC7980013E83C /* LocalStorageManager.m */,
+				CE4A31421C0DC7980013E83C /* MemoryLocalStorage.h */,
+				CE4A31431C0DC7980013E83C /* MemoryLocalStorage.m */,
+				CE4A31441C0DC7980013E83C /* SQLiteLocalStorage.h */,
+				CE4A31451C0DC7980013E83C /* SQLiteLocalStorage.m */,
 			);
 			name = LocalStorage;
 			sourceTree = "<group>";
@@ -272,20 +272,20 @@
 		CED9AA1F1BA2C7DA00B54B94 /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				CE4A314F1C0DC7C20013E83C /* DAOFactory.h */,
+				CE4A31501C0DC7C20013E83C /* DAOFactory.m */,
+				CE4A31511C0DC7C20013E83C /* DataAccessException.h */,
+				CE4A31521C0DC7C20013E83C /* DataAccessException.m */,
+				CE4A31531C0DC7C20013E83C /* DBHelper.h */,
+				CE4A31541C0DC7C20013E83C /* EventsDAO.h */,
+				CE4A31551C0DC7C20013E83C /* EventsDAO.m */,
+				CE4A31561C0DC7C20013E83C /* FZUserDAO.h */,
+				CE4A31571C0DC7C20013E83C /* FZUserDAO.m */,
+				CE4A31581C0DC7C20013E83C /* projects-db-structure.sql */,
+				CE4A31591C0DC7C20013E83C /* projects.db */,
+				CE4A315A1C0DC7C20013E83C /* SQLiteHelper.h */,
+				CE4A315B1C0DC7C20013E83C /* SQLiteHelper.m */,
 				CED054741BA96DFF00842D52 /* DBObjects */,
-				CED054651BA6F64100842D52 /* projects.db */,
-				CEE375CF1BAC1B0600E438B2 /* projects-db-structure.sql */,
-				CED9AA321BA3209500B54B94 /* DAOFactory.h */,
-				CED9AA331BA3209500B54B94 /* DAOFactory.m */,
-				CED9AA211BA2C7F500B54B94 /* DataAccessException.h */,
-				CED9AA221BA2C7F500B54B94 /* DataAccessException.m */,
-				CED9AA231BA2C7F500B54B94 /* DBHelper.h */,
-				CED9AA241BA2C7F500B54B94 /* SQLiteHelper.h */,
-				CED9AA251BA2C7F500B54B94 /* SQLiteHelper.m */,
-				CED9AA351BA320E100B54B94 /* EventsDAO.h */,
-				CED9AA361BA320E100B54B94 /* EventsDAO.m */,
-				CED0545F1BA6C5F600842D52 /* FZUserDAO.h */,
-				CED054601BA6C5F600842D52 /* FZUserDAO.m */,
 			);
 			name = DB;
 			sourceTree = "<group>";
@@ -371,10 +371,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CED9A9DE1BA00B9500B54B94 /* Main.storyboard in Resources */,
-				CED054661BA6F64100842D52 /* projects.db in Resources */,
 				CED9A9E31BA00B9500B54B94 /* LaunchScreen.xib in Resources */,
+				CE4A31601C0DC7C20013E83C /* projects-db-structure.sql in Resources */,
 				CED9A9E01BA00B9500B54B94 /* Images.xcassets in Resources */,
-				CEE375D01BAC1B0600E438B2 /* projects-db-structure.sql in Resources */,
+				CE4A31611C0DC7C20013E83C /* projects.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,31 +395,31 @@
 				CED0547A1BA9C08300842D52 /* RestClient.m in Sources */,
 				CE63E5561BBBEFFF00A4DD79 /* ForkizeMessage.m in Sources */,
 				CED054731BA81B0700842D52 /* Reachability.m in Sources */,
+				CE4A315F1C0DC7C20013E83C /* FZUserDAO.m in Sources */,
+				CE4A31471C0DC7980013E83C /* MemoryLocalStorage.m in Sources */,
 				CED9AA1E1BA2B91100B54B94 /* UserProfile.m in Sources */,
 				CED9AA1D1BA2B90800B54B94 /* ForkizeEventManager.m in Sources */,
-				CED9AA2D1BA2F04300B54B94 /* MemoryLocalStorage.m in Sources */,
-				CED9AA371BA320E100B54B94 /* EventsDAO.m in Sources */,
 				CED9AA011BA0378E00B54B94 /* ForkizeHelper.m in Sources */,
 				CED054701BA7FDEC00842D52 /* LocationInstance.m in Sources */,
+				CE4A31481C0DC7980013E83C /* SQLiteLocalStorage.m in Sources */,
+				CE4A315D1C0DC7C20013E83C /* DataAccessException.m in Sources */,
+				CE4A314D1C0DC7A90013E83C /* FZEvent.m in Sources */,
 				CED9A9DB1BA00B9500B54B94 /* ViewController.m in Sources */,
-				CED9AA261BA2C7F500B54B94 /* DataAccessException.m in Sources */,
-				CED9AA311BA3057400B54B94 /* SQLiteLocalStorage.m in Sources */,
 				CED9A9D81BA00B9500B54B94 /* AppDelegate.m in Sources */,
+				CE4A31461C0DC7980013E83C /* LocalStorageManager.m in Sources */,
 				CED9A9FE1BA01B0500B54B94 /* DeviceInfo.m in Sources */,
-				CED9AA341BA3209500B54B94 /* DAOFactory.m in Sources */,
-				CED054641BA6CC6E00842D52 /* FZUser.m in Sources */,
 				CED9A9FB1BA00BE900B54B94 /* ForkizeConfig.m in Sources */,
-				CED054611BA6C5F600842D52 /* FZUserDAO.m in Sources */,
+				CE4A314E1C0DC7A90013E83C /* FZUser.m in Sources */,
+				CE4A315E1C0DC7C20013E83C /* EventsDAO.m in Sources */,
 				CED054771BA9C03200842D52 /* Request.m in Sources */,
 				F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */,
 				CED9AA0C1BA050B000B54B94 /* SessionInstance.m in Sources */,
+				CE4A315C1C0DC7C20013E83C /* DAOFactory.m in Sources */,
+				CE4A31621C0DC7C20013E83C /* SQLiteHelper.m in Sources */,
 				CEB760221C0A45E90091B9ED /* UserProfileInternal.m in Sources */,
-				CED9AA271BA2C7F500B54B94 /* SQLiteHelper.m in Sources */,
 				CED9AA151BA057E200B54B94 /* ForkizeEmpty.m in Sources */,
-				CED9AA191BA077B100B54B94 /* LocalStorageManager.m in Sources */,
 				CED9A9D51BA00B9500B54B94 /* main.m in Sources */,
 				F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */,
-				CED054691BA6FE1C00842D52 /* FZEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

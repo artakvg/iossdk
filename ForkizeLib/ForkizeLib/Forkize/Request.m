@@ -36,20 +36,20 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
 }
 
 -(NSMutableDictionary *) getCommonDict:(NSData *)jsonData{
+    NSMutableString *apiDataString = nil;
     
-    
-    NSError *parseError = nil;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-    
-    NSMutableString *apiDataString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    [apiDataString replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
-    [apiDataString replaceOccurrencesOfString:@" " withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
-
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+       NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     if (jsonData == nil) {
         apiDataString = nil;
+    } else {
+        NSError *parseError = nil;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
+        
+        apiDataString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        [apiDataString replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
+        [apiDataString replaceOccurrencesOfString:@" " withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
         [dict setObject:jsonObject forKeyedSubscript:@"api_data"];
     }
     

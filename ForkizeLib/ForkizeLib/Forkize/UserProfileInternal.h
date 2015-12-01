@@ -24,8 +24,6 @@
 
 -(void) applyAlias;
 
--(void) setProfileVersion:(NSString *) version;
-
 -(void) setValue:(id)value forKey:(NSString *)key;
 -(void) setOnceValue:(id)value forKey:(NSString *)key;
 -(void) setBatch:(NSDictionary *) dict;
@@ -40,7 +38,7 @@
 
 -(void) incrementBatch:(NSDictionary *)dict;
 
--(void) syncProfile; // profile version
+-(void) syncProfile:(NSDictionary *) dict; // profile version
 
 -(void) setAge:(NSInteger ) age;
 -(NSInteger) getAge;
