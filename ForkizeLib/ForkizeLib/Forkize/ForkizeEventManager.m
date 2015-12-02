@@ -44,8 +44,8 @@
         @try {
             NSLog(@"Forkize SDK %@ event queued", eventJSON_);
             FZEvent *event = [[FZEvent alloc] init];
-            event.eventValue = eventJSON_;
-            event.userName = [[UserProfile getInstance] getUserId];
+            event.eventData = eventJSON_;
+            event.userId = [[UserProfile getInstance] getUserId];
             
             [[LocalStorageManager getInstance] addEvent:event];
         }
@@ -175,9 +175,9 @@
     [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)timeInterval]  forKey:@"$utc_time"];
     [jsonEVDDict setObject:[NSString stringWithFormat:@"%ld", (long)sessionTime]  forKey:@"$session_time"];
    
-    NSString *sessionToken = [[SessionInstance getInstance] getSessionToken];
-    if (sessionToken != nil && [sessionToken length] == 0) {
-        [jsonEVDDict setObject:sessionToken forKey:@"$sid"];
+    NSString *sessionId = [[SessionInstance getInstance] getSessionId];
+    if (sessionId != nil && [sessionId length] == 0) {
+        [jsonEVDDict setObject:sessionId forKey:@"$sid"];
     }
     
     
@@ -205,7 +205,7 @@
         [jsonEVDDict setObject:[NSString stringWithFormat:@"%f", self.latitude] forKey:@"$latitude"];
     }
     
-    NSString *connectionType = [ForkizeHelper getConnectionType];
+    NSString *connectionType = [[DeviceInfo getInstance] getConnectionType];
     
     if (![connectionType isEqualToString:@"ncon"])
          [jsonEVDDict setObject:connectionType forKey:@"$connection"];

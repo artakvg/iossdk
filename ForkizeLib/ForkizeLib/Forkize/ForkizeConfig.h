@@ -18,6 +18,9 @@
 @property (nonatomic, strong)   NSString *appId;
 @property (nonatomic, strong)   NSString *appKey;
 
+@property (nonatomic, strong) NSString *BASE_URL;
+
+// FZ::TODO::ARTAK LETS MAKE CONFIG INITIALIZED FROM some xml also
 + (ForkizeConfig*) getInstance;
 
 @end

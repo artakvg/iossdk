@@ -10,37 +10,21 @@
 #import "SQLiteHelper.h"
 #import "FZUser.h"
 
-
-static NSString *const kSelectAllUsersSQL = @""
-"select Id, UserName, AliasedUserName, ChangeLog, UserInfo from Users order by Id";
-
 static NSString *const kSelectUserSQL = @""
-"select Id, UserName, AliasedUserName, ChangeLog, UserInfo from Users where UserName=:userName order by Id";
+"SELECT Rid, UserId, AliasedId, ChangeLog, UserProfile FROM Users where UserId=:userId order by Rid";
 
+// FZ::POINT
 static NSString *const kUpdateUserSQL = @""
-"update Users set UserName=:userName, AliasedUserName=:aliasedUserName, ChangeLog=:changeLog, UserInfo=:userInfo where Id=:id";
+"UPDATE Users SET UserId=:userId, AliasedId=:aliasedId, ChangeLog=:changeLog, UserProfile=:userProfile WHERE Rid=:rid";
 
 static NSString *const kInsertUserSQL = @""
-"insert into Users (UserName, AliasedUserName, ChangeLog, UserInfo) values (:userName, :aliasedUserName, :changeLog, :userInfo)";
+"INSERT INTO Users (UserId, AliasedId, ChangeLog, UserProfile) VALUES (:userId, :aliasedId, :changeLog, :userProfile)";
 
-static NSString *const  kDeleteUserSQL = @""
-"delete from Users where UserName=:userName";
-
-
-
-static NSString *const kIdParamName = @":id";
-static NSString *const kUserNameParamName = @":userName";
-static NSString *const kAliasedUserNameParamName = @":aliasedUserName";
+static NSString *const kRidParamName = @":rid";
+static NSString *const kUserIdParamName = @":userId";
+static NSString *const kAliasedIdParamName = @":aliasedId";
 static NSString *const kChangeLogParamName = @":changeLog";
-static NSString *const kUserInfoParamName = @":userInfo";
-
-
-#define kUserIdColIndex 0
-#define kUserNameColIndex 1
-#define kAliasedUserNameColIndex 2
-#define kChangeLogColIndex 3
-#define kUserInfoColIndex 4
-
+static NSString *const kUserProfileParamName = @":userProfile";
 
 @interface FZUserDAO()
 
@@ -61,67 +45,42 @@ static NSString *const kUserInfoParamName = @":userInfo";
 
 -(FZUser *) getUserFromSQLiteRow:(SQLiteRow* )row{
     FZUser *user  = [[FZUser alloc] init];
-    user.Id = [row integerAtIndex:kUserIdColIndex] ;
-    user.userName = [row stringAtIndex:kUserNameColIndex];
-    user.aliasedName = [row stringAtIndex:kAliasedUserNameColIndex];
-    user.changeLog = [row stringAtIndex:kChangeLogColIndex];
-    user.userInfo = [row stringAtIndex:kUserInfoColIndex];
+    user.rowId = [row integerAtIndex:0] ;
+    user.userId = [row stringAtIndex:1];
+    user.aliasedId = [row stringAtIndex:2];
+    user.changeLog = [row stringAtIndex:3];
+    user.userProfile = [row stringAtIndex:4];
    
     return user;
 }
 
-- (NSArray *) loadUsers{
-    __block NSMutableArray *users = [NSMutableArray array];
-    SQLiteStatement *statement = [self.database statementWithSQLString:kSelectAllUsersSQL];
-
-    SQLITE_ROW_CALLBACK(rowCallBack) {
-        FZUser *user  = [self getUserFromSQLiteRow:row];
-        [users addObject:user];
-
-        return YES;
-    };
-
-    [statement executeQueryWithCallBack:rowCallBack];
-    return users;
-}
-
-- (FZUser *)addUser:(NSString *) userName{
+- (FZUser *)addUser:(NSString *) userId{
     
     FZUser *user = [[FZUser alloc] init];
-    user.userName = userName;
-    user.aliasedName = @"";
+    user.userId = userId;
+    user.aliasedId = @"";
     user.changeLog = @"";
-    user.userInfo = @"";
-    
+    user.userProfile = @"";
     
     SQLiteStatement *statement = [self.database statementWithSQLString:kInsertUserSQL];
    
-    [statement setString:user.userName forParam:kUserNameParamName];
-    [statement setString:user.aliasedName forParam:kAliasedUserNameParamName];
+    [statement setString:user.userId forParam:kUserIdParamName];
+    [statement setString:user.aliasedId forParam:kAliasedIdParamName];
     [statement setString:user.changeLog forParam:kChangeLogParamName];
-    [statement setString:user.userInfo forParam:kUserInfoParamName];
+    [statement setString:user.userProfile forParam:kUserIdParamName];
     
     NSInteger updateCount = [statement executeUpdate];
     NSAssert(updateCount != 0,@"Unexpected error while creating user");
     
-    user.Id = [statement lastId];
+    user.rowId = [statement lastId];
     return user;
 }
 
-- (BOOL)removeUser:(NSString *) userName{
-
-    SQLiteStatement *deleteStat = [self.database statementWithSQLString:kDeleteUserSQL];
-    [deleteStat setString:userName
-                  forParam:kUserNameParamName];
-
-    return [deleteStat executeUpdate];
-}
-
-- (FZUser *) getUser:(NSString *) userName{
+- (FZUser *) getUser:(NSString *) userId{
     
     SQLiteStatement *statement = [self.database statementWithSQLString:kSelectUserSQL];
     
-    [statement setString:userName forParam:kUserNameParamName];
+    [statement setString:userId forParam:kUserIdParamName];
     
     __block NSMutableArray *users = [NSMutableArray array];
   
@@ -133,7 +92,7 @@ static NSString *const kUserInfoParamName = @":userInfo";
     };
     
     [statement executeQueryWithCallBack:rowCallBack];
-    
+    // FZ::POINT
     return [users count] ? [users objectAtIndex:0] : nil;
 }
 
@@ -141,11 +100,11 @@ static NSString *const kUserInfoParamName = @":userInfo";
  
     SQLiteStatement *statement = [self.database statementWithSQLString:kUpdateUserSQL];
     
-    [statement setInteger:user.Id forParam:kIdParamName];
-    [statement setString:user.userName forParam:kUserNameParamName];
-    [statement setString:user.aliasedName forParam:kAliasedUserNameParamName];
+    [statement setInteger:user.rowId forParam:kRidParamName];
+    [statement setString:user.userId forParam:kUserIdParamName];
+    [statement setString:user.aliasedId forParam:kAliasedIdParamName];
     [statement setString:user.changeLog forParam:kChangeLogParamName];
-    [statement setString:user.userInfo forParam:kUserInfoParamName];
+    [statement setString:user.userProfile forParam:kUserIdParamName];
     
     return [statement executeUpdate];;
 }

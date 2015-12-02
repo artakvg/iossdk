@@ -14,7 +14,7 @@
 
 @interface SessionInstance()
 
-@property (nonatomic, strong) NSString *sessionToken; // FZ:TODO Artak where we use it????
+@property (nonatomic, strong) NSString *sessionId; // FZ:TODO Artak where we use it????
 
 @property (nonatomic, assign) long sessionStartTime;
 @property (nonatomic, assign) long sessionResumeTime;
@@ -61,7 +61,7 @@
         self.isDestroyed = NO;
         self.isPaused = NO;
         // ** generate session token
-        self.sessionToken = [self generateSessionToken];
+        self.sessionId = [self generateSessionId];
         [[ForkizeEventManager getInstance] queueSessionStart];
     }
 }
@@ -96,8 +96,8 @@
     }
 }
 
--(NSString*) getSessionToken{
-    return self.sessionToken;
+-(NSString*) getSessionId{
+    return self.sessionId;
 }
 
 - (long) getSessionLength{
@@ -108,16 +108,9 @@
     return self.sessionStartTime;
 }
 
--(NSString*) generateSessionToken {
-    NSString* userId = [[UserProfile getInstance] getUserId];
-    NSString* appId = [[ForkizeConfig getInstance] appId];
-    NSString* appKey = [[ForkizeConfig getInstance] appKey];
-    
-    
-    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[ForkizeHelper getTimeIntervalSince1970] / 1000];
-    NSString *hexDigest = [ForkizeHelper md5:[NSString stringWithFormat:@"%@%@%@", userId, timestamp, appKey]];
-    self.sessionToken = [NSString stringWithFormat:@"%@=%@=%@=%@", appId, userId, timestamp, hexDigest];
-    return self.sessionToken;
+-(NSString*) generateSessionId {
+    self.sessionId = [NSUUID UUID].UUIDString;
+    return self.sessionId;
 }
 
 @end

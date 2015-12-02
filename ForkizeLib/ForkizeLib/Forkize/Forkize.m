@@ -7,29 +7,30 @@
 //
 
 #import "Forkize.h"
-
 #import "ForkizeFull.h"
 #import "ForkizeEmpty.h"
-
 #import <UIKit/UIKit.h>
 
 @implementation Forkize
+
+// FZ::POINT maybe we can merge it with authorize
 
 +(id<IForkize>) getInstance{
     static id<IForkize> sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        // FZ::POINT systemVersion
         NSInteger version = [[UIDevice currentDevice].systemVersion floatValue];
         if (version >= 8.0) {
             sharedInstance = [[ForkizeFull alloc] init];
         } else {
             sharedInstance = [[ForkizeEmpty alloc] init];
         }
-        
     });
     return sharedInstance;
 }
 
+// FZ::POINT maybe we can merge it with getInstance
 -(void) authorize:(NSString *)appId andAppKey:(NSString *)appKey{
     [[Forkize getInstance] authorize:appId andAppKey:appKey];
 }
@@ -46,6 +47,7 @@
     [[Forkize getInstance]  trackEvent:eventName withParams:parameters];
 }
 
+// FZ::TODO quite long for a function name
 -(void) purchaseWithProductId:(NSString* ) productId  andCurrency:(NSString*) currency andPrice:(double) price andQuantity: (NSInteger) quantity{
     [[Forkize getInstance]  purchaseWithProductId:productId andCurrency:currency andPrice:price andQuantity:quantity];
 }
@@ -82,6 +84,23 @@
     [[Forkize getInstance]  sessionEnd];
 }
 
+
+-(void) advanceState:(NSString *) state{
+    [[Forkize getInstance]  advanceState:state];
+}
+
+-(void) resetState:(NSString *) state{
+    [[Forkize getInstance]  resetState:state];
+}
+
+-(void) pauseState:(NSString *) state{
+    [[Forkize getInstance]  pauseState:state];
+}
+
+-(void) resumeState:(NSString *)state{
+    [[Forkize getInstance]  resumeState:state];
+}
+
 -(void)  pause{
     [[Forkize getInstance]  pause];
 }
@@ -100,22 +119,6 @@
 
 -(void)  onTerminate{
     [[Forkize getInstance] onTerminate];
-}
-
--(void) advanceState:(NSString *) state{
-    [[Forkize getInstance]  advanceState:state];
-}
-
--(void) resetState:(NSString *) state{
-    [[Forkize getInstance]  resetState:state];
-}
-
--(void) pauseState:(NSString *) state{
-    [[Forkize getInstance]  pauseState:state];
-}
-
--(void) resumeState:(NSString *)state{
-    [[Forkize getInstance]  resumeState:state];
 }
 
 @end

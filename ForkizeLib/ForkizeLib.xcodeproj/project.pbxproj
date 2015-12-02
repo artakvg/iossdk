@@ -14,7 +14,7 @@
 		CE4A314E1C0DC7A90013E83C /* FZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A314C1C0DC7A90013E83C /* FZUser.m */; };
 		CE4A315C1C0DC7C20013E83C /* DAOFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31501C0DC7C20013E83C /* DAOFactory.m */; };
 		CE4A315D1C0DC7C20013E83C /* DataAccessException.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31521C0DC7C20013E83C /* DataAccessException.m */; };
-		CE4A315E1C0DC7C20013E83C /* EventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31551C0DC7C20013E83C /* EventsDAO.m */; };
+		CE4A315E1C0DC7C20013E83C /* FZEventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31551C0DC7C20013E83C /* FZEventsDAO.m */; };
 		CE4A315F1C0DC7C20013E83C /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31571C0DC7C20013E83C /* FZUserDAO.m */; };
 		CE4A31601C0DC7C20013E83C /* projects-db-structure.sql in Resources */ = {isa = PBXBuildFile; fileRef = CE4A31581C0DC7C20013E83C /* projects-db-structure.sql */; };
 		CE4A31611C0DC7C20013E83C /* projects.db in Resources */ = {isa = PBXBuildFile; fileRef = CE4A31591C0DC7C20013E83C /* projects.db */; };
@@ -70,8 +70,8 @@
 		CE4A31511C0DC7C20013E83C /* DataAccessException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataAccessException.h; path = Forkize/DataAccessException.h; sourceTree = "<group>"; };
 		CE4A31521C0DC7C20013E83C /* DataAccessException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataAccessException.m; path = Forkize/DataAccessException.m; sourceTree = "<group>"; };
 		CE4A31531C0DC7C20013E83C /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBHelper.h; path = Forkize/DBHelper.h; sourceTree = "<group>"; };
-		CE4A31541C0DC7C20013E83C /* EventsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsDAO.h; path = Forkize/EventsDAO.h; sourceTree = "<group>"; };
-		CE4A31551C0DC7C20013E83C /* EventsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsDAO.m; path = Forkize/EventsDAO.m; sourceTree = "<group>"; };
+		CE4A31541C0DC7C20013E83C /* FZEventsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZEventsDAO.h; path = Forkize/FZEventsDAO.h; sourceTree = "<group>"; };
+		CE4A31551C0DC7C20013E83C /* FZEventsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZEventsDAO.m; path = Forkize/FZEventsDAO.m; sourceTree = "<group>"; };
 		CE4A31561C0DC7C20013E83C /* FZUserDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZUserDAO.h; path = Forkize/FZUserDAO.h; sourceTree = "<group>"; };
 		CE4A31571C0DC7C20013E83C /* FZUserDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUserDAO.m; path = Forkize/FZUserDAO.m; sourceTree = "<group>"; };
 		CE4A31581C0DC7C20013E83C /* projects-db-structure.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "projects-db-structure.sql"; path = "Forkize/projects-db-structure.sql"; sourceTree = "<group>"; };
@@ -277,8 +277,8 @@
 				CE4A31511C0DC7C20013E83C /* DataAccessException.h */,
 				CE4A31521C0DC7C20013E83C /* DataAccessException.m */,
 				CE4A31531C0DC7C20013E83C /* DBHelper.h */,
-				CE4A31541C0DC7C20013E83C /* EventsDAO.h */,
-				CE4A31551C0DC7C20013E83C /* EventsDAO.m */,
+				CE4A31541C0DC7C20013E83C /* FZEventsDAO.h */,
+				CE4A31551C0DC7C20013E83C /* FZEventsDAO.m */,
 				CE4A31561C0DC7C20013E83C /* FZUserDAO.h */,
 				CE4A31571C0DC7C20013E83C /* FZUserDAO.m */,
 				CE4A31581C0DC7C20013E83C /* projects-db-structure.sql */,
@@ -410,7 +410,7 @@
 				CED9A9FE1BA01B0500B54B94 /* DeviceInfo.m in Sources */,
 				CED9A9FB1BA00BE900B54B94 /* ForkizeConfig.m in Sources */,
 				CE4A314E1C0DC7A90013E83C /* FZUser.m in Sources */,
-				CE4A315E1C0DC7C20013E83C /* EventsDAO.m in Sources */,
+				CE4A315E1C0DC7C20013E83C /* FZEventsDAO.m in Sources */,
 				CED054771BA9C03200842D52 /* Request.m in Sources */,
 				F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */,
 				CED9AA0C1BA050B000B54B94 /* SessionInstance.m in Sources */,

@@ -14,12 +14,11 @@
 
 -(NSArray *) readWithCount:(NSInteger) count forUser:(NSString *) userId;
 
--(NSArray *) readForUser:(NSString *) userId;
-
 -(BOOL) removeEventsWithCount:(NSInteger ) count forUser:(NSString *) userId;
 
--(BOOL) updateEvents:(NSArray *) events;
+-(BOOL) updateEventsForUser:(NSString *) userId withALiasedUser:(NSString *) aliasedUser;
 
+// FZ::TODO  ??? maybe we need it 
 //-(void) reset;
 //-(void) close;
 

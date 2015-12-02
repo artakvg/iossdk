@@ -13,6 +13,7 @@
 @interface MemoryLocalStorage : NSObject
 
 -(NSArray *) read;
+
 -(BOOL) write:(FZEvent *) event;
 
 -(void) flush;

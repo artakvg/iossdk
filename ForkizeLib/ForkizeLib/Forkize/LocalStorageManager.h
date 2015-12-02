@@ -18,10 +18,11 @@
 -(void) close;
 
 -(void) addEvent:(FZEvent *) event;
--(NSArray *) getEvents:(NSInteger) eventCount;
--(NSArray *) getEvents;
+
+-(NSArray *) getEventsWithCount:(NSInteger) eventCount;
 
 -(BOOL) removeEventsWithCount:(NSInteger ) count;
--(BOOL) updateEvents:(NSArray *) events;
+
+-(BOOL)  updateEventsAfterAlias:(NSString *) aliasedUser;
 
 @end

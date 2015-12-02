@@ -1,6 +1,6 @@
 //
 //  DAOFactory.m
-//  iTennis
+//  ForkizeLib
 //
 //  Created by Artak Martirosyan on 9/9/15.
 //  Copyright (c) 2015 Artak. All rights reserved.
@@ -9,7 +9,7 @@
 #import "DAOFactory.h"
 #import "SQLiteHelper.h"
 #import "FZUserDAO.h"
-#import "EventsDAO.h"
+#import "FZEventsDAO.h"
 
 
 static DAOFactory *defaultFactory_ = nil;
@@ -42,6 +42,7 @@ static DAOFactory *defaultFactory_ = nil;
 #pragma mark -
 #pragma mark Static Interface
 
+// FZ::TODO how to integrate in sdk
 + (DAOFactory *)defaultFactory {
 	if (nil == defaultFactory_) {
         
@@ -76,8 +77,8 @@ static DAOFactory *defaultFactory_ = nil;
 	return [[FZUserDAO alloc] initWithSQLiteDatabase:self.database];
 }
 
-- (EventsDAO *) eventsDAO{
-    return  [[EventsDAO alloc] initWithSQLiteDatabase:self.database];
+- (FZEventsDAO *) eventsDAO{
+    return  [[FZEventsDAO alloc] initWithSQLiteDatabase:self.database];
 }
 
 @end

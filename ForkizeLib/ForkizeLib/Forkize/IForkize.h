@@ -36,6 +36,14 @@
 
 -(void) sessionEnd;
 
+-(void) advanceState:(NSString *) state;
+
+-(void) resetState:(NSString *) state;
+
+-(void) pauseState:(NSString *) state;
+
+-(void) resumeState:(NSString *) state;
+
 -(void)  pause;
 
 -(void)  resume;
@@ -46,13 +54,7 @@
 
 -(void)  onTerminate;
 
--(void) advanceState:(NSString *) state;
 
--(void) resetState:(NSString *) state;
-
--(void) pauseState:(NSString *) state;
-
--(void) resumeState:(NSString *) state;
 
 @end
 

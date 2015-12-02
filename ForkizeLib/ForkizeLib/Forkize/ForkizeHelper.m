@@ -39,7 +39,7 @@
 +(BOOL) isKeyValid:(NSString *) key{
     
     if ([key length ] > 255 ||  [key length] == 0 || [[key substringToIndex:1] isEqualToString:@"$"]) {
-        NSLog(@"Forkize SDK The key is not valid, it shouldn't start with $ and length must be less than 255 and more 0");
+        NSLog(@"FZ::IOS::Error - key is not valid, it shouldn't start with $ and length must be less than 255 and more 0");
         return NO;
     }
     return YES;
@@ -54,8 +54,6 @@
     return [gmtDate timeIntervalSince1970];
 }
 
-
-// ** FZ::DONE this could be moved to Forkize helper
 +(NSDictionary *) parseJsonString:(NSString *) jsonString{
     NSError * err;
     NSData *data =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
@@ -87,31 +85,7 @@
     return jsonObject;
 }
 
-+(NSString *) getConnectionType{
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
-    
-    NSString *type = @"";
-    NetworkStatus status = [reachability currentReachabilityStatus];
-    
-    if(status == NotReachable)
-    {
-        //No internet
-        type = @"ncon";
-    }
-    else if (status == ReachableViaWiFi)
-    {
-        //WiFi
-        type = @"wifi";
-    }
-    else if (status == ReachableViaWWAN)
-    {
-        //3G
-        type = @"mobile";
-    }
-    
-    return type;
-}
+
 
 
 @end

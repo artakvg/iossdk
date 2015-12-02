@@ -8,16 +8,16 @@ PRAGMA foreign_keys = ON;
 -- -------------------------------
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
-	 Id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-	 UserName text NOT NULL,
-     AliasedUserName text,
+	 Rid integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	 UserId text NOT NULL,
+     AliasedId text,
      ChangeLog text,
-     UserInfo text
+     UserProfile text
 );
 
 DROP TABLE IF EXISTS Events;
 CREATE TABLE Events  (
-    Id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-    UserName text NOT NULL,
-    EventValue text NOT NULL
+    Rid integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    UserId text NOT NULL,
+    EventData text NOT NULL
 );

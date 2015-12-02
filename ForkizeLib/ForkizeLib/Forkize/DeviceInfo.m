@@ -9,6 +9,7 @@
 #import "DeviceInfo.h"
 #import "ForkizeHelper.h"
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
 
 @interface DeviceInfo ()
 
@@ -63,6 +64,33 @@
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Exception thrown when device info collecting %@", exception);
     }
+}
+
+// FZ::TODO maybe we should move it to device info
+-(NSString *) getConnectionType{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NSString *type = @"";
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    if(status == NotReachable)
+    {
+        //No internet
+        type = @"ncon";
+    }
+    else if (status == ReachableViaWiFi)
+    {
+        //WiFi
+        type = @"wifi";
+    }
+    else if (status == ReachableViaWWAN)
+    {
+        //3G
+        type = @"mobile";
+    }
+    
+    return type;
 }
 
 @end

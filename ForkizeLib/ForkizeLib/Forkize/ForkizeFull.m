@@ -156,6 +156,22 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
     [self.userProfileInternal resume];
 }
 
+-(void) advanceState:(NSString *) state{
+    [self.eventManager advanceState:state];
+}
+
+-(void) resetState:(NSString *) state{
+    [self.eventManager resetState:state];
+}
+
+-(void) pauseState:(NSString *) state{
+    [self.eventManager pauseState:state];
+}
+
+-(void) resumeState:(NSString *) state{
+    [self.eventManager resumeState:state];
+}
+
 -(void) eventDuration:(NSString *)eventName{
     [self.eventManager eventDuration:eventName];
 }
@@ -243,22 +259,6 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         
         NSLog(@"Forkize SDK SDK is shot down!");
     }
-}
-
--(void) advanceState:(NSString *) state{
-    [self.eventManager advanceState:state];
-}
-
--(void) resetState:(NSString *) state{
-    [self.eventManager resetState:state];
-}
-
--(void) pauseState:(NSString *) state{
-    [self.eventManager pauseState:state];
-}
-
--(void) resumeState:(NSString *) state{
-    [self.eventManager resumeState:state];
 }
 
 @end

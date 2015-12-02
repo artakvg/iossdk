@@ -10,8 +10,9 @@
 
 @interface FZEvent : NSObject
 
-@property (nonatomic, assign) NSInteger Id;
-@property (nonatomic, strong) NSString *userName;
-@property (nonatomic, strong) NSString *eventValue;
+@property (nonatomic, assign) NSInteger rowId;
+
+@property (nonatomic, strong) NSString *userId;
+@property (nonatomic, strong) NSString *eventData;
 
 @end

@@ -1,6 +1,6 @@
 //
 //  Helper.h
-//  iTennis
+//  ForkizeLib
 //
 //  Created by Artak Martirosyan on 9/9/15.
 //  Copyright (c) 2015 Artak. All rights reserved.

@@ -17,7 +17,7 @@
 #import "UserProfile.h"
 #import "FZEvent.h"
 
-
+// FZ::TODO::ARTAK please check if there is internet connection and then send smth...
 @interface FzRestOperation : NSOperation
 
 @property (nonatomic, strong) LocalStorageManager *localStorage;
@@ -74,18 +74,20 @@
                 [RestClient getInstance].accessToken = accessToken;
                 [self.localStorage flushToDatabase];
                 
-                NSArray *events = [self.localStorage getEvents];
+                [self.localStorage updateEventsAfterAlias:aliasedName];
                 
-                for (FZEvent *event in events) {
-                    event.userName = aliasedName;
-                }
-                [self.localStorage updateEvents:events];
+//                NSArray *events = [self.localStorage getEvents];
+//                
+//                for (FZEvent *event in events) {
+//                    event.userName = aliasedName;
+//                }
+//                [self.localStorage updateEvents:events];
                 
                 [[UserProfileInternal getInstance] applyAlias];
             }
         }
         
-        NSArray *eventArray = [self.localStorage getEvents:[ForkizeConfig getInstance].MAX_EVENTS_PER_FLUSH];
+        NSArray *eventArray = [self.localStorage getEventsWithCount:[ForkizeConfig getInstance].MAX_EVENTS_PER_FLUSH];
         NSInteger eventCount = [eventArray count];
         if ( eventCount == 0) {
             return;

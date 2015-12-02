@@ -23,6 +23,4 @@
 
 +(id) getJSON:(id) container;
 
-+(NSString *) getConnectionType;
-
 @end

@@ -10,10 +10,10 @@
 
 @interface FZUser : NSObject
 
-@property (nonatomic, assign) NSInteger Id;
-@property (nonatomic, strong) NSString * userName;
-@property (nonatomic, strong) NSString * aliasedName;
+@property (nonatomic, assign) NSInteger rowId;
+@property (nonatomic, strong) NSString * userId;
+@property (nonatomic, strong) NSString * aliasedId;
 @property (nonatomic, strong) NSString * changeLog;
-@property (nonatomic, strong) NSString * userInfo;
+@property (nonatomic, strong) NSString * userProfile;
 
 @end

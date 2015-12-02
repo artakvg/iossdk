@@ -8,7 +8,7 @@
 
 #import "SQLiteLocalStorage.h"
 #import "DAOFactory.h"
-#import "EventsDAO.h"
+#import "FZEventsDAO.h"
 #import "FZEvent.h"
 
 #import "ForkizeHelper.h"
@@ -16,7 +16,7 @@
 
 @interface SQLiteLocalStorage()
 
-@property (nonatomic, strong) EventsDAO *eventDAO;
+@property (nonatomic, strong) FZEventsDAO *eventDAO;
 @property (nonatomic, strong) DAOFactory *daoFactory;
 
 @end
@@ -38,7 +38,6 @@
     BOOL result = NO;
     @try {
         result = [self.eventDAO addEvents:arrayData];
-        result = YES;
     }
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Exception thrown writing database %@", exception);
@@ -55,28 +54,12 @@
     NSArray *resultArray = [NSArray array];
     
     @try {
-        resultArray = [self.eventDAO loadEventsWithCount:count forUser:userId];
+        resultArray = [self.eventDAO readEventsWithCount:count forUser:userId];
     }
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
     }
     return resultArray;
-}
-
--(NSArray *) readForUser:(NSString *) userId{
-    NSArray *resultArray = [NSArray array];
-    
-    @try {
-        resultArray = [self.eventDAO loadEventsForUser:userId];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
-    }
-    return resultArray;
-}
-
--(void) flush{
-     [self.eventDAO removeEvents];
 }
 
 -(BOOL) removeEventsWithCount:(NSInteger ) count forUser:(NSString *) userId{
@@ -91,11 +74,11 @@
     return result;
 }
 
--(BOOL) updateEvents:(NSArray *) events{
+-(BOOL) updateEventsForUser:(NSString *) userId withALiasedUser:(NSString *) aliasedUser{
     BOOL result = NO;
     
     @try {
-        result = [self.eventDAO updateEvents:events];
+        result = [self.eventDAO updateEventsForUser:userId withAliasedUser:aliasedUser];
     }
     @catch (NSException *exception) {
         NSLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);

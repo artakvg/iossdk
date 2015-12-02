@@ -15,13 +15,9 @@
 
 - (id) initWithSQLiteDatabase:(SQLiteDatabase *)database;
 
-- (NSArray *) loadUsers;
+- (FZUser *) addUser:(NSString *) userId;
 
-- (FZUser *) addUser:(NSString *) userName;
-
-- (BOOL) removeUser:(NSString *) userName;
-
-- (FZUser *) getUser:(NSString *) userName;
+- (FZUser *) getUser:(NSString *) userId;
 
 - (BOOL) updateUser:(FZUser *) user;
 

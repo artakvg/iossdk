@@ -6,6 +6,10 @@
 //  Copyright (c) 2015 Artak. All rights reserved.
 //
 
+// FZ::TODO improve LocationInstance
+// how we should test it with various devices
+// what about destroy ?? what will happen ?
+
 #import "LocationInstance.h"
 #import <UIKit/UIKit.h>
 
@@ -43,11 +47,11 @@
 
 -(void) setListeners{
     
-    // FZ::TODO TEST IT
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-         // FZ::TODO please explain
-         [self.locationManager requestWhenInUseAuthorization];
-    }
+//    // FZ::TODO
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+//         // FZ::TODO please explain
+//         [self.locationManager requestWhenInUseAuthorization];
+//    }
     
     [self.locationManager startUpdatingLocation];
 }
@@ -65,7 +69,7 @@
  *    locations is an array of CLLocation objects in chronological order.
  */
 - (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0){
+    didUpdateLocations:(NSArray *)locations __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0){
 
     CLLocation *currentLocation = [locations objectAtIndex:0];
     self.latitude = currentLocation.coordinate.latitude;
@@ -79,8 +83,8 @@
  *    Invoked when an error has occurred. Error types are defined in "CLError.h".
  */
 - (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error{
-    NSLog(@"Localtion manager failed with error %@", error);
+    didFailWithError:(NSError *)error{
+    NSLog(@"FZ::LOG - Localtion manager failed with error %@", error);
 }
 
 /*

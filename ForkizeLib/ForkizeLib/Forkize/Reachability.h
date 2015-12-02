@@ -70,6 +70,8 @@ extern NSString *kReachabilityChangedNotification;
 /*!
  * Use to check the reachability of a given IP address.
  */
+
+// FZ::POINT Please check if ip is available as to make request there
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress;
 
 /*!

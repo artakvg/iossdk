@@ -1,15 +1,15 @@
 //
 //  DAOFactory.h
-//  iTennis
+//  ForkizeLib
 //
-//  Created by Artak Martirosyan on 8/8/13.
+//  Created by Forkize on 8/8/13.
 //  Copyright (c) 2015 Artak. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @class FZUserDAO;
-@class EventsDAO;
+@class FZEventsDAO;
 
 
 @interface DAOFactory : NSObject
@@ -18,6 +18,6 @@
 
 - (FZUserDAO *) userDAO;
 
-- (EventsDAO *) eventsDAO;
+- (FZEventsDAO *) eventsDAO;
 
 @end

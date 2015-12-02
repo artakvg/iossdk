@@ -15,13 +15,12 @@
 #import "UserProfileInternal.h"
 #import "ForkizeMessage.h"
 
-NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
+//FZ::TODO::ARTAK read the url from config , also sdk version and sdk name
 
-#define URL_LIVE_PATH [NSString stringWithFormat:@"%@/%@/event/batch", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
-#define  URL_AUTH_PATH [NSString stringWithFormat:@"%@/%@/people/identify", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION] 
-#define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/%@/people/alias", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
-
-#define URL_UPDATE_PATH  [NSString stringWithFormat:@"%@/%@/profile/change", URL_BASE_PATH, [ForkizeConfig getInstance].SDK_VERSION]
+#define URL_LIVE_PATH   [NSString stringWithFormat:@"%@/%@/event/batch",     [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
+#define URL_AUTH_PATH   [NSString stringWithFormat:@"%@/%@/people/identify", [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
+#define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/%@/people/alias",    [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
+#define URL_UPDATE_PATH [NSString stringWithFormat:@"%@/%@/profile/change",  [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
 
 @implementation Request
 
@@ -162,7 +161,7 @@ NSString *const URL_BASE_PATH = @"http://fzgate.cloudapp.net:8080";
     @try {
         NSDictionary *api_dataDict = [NSDictionary dictionaryWithObject:aliasedUserId forKey:@"alias_id"];
         
-        //FZ::TODO TEST NSJSONWritingPrettyPrinted OR 0
+        //FZ::TODO::ARTAK TEST NSJSONWritingPrettyPrinted OR 0
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:api_dataDict options:NSJSONWritingPrettyPrinted error:&error];
         

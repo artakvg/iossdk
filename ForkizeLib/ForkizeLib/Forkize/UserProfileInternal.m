@@ -183,8 +183,6 @@ typedef enum{
     NSString *oldUserId = [self getUserId];
     
     if ([ForkizeHelper isNilOrEmpty:userId]) {
-        // FZ::TODO why we are logging and not throwing exception ?
-        
         @throw [NSException  exceptionWithName:@"Forkize" reason:@"Forkize SDK New user Id is nill or empty" userInfo:nil];
         return;
     }
@@ -194,13 +192,10 @@ typedef enum{
         return;
     }
     
-    // FZ::TODO should local storage be aware of such kind of functionality like alias ????
-    
-    //  gnum gtnum enq oldUserName-ov tox@ u aliased dashtum grum enq newUserName
     self.aliasedUserId = userId;
     
     FZUser *user = [self.userDAO getUser:oldUserId];
-    user.aliasedName = userId;
+    user.aliasedId = userId;
     [self.userDAO updateUser:user];
     
     NSLog(@"Forkize SDK userId will change");
@@ -213,14 +208,13 @@ typedef enum{
         self.userId =  self.aliasedUserId;
         self.aliasedUserId = @"";
         FZUser *user = [self.userDAO getUser:userName];
-        user.userName = user.aliasedName;
-        user.aliasedName = @"";
+        user.userId = user.aliasedId;
+        user.aliasedId= @"";
         [self.userDAO updateUser:user];
     }
 }
 
 -(void) setValue:(id)value forKey:(NSString *)key{
-    // FZ::TODO why we are not removing prev inc and prepend operations ???
     if ([ForkizeHelper isKeyValid:key]) {
         NSMutableDictionary *setDict = [NSMutableDictionary dictionaryWithDictionary:[self.changeLog objectForKey:FORKIZE_SET]];
         
@@ -298,7 +292,6 @@ typedef enum{
 
 
 -(void) unsetForKey:(NSString *)key{
-    // FZ::TODO why we are not removing prev inc and prepend operations ???
     if ([ForkizeHelper isKeyValid:key]) {
         NSArray *unsetArray = [self.changeLog objectForKey:FORKIZE_UNSET];
         NSMutableArray *unsetMutArray = [NSMutableArray array];
@@ -379,7 +372,7 @@ typedef enum{
     if ([ForkizeHelper isKeyValid:key]) {
         
         if (!([value isKindOfClass:[NSNumber class]] || [value isKindOfClass:[NSString class]] )) {
-            //FZ::TODO review text of exception
+            //FZ::POINT review text of exception
             @throw [NSException  exceptionWithName:@"Forkize" reason:@"Argument of appendForKey for value should be NSNumber or NSString" userInfo:nil];
             return;
         }
@@ -414,7 +407,7 @@ typedef enum{
     if ([ForkizeHelper isKeyValid:key]) {
         
         if (!([value isKindOfClass:[NSNumber class]] || [value isKindOfClass:[NSString class]] )) {
-            //FZ::TODO review text of exception
+            //FZ::POINT review text of exception
             @throw [NSException  exceptionWithName:@"Forkize" reason:@"Argument of prependForKey for value should be NSNumber or NSString" userInfo:nil];
             return;
             
@@ -524,14 +517,12 @@ typedef enum{
     [self restoreFromDatabase];
 }
 
-
-// FZ::TODO dont think we need to have such high level interface, error prone
 -(void) flushToDatabase{
     if (self.localStorage != nil) {
         FZUser *user = [[FZUser alloc] init];
-        user.userName = self.userId;
+        user.userId = self.userId;
         user.changeLog = [self getChangeLog];
-        user.userInfo = [ForkizeHelper getJsonString:self.userInfo];
+        user.userProfile = [ForkizeHelper getJsonString:self.userInfo];
         [self.userInfo setObject:self.aliasedUserId forKey:@"aliasedUserId"];
         [self.userInfo setObject:self.upv forKey:@"upv"];
         [self.userDAO updateUser:user];
@@ -550,8 +541,8 @@ typedef enum{
             self.changeLog = [NSMutableDictionary dictionary];
         }
         
-        if (![ForkizeHelper isNilOrEmpty:user.userInfo]) {
-            self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.userInfo]];
+        if (![ForkizeHelper isNilOrEmpty:user.userProfile]) {
+            self.userInfo = [NSMutableDictionary dictionaryWithDictionary:[ForkizeHelper parseJsonString:user.userProfile]];
         } else {
             self.userInfo = [NSMutableDictionary dictionary];
         }
