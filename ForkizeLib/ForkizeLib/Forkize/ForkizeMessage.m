@@ -8,6 +8,7 @@
 
 
 #import "ForkizeMessage.h"
+#import "ForkizeDefines.h"
 
 static NSString *const  FZ_MESSAGE = @"message";
 static NSString *const  FZ_ID = @"id";
@@ -58,13 +59,13 @@ static NSString *const  FZ_IMAGE = @"image";
     NSString *fz_image = [messageDict objectForKey:FZ_IMAGE];
     
     
-    NSLog(@"fz_message: %@\nfz_id: %@\nfz_type: %@\nfz_template: %@", fz_message, fz_id, fz_type, fz_template);
+    FZLog(@"fz_message: %@\nfz_id: %@\nfz_type: %@\nfz_template: %@", fz_message, fz_id, fz_type, fz_template);
 
-    NSLog(@"fz_content: %@\nfz_body: %@\nfz_header: %@\nfz_text: %@", fz_content, fz_body, fz_header, fz_text);
+    FZLog(@"fz_content: %@\nfz_body: %@\nfz_header: %@\nfz_text: %@", fz_content, fz_body, fz_header, fz_text);
     
-    NSLog(@"fz_color: %@\nfz_bgcolor: %@\nfz_bordercolor: %@\nfz_fontsize: %@", fz_color, fz_bgcolor, fz_bordercolor, fz_fontsize);
+    FZLog(@"fz_color: %@\nfz_bgcolor: %@\nfz_bordercolor: %@\nfz_fontsize: %@", fz_color, fz_bgcolor, fz_bordercolor, fz_fontsize);
     
-    NSLog(@"fz_button_1: %@\nfz_button_2: %@\nfz_noty: %@\nfz_image: %@", fz_button_1, fz_button_2, fz_noty, fz_image);
+    FZLog(@"fz_button_1: %@\nfz_button_2: %@\nfz_noty: %@\nfz_image: %@", fz_button_1, fz_button_2, fz_noty, fz_image);
 }
 
 @end

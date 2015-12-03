@@ -12,7 +12,8 @@ CREATE TABLE Users (
 	 UserId text NOT NULL,
      AliasedId text,
      ChangeLog text,
-     UserProfile text
+     UserProfile text,
+     UserProfileVersion text
 );
 
 DROP TABLE IF EXISTS Events;

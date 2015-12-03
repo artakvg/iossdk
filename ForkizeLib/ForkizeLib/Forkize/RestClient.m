@@ -16,8 +16,9 @@
 #import "UserProfileInternal.h"
 #import "UserProfile.h"
 #import "FZEvent.h"
+#import "ForkizeDefines.h"
+#import "Reachability.h"
 
-// FZ::TODO::ARTAK please check if there is internet connection and then send smth...
 @interface FzRestOperation : NSOperation
 
 @property (nonatomic, strong) LocalStorageManager *localStorage;
@@ -40,6 +41,12 @@
 - (void)main {
     
     @autoreleasepool {
+        
+        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+        if (networkStatus == NotReachable) {
+            return;
+        }
         
         if ([RestClient getInstance].accessToken == nil) {
             [RestClient getInstance].accessToken = [self.request getAccessToken];
@@ -108,7 +115,7 @@
         NSDictionary *postResponseDict = [self.request postWithBody:arrayData andAccessToken:[RestClient getInstance].accessToken];
         
         NSInteger responseCode = [[postResponseDict objectForKey:@"status"] integerValue];
-        NSLog(@"postWithBody jsonDict : %@", postResponseDict);
+        FZLog(@"postWithBody jsonDict : %@", postResponseDict);
         
         if (responseCode == 1) {
             [self.localStorage removeEventsWithCount:eventCount];
@@ -162,7 +169,7 @@
             [self.queue addOperation:[[FzRestOperation alloc] init]];
         }
     } @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Error while scheduling a rest client execution %@", exception);
+        FZLog(@"Forkize SDK Error while scheduling a rest client execution %@", exception);
     }
 }
 

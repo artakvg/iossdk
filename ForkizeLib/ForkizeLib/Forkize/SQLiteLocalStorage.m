@@ -13,6 +13,7 @@
 
 #import "ForkizeHelper.h"
 #import "UserProfile.h"
+#import "ForkizeDefines.h"
 
 @interface SQLiteLocalStorage()
 
@@ -40,10 +41,10 @@
         result = [self.eventDAO addEvents:arrayData];
     }
     @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Exception thrown writing database %@", exception);
+        FZLog(@"Forkize SDK Exception thrown writing database %@", exception);
     }
     @finally {
-         NSLog(@"Forkize SDK End writing to database");
+         FZLog(@"Forkize SDK End writing to database");
     }
     
     return result;
@@ -57,7 +58,7 @@
         resultArray = [self.eventDAO readEventsWithCount:count forUser:userId];
     }
     @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
+        FZLog(@"Forkize SDK Error occurred getting events from SQLiteDatabase %@", exception);
     }
     return resultArray;
 }
@@ -69,7 +70,7 @@
         result = [self.eventDAO removeEventsWithCount:count forUser:userId];
     }
     @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);
+        FZLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);
     }
     return result;
 }
@@ -81,7 +82,7 @@
         result = [self.eventDAO updateEventsForUser:userId withAliasedUser:aliasedUser];
     }
     @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);
+        FZLog(@"Forkize SDK Error occurred flushing events from SQLiteDatabase %@", exception);
     }
     return result;
 }

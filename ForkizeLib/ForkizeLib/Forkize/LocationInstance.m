@@ -12,6 +12,7 @@
 
 #import "LocationInstance.h"
 #import <UIKit/UIKit.h>
+#import "ForkizeDefines.h"
 
 @interface LocationInstance()
 
@@ -49,7 +50,6 @@
     
 //    // FZ::TODO
 //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-//         // FZ::TODO please explain
 //         [self.locationManager requestWhenInUseAuthorization];
 //    }
     
@@ -84,7 +84,7 @@
  */
 - (void)locationManager:(CLLocationManager *)manager
     didFailWithError:(NSError *)error{
-    NSLog(@"FZ::LOG - Localtion manager failed with error %@", error);
+    FZLog(@"FZ::LOG - Localtion manager failed with error %@", error);
 }
 
 /*
@@ -96,10 +96,10 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_2){
     switch (status) {
         case kCLAuthorizationStatusNotDetermined: {
-            NSLog(@"Forkize SDK User still thinking..");
+            FZLog(@"Forkize SDK User still thinking..");
         } break;
         case kCLAuthorizationStatusDenied: {
-            NSLog(@"Forkize SDK Location manager authorization denied");
+            FZLog(@"Forkize SDK Location manager authorization denied");
         } break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorizedAlways: {

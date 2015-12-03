@@ -11,6 +11,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #import "Reachability.h"
+#import "ForkizeDefines.h"
 
 @implementation ForkizeHelper
 
@@ -39,7 +40,7 @@
 +(BOOL) isKeyValid:(NSString *) key{
     
     if ([key length ] > 255 ||  [key length] == 0 || [[key substringToIndex:1] isEqualToString:@"$"]) {
-        NSLog(@"FZ::IOS::Error - key is not valid, it shouldn't start with $ and length must be less than 255 and more 0");
+        FZLog(@"FZ::IOS::Error - key is not valid, it shouldn't start with $ and length must be less than 255 and more 0");
         return NO;
     }
     return YES;
@@ -73,11 +74,10 @@
     return  jsonString;
 }
 
-// FZ::DONE why we need it here  NSJSONWritingPrettyPrinted
 +(id) getJSON:(id) container{
     
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:container options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:container options:0 error:&error];
     
     NSError *parseError = nil;
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];

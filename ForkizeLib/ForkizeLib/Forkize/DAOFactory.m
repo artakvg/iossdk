@@ -49,21 +49,23 @@ static DAOFactory *defaultFactory_ = nil;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *path = [paths objectAtIndex:0];
         
-        NSString *fullPath = [path stringByAppendingPathComponent:@"projects.db"];
+        NSString *fullPath = [path stringByAppendingPathComponent:@"projects.sqlite"];
         
         NSFileManager *fm = [NSFileManager defaultManager];
         
         if (![fm fileExistsAtPath:fullPath isDirectory:nil]) {
+            BOOL success = [fm createFileAtPath:fullPath contents:nil attributes:nil];
             
-            NSString *pathForStartingDB = [[NSBundle mainBundle] pathForResource:@"projects" ofType:@"db"];
-            NSString *pathForDBStructure = [[NSBundle mainBundle] pathForResource:@"projects-db-structure" ofType:@"sql"];
-            
-            BOOL success = [fm copyItemAtPath:pathForStartingDB toPath:fullPath error:NULL];
             NSAssert(success == YES, @"Database install failed.");
             
             SQLiteDatabase *database = [[SQLiteDatabase alloc] initWithDBPath:fullPath];
-            [database executeFile:pathForDBStructure];
-        }
+            
+            [database execute:@"PRAGMA foreign_keys = ON;"];
+            [database execute:@"DROP TABLE IF EXISTS Users;"];
+            [database execute:@"CREATE TABLE Users (Rid integer NOT NULL PRIMARY KEY AUTOINCREMENT, UserId text NOT NULL, AliasedId text, ChangeLog text, UserProfile text, UserProfileVersion text);"];
+            [database execute:@"DROP TABLE IF EXISTS Events"];
+            [database execute:@"CREATE TABLE Events  (Rid integer NOT NULL PRIMARY KEY AUTOINCREMENT, UserId text NOT NULL, EventData text NOT NULL);"];
+         }
         
         defaultFactory_ = [[DAOFactory alloc] initWithDBPath_:fullPath];
 	}

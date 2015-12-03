@@ -14,7 +14,7 @@
 
 @interface SessionInstance()
 
-@property (nonatomic, strong) NSString *sessionId; // FZ:TODO Artak where we use it????
+@property (nonatomic, strong) NSString *sessionId;
 
 @property (nonatomic, assign) long sessionStartTime;
 @property (nonatomic, assign) long sessionResumeTime;

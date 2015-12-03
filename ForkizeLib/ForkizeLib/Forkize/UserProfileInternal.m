@@ -21,6 +21,7 @@
 #import "ForkizeEventManager.h"
 #import "DeviceInfo.h"
 #import "LocationInstance.h"
+#import "ForkizeDefines.h"
 
 
 NSString *const USER_PROFILE_USER_ID = @"Forkize.UserProfile.userId";
@@ -96,7 +97,7 @@ typedef enum{
     
 //    if ([ForkizeHelper isNilOrEmpty:self.userId]) {
 //        NSString *userId = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PROFILE_USER_ID];
-//        NSLog(@"From default userId %@", userId);
+//        FZLog(@"From default userId %@", userId);
 //        if ([ForkizeHelper isNilOrEmpty:userId]) {
 //            [self identify:nil];
 //        } else {
@@ -167,7 +168,7 @@ typedef enum{
         
     }
     @catch (NSException *exception) {
-        NSLog(@"Forkize SDK User change log is not converted to JSONObject");
+        FZLog(@"Forkize SDK User change log is not converted to JSONObject");
     }
 }
 
@@ -188,7 +189,7 @@ typedef enum{
     }
     
     if ([oldUserId isEqual:userId]) {
-        NSLog(@"Forkize SDK Current and alias user ids are same!");
+        FZLog(@"Forkize SDK Current and alias user ids are same!");
         return;
     }
     
@@ -198,7 +199,7 @@ typedef enum{
     user.aliasedId = userId;
     [self.userDAO updateUser:user];
     
-    NSLog(@"Forkize SDK userId will change");
+    FZLog(@"Forkize SDK userId will change");
 }
 
 -(void) applyAlias{
@@ -445,7 +446,7 @@ typedef enum{
         self.age = age;
         [self setValue:[NSString stringWithFormat:@"%ld", (long) age] forKey:@"age"];
     } else {
-        NSLog(@"Forkize SDK Entered wrong value for age");
+        FZLog(@"Forkize SDK Entered wrong value for age");
     }
 }
 

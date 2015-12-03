@@ -47,6 +47,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>ForkizeMaxEventsPerFlush</key>
+	<integer>20</integer>
+	<key>ForkizeTimeAfterFlush</key>
+	<integer>8</integer>
+	<key>ForkizeRequestTimout</key>
+	<integer>6</integer>
 	<key>NSAppTransportSecurity</key>
 	<string></string>
 </dict>

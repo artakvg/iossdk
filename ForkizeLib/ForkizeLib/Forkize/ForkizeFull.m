@@ -16,6 +16,7 @@
 #import "LocationInstance.h"
 #import "RestClient.h"
 #import "ForkizeHelper.h"
+#import "ForkizeDefines.h"
 
 
 NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
@@ -43,7 +44,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
     
     if (self) {
         self.destroyed = YES;
-        NSLog(@"Forkize SDK Forkize constructor called !");
+        FZLog(@"Forkize SDK Forkize constructor called !");
     }
     
     return self;
@@ -52,12 +53,12 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 -(void)runOperations:(id<IForkize>) forkize{
     while (self.isRunning) {
         @try {
-            NSLog(@"Forkize SDK %@", [self.userProfileInternal getChangeLog]); // FZ::TODO remove this in production version
+            FZLog(@"Forkize SDK %@", [self.userProfileInternal getChangeLog]); // FZ::TODO remove this in production version
             [self.restClient flush];
             [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] TIME_AFTER_FLUSH]];
         }
         @catch (NSException *exception) {
-            NSLog(@"Forkize SDK Something went wrong in MainRunnable %@", exception);
+            FZLog(@"Forkize SDK Something went wrong in MainRunnable %@", exception);
         }
     }
 }
@@ -106,7 +107,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         }
         
         @catch (NSException *exception) {
-            NSLog(@"Forkize SDK Failed to identify %@", exception);
+            FZLog(@"Forkize SDK Failed to identify %@", exception);
         }
     }
     
@@ -190,10 +191,10 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         
         [self.userProfileInternal pause];
         
-        NSLog(@"Forkize SDK On Pause");
+        FZLog(@"Forkize SDK On Pause");
         
     } @catch (NSException* exception) {
-        NSLog(@"Forkize SDK Exception thrown onPause %@", exception);
+        FZLog(@"Forkize SDK Exception thrown onPause %@", exception);
     }
 }
 
@@ -203,7 +204,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         [self.userProfileInternal resume];
         
     } @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Exception thrown onResume %@", exception);
+        FZLog(@"Forkize SDK Exception thrown onResume %@", exception);
     }
 }
 
@@ -221,10 +222,10 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         }
         
         
-        NSLog(@"Forkize SDK onDestroy!");
+        FZLog(@"Forkize SDK onDestroy!");
         
     } @catch (NSException *e) {
-        NSLog(@"Forkize SDK Exception thrown onDestroy %@", e);
+        FZLog(@"Forkize SDK Exception thrown onDestroy %@", e);
     }
 }
 
@@ -233,7 +234,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         
         [self.eventManager flushCacheToDatabase];
     } @catch (NSException* e) {
-        NSLog(@"Forkize SDK Exception thrown onLowMemory %@", e);
+        FZLog(@"Forkize SDK Exception thrown onLowMemory %@", e);
     }
 }
 
@@ -257,7 +258,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
         self.initialized = NO;
         self.destroyed = YES;
         
-        NSLog(@"Forkize SDK SDK is shot down!");
+        FZLog(@"Forkize SDK SDK is shot down!");
     }
 }
 

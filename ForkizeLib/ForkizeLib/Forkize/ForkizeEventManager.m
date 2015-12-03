@@ -16,6 +16,7 @@
 #import "ForkizeHelper.h"
 
 #import "FZEvent.h"
+#import "ForkizeDefines.h"
 
 @interface FzEventOperation : NSOperation{
     NSString *eventJSON_;
@@ -42,7 +43,7 @@
     
     @autoreleasepool {
         @try {
-            NSLog(@"Forkize SDK %@ event queued", eventJSON_);
+            FZLog(@"Forkize SDK %@ event queued", eventJSON_);
             FZEvent *event = [[FZEvent alloc] init];
             event.eventData = eventJSON_;
             event.userId = [[UserProfile getInstance] getUserId];
@@ -50,7 +51,7 @@
             [[LocalStorageManager getInstance] addEvent:event];
         }
         @catch (NSException *exception) {
-            NSLog(@"Forkize SDK Unable to insert into local storage %@", exception);
+            FZLog(@"Forkize SDK Unable to insert into local storage %@", exception);
         }
     }
 }
@@ -155,7 +156,7 @@
         [self.queue addOperation:[[FzEventOperation alloc] initWithEventJSON:eventString]];
     }
     @catch (NSException *exception) {
-        NSLog(@"Forkize SDK Error when queue event %@", exception);
+        FZLog(@"Forkize SDK Error when queue event %@", exception);
     }
 }
 
@@ -224,7 +225,7 @@
     NSDictionary *jsonDict = [NSDictionary dictionaryWithObjectsAndKeys:jsonEVDDict, @"evd", event, @"evn", nil];
     
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
     NSString *resultString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
     return resultString;

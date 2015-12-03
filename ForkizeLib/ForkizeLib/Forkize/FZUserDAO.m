@@ -67,7 +67,7 @@ static NSString *const kUserProfileParamName = @":userProfile";
     [statement setString:user.userId forParam:kUserIdParamName];
     [statement setString:user.aliasedId forParam:kAliasedIdParamName];
     [statement setString:user.changeLog forParam:kChangeLogParamName];
-    [statement setString:user.userProfile forParam:kUserIdParamName];
+    [statement setString:user.userProfile forParam:kUserProfileParamName];
     
     NSInteger updateCount = [statement executeUpdate];
     NSAssert(updateCount != 0,@"Unexpected error while creating user");
@@ -104,7 +104,7 @@ static NSString *const kUserProfileParamName = @":userProfile";
     [statement setString:user.userId forParam:kUserIdParamName];
     [statement setString:user.aliasedId forParam:kAliasedIdParamName];
     [statement setString:user.changeLog forParam:kChangeLogParamName];
-    [statement setString:user.userProfile forParam:kUserIdParamName];
+    [statement setString:user.userProfile forParam:kUserProfileParamName];
     
     return [statement executeUpdate];;
 }

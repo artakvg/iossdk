@@ -6,21 +6,18 @@
 //  Copyright (c) 2015 Artak. All rights reserved.
 //
 
-// FZ::TODO refactoring needed, test after refactoring
-
 #import "Request.h"
 #import "ForkizeHelper.h"
 #import "ForkizeConfig.h"
 #import "UserProfile.h"
 #import "UserProfileInternal.h"
 #import "ForkizeMessage.h"
+#import "ForkizeDefines.h"
 
-//FZ::TODO::ARTAK read the url from config , also sdk version and sdk name
-
-#define URL_LIVE_PATH   [NSString stringWithFormat:@"%@/%@/event/batch",     [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
-#define URL_AUTH_PATH   [NSString stringWithFormat:@"%@/%@/people/identify", [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
-#define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/%@/people/alias",    [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
-#define URL_UPDATE_PATH [NSString stringWithFormat:@"%@/%@/profile/change",  [ForkizeConfig getInstance].BASE_URL, [ForkizeConfig getInstance].SDK_VERSION]
+#define URL_LIVE_PATH   [NSString stringWithFormat:@"%@/event/batch",     [ForkizeConfig getInstance].BASE_URL]
+#define URL_AUTH_PATH   [NSString stringWithFormat:@"%@/people/identify", [ForkizeConfig getInstance].BASE_URL]
+#define URL_ALIAS_PATH  [NSString stringWithFormat:@"%@/people/alias",    [ForkizeConfig getInstance].BASE_URL]
+#define URL_UPDATE_PATH [NSString stringWithFormat:@"%@/profile/change",  [ForkizeConfig getInstance].BASE_URL]
 
 @implementation Request
 
@@ -47,8 +44,6 @@
         
         apiDataString = [[NSMutableString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         
-        [apiDataString replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
-        [apiDataString replaceOccurrencesOfString:@" " withString:@"" options:NSBackwardsSearch range:NSMakeRange(0,[apiDataString length] - 1)];
         [dict setObject:jsonObject forKeyedSubscript:@"api_data"];
     }
     
@@ -84,7 +79,7 @@
     }
     
     NSString *hash = [ForkizeHelper md5:hashableString];
-    NSLog(@"Hashable string: %@ \n hash: %@", hashableString, hash);
+    FZLog(@"Hashable string: %@ \n hash: %@", hashableString, hash);
     return hash;
 }
 
@@ -94,7 +89,7 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:5.0];
+                                                       timeoutInterval:[ForkizeConfig getInstance].REQUEST_TIMEOUT];
     
     [request setHTTPMethod:@"POST"];
     
@@ -105,12 +100,10 @@
     [request setValue:@"close" forHTTPHeaderField: @"Connection"];
     
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
     NSMutableString *reqData = [NSMutableString stringWithString:jsonString];
-    [reqData replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [reqData length])];
-    [reqData replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [reqData length])];
 
     NSData *strDictData = [reqData dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:strDictData];
@@ -133,11 +126,11 @@
         NSMutableDictionary *mutDict = [self getCommonDict:nil];
      
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_AUTH_PATH andBodyDict:mutDict];
-        NSLog(@"getAccessToken resonse %@", jsonDict);
+        FZLog(@"getAccessToken resonse %@", jsonDict);
         accessToken = [jsonDict objectForKey:@"access_token"];
         
         if (accessToken == nil) {
-            NSLog(@"Forkize SDK ERROR !!!!!!!! accessToken is nil");
+            FZLog(@"Forkize SDK ERROR !!!!!!!! accessToken is nil");
         }
         
         NSDictionary * message = [jsonDict objectForKey:@"message"];
@@ -161,16 +154,15 @@
     @try {
         NSDictionary *api_dataDict = [NSDictionary dictionaryWithObject:aliasedUserId forKey:@"alias_id"];
         
-        //FZ::TODO::ARTAK TEST NSJSONWritingPrettyPrinted OR 0
         NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:api_dataDict options:NSJSONWritingPrettyPrinted error:&error];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:api_dataDict options:0 error:&error];
         
         NSMutableDictionary *mutDict = [self getCommonDict:jsonData];
         [mutDict setObject:userId forKey:@"user_id"];
         [mutDict setObject:accessToken forKey:@"access_token"];
         
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_ALIAS_PATH andBodyDict:mutDict];
-        NSLog(@"alias jsonDict : %@", jsonDict);
+        FZLog(@"alias jsonDict : %@", jsonDict);
         return jsonDict;
     }
     
@@ -191,7 +183,7 @@
         [mutDict setObject:accessToken forKey:@"access_token"];
 
         NSDictionary* jsonDict = [self getReponseForRequestByURL:URL_UPDATE_PATH andBodyDict:mutDict];
-        NSLog(@"update user profile jsonDict : %@", jsonDict);
+        FZLog(@"update user profile jsonDict : %@", jsonDict);
         
         return jsonDict;
       }
@@ -202,7 +194,7 @@
 
 -(NSDictionary *) postWithBody:(NSArray *) arrayData andAccessToken:(NSString *) accessToken{
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayData options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrayData options:0 error:&error];
     
     NSMutableDictionary *mutDict = [self getCommonDict:jsonData];
   
