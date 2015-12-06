@@ -18,6 +18,58 @@
 		CE4A315F1C0DC7C20013E83C /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31571C0DC7C20013E83C /* FZUserDAO.m */; };
 		CE4A31621C0DC7C20013E83C /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A315B1C0DC7C20013E83C /* SQLiteHelper.m */; };
 		CE63E5561BBBEFFF00A4DD79 /* ForkizeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */; };
+		CEAB464B1C14C2F4007764E8 /* IForkize.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31631C0DD5C60013E83C /* IForkize.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CEAB464C1C14C2F4007764E8 /* Forkize.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F820E3FB1C06197800D4FF77 /* Forkize.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CEAB464D1C14C2F4007764E8 /* UserProfile.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA071BA0508100B54B94 /* UserProfile.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CEAB464E1C14C341007764E8 /* DAOFactory.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A314F1C0DC7C20013E83C /* DAOFactory.h */; };
+		CEAB464F1C14C341007764E8 /* DataAccessException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31511C0DC7C20013E83C /* DataAccessException.h */; };
+		CEAB46501C14C341007764E8 /* DBHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31531C0DC7C20013E83C /* DBHelper.h */; };
+		CEAB46511C14C341007764E8 /* FZEventsDAO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31541C0DC7C20013E83C /* FZEventsDAO.h */; };
+		CEAB46521C14C341007764E8 /* FZUserDAO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31561C0DC7C20013E83C /* FZUserDAO.h */; };
+		CEAB46531C14C341007764E8 /* SQLiteHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A315A1C0DC7C20013E83C /* SQLiteHelper.h */; };
+		CEAB46541C14C341007764E8 /* FZEvent.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31491C0DC7A90013E83C /* FZEvent.h */; };
+		CEAB46551C14C341007764E8 /* FZUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A314B1C0DC7A90013E83C /* FZUser.h */; };
+		CEAB46561C14C341007764E8 /* DeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9A9FC1BA01B0500B54B94 /* DeviceInfo.h */; };
+		CEAB46571C14C341007764E8 /* ForkizeEmpty.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */; };
+		CEAB46581C14C341007764E8 /* ForkizeFull.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F820E3F81C0618D600D4FF77 /* ForkizeFull.h */; };
+		CEAB46591C14C341007764E8 /* ForkizeConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9A9F91BA00BE900B54B94 /* ForkizeConfig.h */; };
+		CEAB465A1C14C341007764E8 /* ForkizeEventManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA0D1BA050DE00B54B94 /* ForkizeEventManager.h */; };
+		CEAB465B1C14C341007764E8 /* ForkizeHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9A9FF1BA0378E00B54B94 /* ForkizeHelper.h */; };
+		CEAB465C1C14C341007764E8 /* ForkizeMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */; };
+		CEAB465D1C14C341007764E8 /* LocalStorageManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31401C0DC7980013E83C /* LocalStorageManager.h */; };
+		CEAB465E1C14C341007764E8 /* MemoryLocalStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31421C0DC7980013E83C /* MemoryLocalStorage.h */; };
+		CEAB465F1C14C341007764E8 /* SQLiteLocalStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31441C0DC7980013E83C /* SQLiteLocalStorage.h */; };
+		CEAB46601C14C341007764E8 /* LocationInstance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED0546E1BA7FDEC00842D52 /* LocationInstance.h */; };
+		CEAB46611C14C341007764E8 /* Reachability.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED054711BA81B0700842D52 /* Reachability.h */; };
+		CEAB46621C14C341007764E8 /* Request.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED054751BA9C03200842D52 /* Request.h */; };
+		CEAB46631C14C341007764E8 /* RestClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED054781BA9C08300842D52 /* RestClient.h */; };
+		CEAB46641C14C341007764E8 /* SessionInstance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA0A1BA050B000B54B94 /* SessionInstance.h */; };
+		CEAB46651C14C341007764E8 /* UserProfileInternal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB760201C0A45E90091B9ED /* UserProfileInternal.h */; };
+		CEAB46661C14C372007764E8 /* DAOFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31501C0DC7C20013E83C /* DAOFactory.m */; };
+		CEAB46671C14C372007764E8 /* DataAccessException.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31521C0DC7C20013E83C /* DataAccessException.m */; };
+		CEAB46681C14C372007764E8 /* FZEventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31551C0DC7C20013E83C /* FZEventsDAO.m */; };
+		CEAB46691C14C372007764E8 /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31571C0DC7C20013E83C /* FZUserDAO.m */; };
+		CEAB466A1C14C372007764E8 /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A315B1C0DC7C20013E83C /* SQLiteHelper.m */; };
+		CEAB466B1C14C372007764E8 /* FZEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A314A1C0DC7A90013E83C /* FZEvent.m */; };
+		CEAB466C1C14C372007764E8 /* FZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A314C1C0DC7A90013E83C /* FZUser.m */; };
+		CEAB466D1C14C372007764E8 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9FD1BA01B0500B54B94 /* DeviceInfo.m */; };
+		CEAB466E1C14C372007764E8 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3FC1C06197800D4FF77 /* Forkize.m */; };
+		CEAB466F1C14C372007764E8 /* ForkizeEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */; };
+		CEAB46701C14C372007764E8 /* ForkizeFull.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3F91C0618D600D4FF77 /* ForkizeFull.m */; };
+		CEAB46711C14C372007764E8 /* ForkizeConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9FA1BA00BE900B54B94 /* ForkizeConfig.m */; };
+		CEAB46721C14C372007764E8 /* ForkizeEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA0E1BA050DE00B54B94 /* ForkizeEventManager.m */; };
+		CEAB46731C14C372007764E8 /* ForkizeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA001BA0378E00B54B94 /* ForkizeHelper.m */; };
+		CEAB46741C14C372007764E8 /* ForkizeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */; };
+		CEAB46751C14C372007764E8 /* LocalStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31411C0DC7980013E83C /* LocalStorageManager.m */; };
+		CEAB46761C14C372007764E8 /* MemoryLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31431C0DC7980013E83C /* MemoryLocalStorage.m */; };
+		CEAB46771C14C372007764E8 /* SQLiteLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31451C0DC7980013E83C /* SQLiteLocalStorage.m */; };
+		CEAB46781C14C372007764E8 /* LocationInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = CED0546F1BA7FDEC00842D52 /* LocationInstance.m */; };
+		CEAB46791C14C372007764E8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054721BA81B0700842D52 /* Reachability.m */; };
+		CEAB467A1C14C372007764E8 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054761BA9C03200842D52 /* Request.m */; };
+		CEAB467B1C14C372007764E8 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054791BA9C08300842D52 /* RestClient.m */; };
+		CEAB467C1C14C372007764E8 /* SessionInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA0B1BA050B000B54B94 /* SessionInstance.m */; };
+		CEAB467D1C14C372007764E8 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA081BA0508100B54B94 /* UserProfile.m */; };
+		CEAB467E1C14C372007764E8 /* UserProfileInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB760211C0A45E90091B9ED /* UserProfileInternal.m */; };
 		CEB760221C0A45E90091B9ED /* UserProfileInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB760211C0A45E90091B9ED /* UserProfileInternal.m */; };
 		CED054701BA7FDEC00842D52 /* LocationInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = CED0546F1BA7FDEC00842D52 /* LocationInstance.m */; };
 		CED054731BA81B0700842D52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054721BA81B0700842D52 /* Reachability.m */; };
@@ -29,7 +81,6 @@
 		CED9A9DE1BA00B9500B54B94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED9A9DC1BA00B9500B54B94 /* Main.storyboard */; };
 		CED9A9E01BA00B9500B54B94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CED9A9DF1BA00B9500B54B94 /* Images.xcassets */; };
 		CED9A9E31BA00B9500B54B94 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED9A9E11BA00B9500B54B94 /* LaunchScreen.xib */; };
-		CED9A9EF1BA00B9500B54B94 /* ForkizeLibTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9EE1BA00B9500B54B94 /* ForkizeLibTests.m */; };
 		CED9A9FB1BA00BE900B54B94 /* ForkizeConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9FA1BA00BE900B54B94 /* ForkizeConfig.m */; };
 		CED9A9FE1BA01B0500B54B94 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9FD1BA01B0500B54B94 /* DeviceInfo.m */; };
 		CED9AA011BA0378E00B54B94 /* ForkizeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA001BA0378E00B54B94 /* ForkizeHelper.m */; };
@@ -42,15 +93,44 @@
 		F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3FC1C06197800D4FF77 /* Forkize.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		CED9A9E91BA00B9500B54B94 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CED9A9C71BA00B9500B54B94 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CED9A9CE1BA00B9500B54B94;
-			remoteInfo = ForkizeLib;
+/* Begin PBXCopyFilesBuildPhase section */
+		CEAB463F1C14C261007764E8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				CEAB464E1C14C341007764E8 /* DAOFactory.h in CopyFiles */,
+				CEAB464F1C14C341007764E8 /* DataAccessException.h in CopyFiles */,
+				CEAB46501C14C341007764E8 /* DBHelper.h in CopyFiles */,
+				CEAB46511C14C341007764E8 /* FZEventsDAO.h in CopyFiles */,
+				CEAB46521C14C341007764E8 /* FZUserDAO.h in CopyFiles */,
+				CEAB46531C14C341007764E8 /* SQLiteHelper.h in CopyFiles */,
+				CEAB46541C14C341007764E8 /* FZEvent.h in CopyFiles */,
+				CEAB46551C14C341007764E8 /* FZUser.h in CopyFiles */,
+				CEAB46561C14C341007764E8 /* DeviceInfo.h in CopyFiles */,
+				CEAB46571C14C341007764E8 /* ForkizeEmpty.h in CopyFiles */,
+				CEAB46581C14C341007764E8 /* ForkizeFull.h in CopyFiles */,
+				CEAB46591C14C341007764E8 /* ForkizeConfig.h in CopyFiles */,
+				CEAB465A1C14C341007764E8 /* ForkizeEventManager.h in CopyFiles */,
+				CEAB465B1C14C341007764E8 /* ForkizeHelper.h in CopyFiles */,
+				CEAB465C1C14C341007764E8 /* ForkizeMessage.h in CopyFiles */,
+				CEAB465D1C14C341007764E8 /* LocalStorageManager.h in CopyFiles */,
+				CEAB465E1C14C341007764E8 /* MemoryLocalStorage.h in CopyFiles */,
+				CEAB465F1C14C341007764E8 /* SQLiteLocalStorage.h in CopyFiles */,
+				CEAB46601C14C341007764E8 /* LocationInstance.h in CopyFiles */,
+				CEAB46611C14C341007764E8 /* Reachability.h in CopyFiles */,
+				CEAB46621C14C341007764E8 /* Request.h in CopyFiles */,
+				CEAB46631C14C341007764E8 /* RestClient.h in CopyFiles */,
+				CEAB46641C14C341007764E8 /* SessionInstance.h in CopyFiles */,
+				CEAB46651C14C341007764E8 /* UserProfileInternal.h in CopyFiles */,
+				CEAB464B1C14C2F4007764E8 /* IForkize.h in CopyFiles */,
+				CEAB464C1C14C2F4007764E8 /* Forkize.h in CopyFiles */,
+				CEAB464D1C14C2F4007764E8 /* UserProfile.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CE07633C1C10535100607BBF /* ForkizeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeDefines.h; path = Forkize/ForkizeDefines.h; sourceTree = "<group>"; };
@@ -78,6 +158,9 @@
 		CE4A31631C0DD5C60013E83C /* IForkize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IForkize.h; path = Forkize/IForkize.h; sourceTree = "<group>"; };
 		CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeMessage.h; path = Forkize/ForkizeMessage.h; sourceTree = "<group>"; };
 		CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeMessage.m; path = Forkize/ForkizeMessage.m; sourceTree = "<group>"; };
+		CEAB46411C14C261007764E8 /* libForkize.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libForkize.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEAB46431C14C261007764E8 /* Forkize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Forkize.h; sourceTree = "<group>"; };
+		CEAB46451C14C261007764E8 /* Forkize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Forkize.m; sourceTree = "<group>"; };
 		CEB760201C0A45E90091B9ED /* UserProfileInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileInternal.h; path = Forkize/UserProfileInternal.h; sourceTree = "<group>"; };
 		CEB760211C0A45E90091B9ED /* UserProfileInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileInternal.m; path = Forkize/UserProfileInternal.m; sourceTree = "<group>"; };
 		CED0546E1BA7FDEC00842D52 /* LocationInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationInstance.h; path = Forkize/LocationInstance.h; sourceTree = "<group>"; };
@@ -98,7 +181,6 @@
 		CED9A9DD1BA00B9500B54B94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CED9A9DF1BA00B9500B54B94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CED9A9E21BA00B9500B54B94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		CED9A9E81BA00B9500B54B94 /* ForkizeLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ForkizeLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED9A9ED1BA00B9500B54B94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CED9A9EE1BA00B9500B54B94 /* ForkizeLibTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForkizeLibTests.m; sourceTree = "<group>"; };
 		CED9A9F91BA00BE900B54B94 /* ForkizeConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeConfig.h; path = Forkize/ForkizeConfig.h; sourceTree = "<group>"; };
@@ -123,6 +205,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CEAB463E1C14C261007764E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CED9A9CC1BA00B9500B54B94 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,16 +220,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CED9A9E51BA00B9500B54B94 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CEAB46421C14C261007764E8 /* Forkize */ = {
+			isa = PBXGroup;
+			children = (
+				CEAB46431C14C261007764E8 /* Forkize.h */,
+				CEAB46451C14C261007764E8 /* Forkize.m */,
+			);
+			path = Forkize;
+			sourceTree = "<group>";
+		};
 		CED054741BA96DFF00842D52 /* DBObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +249,7 @@
 				CED9AA281BA2C81E00B54B94 /* libsqlite3.dylib */,
 				CED9A9D11BA00B9500B54B94 /* ForkizeLib */,
 				CED9A9EB1BA00B9500B54B94 /* ForkizeLibTests */,
+				CEAB46421C14C261007764E8 /* Forkize */,
 				CED9A9D01BA00B9500B54B94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -166,7 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				CED9A9CF1BA00B9500B54B94 /* ForkizeLib.app */,
-				CED9A9E81BA00B9500B54B94 /* ForkizeLibTests.xctest */,
+				CEAB46411C14C261007764E8 /* libForkize.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,6 +381,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CEAB46401C14C261007764E8 /* Forkize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEAB46491C14C261007764E8 /* Build configuration list for PBXNativeTarget "Forkize" */;
+			buildPhases = (
+				CEAB463D1C14C261007764E8 /* Sources */,
+				CEAB463E1C14C261007764E8 /* Frameworks */,
+				CEAB463F1C14C261007764E8 /* CopyFiles */,
+				CEAB464A1C14C283007764E8 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Forkize;
+			productName = Forkize;
+			productReference = CEAB46411C14C261007764E8 /* libForkize.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		CED9A9CE1BA00B9500B54B94 /* ForkizeLib */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CED9A9F21BA00B9500B54B94 /* Build configuration list for PBXNativeTarget "ForkizeLib" */;
@@ -306,24 +416,6 @@
 			productReference = CED9A9CF1BA00B9500B54B94 /* ForkizeLib.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CED9A9E71BA00B9500B54B94 /* ForkizeLibTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CED9A9F51BA00B9500B54B94 /* Build configuration list for PBXNativeTarget "ForkizeLibTests" */;
-			buildPhases = (
-				CED9A9E41BA00B9500B54B94 /* Sources */,
-				CED9A9E51BA00B9500B54B94 /* Frameworks */,
-				CED9A9E61BA00B9500B54B94 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CED9A9EA1BA00B9500B54B94 /* PBXTargetDependency */,
-			);
-			name = ForkizeLibTests;
-			productName = ForkizeLibTests;
-			productReference = CED9A9E81BA00B9500B54B94 /* ForkizeLibTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -333,12 +425,11 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Artak;
 				TargetAttributes = {
+					CEAB46401C14C261007764E8 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
 					CED9A9CE1BA00B9500B54B94 = {
 						CreatedOnToolsVersion = 6.4;
-					};
-					CED9A9E71BA00B9500B54B94 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = CED9A9CE1BA00B9500B54B94;
 					};
 				};
 			};
@@ -356,7 +447,7 @@
 			projectRoot = "";
 			targets = (
 				CED9A9CE1BA00B9500B54B94 /* ForkizeLib */,
-				CED9A9E71BA00B9500B54B94 /* ForkizeLibTests */,
+				CEAB46401C14C261007764E8 /* Forkize */,
 			);
 		};
 /* End PBXProject section */
@@ -372,16 +463,57 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CED9A9E61BA00B9500B54B94 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CEAB464A1C14C283007764E8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\nPRODUCT_NAME =\"Forkize\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target ${PRODUCT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target ${PRODUCT_NAME} -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PRODUCT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PRODUCT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PRODUCT_NAME}.a\"\n\n# Last touch. copy the header files. Just for convenience\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
 		};
-/* End PBXResourcesBuildPhase section */
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CEAB463D1C14C261007764E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEAB46661C14C372007764E8 /* DAOFactory.m in Sources */,
+				CEAB46671C14C372007764E8 /* DataAccessException.m in Sources */,
+				CEAB46681C14C372007764E8 /* FZEventsDAO.m in Sources */,
+				CEAB46691C14C372007764E8 /* FZUserDAO.m in Sources */,
+				CEAB466A1C14C372007764E8 /* SQLiteHelper.m in Sources */,
+				CEAB466B1C14C372007764E8 /* FZEvent.m in Sources */,
+				CEAB466C1C14C372007764E8 /* FZUser.m in Sources */,
+				CEAB466D1C14C372007764E8 /* DeviceInfo.m in Sources */,
+				CEAB466E1C14C372007764E8 /* Forkize.m in Sources */,
+				CEAB466F1C14C372007764E8 /* ForkizeEmpty.m in Sources */,
+				CEAB46701C14C372007764E8 /* ForkizeFull.m in Sources */,
+				CEAB46711C14C372007764E8 /* ForkizeConfig.m in Sources */,
+				CEAB46721C14C372007764E8 /* ForkizeEventManager.m in Sources */,
+				CEAB46731C14C372007764E8 /* ForkizeHelper.m in Sources */,
+				CEAB46741C14C372007764E8 /* ForkizeMessage.m in Sources */,
+				CEAB46751C14C372007764E8 /* LocalStorageManager.m in Sources */,
+				CEAB46761C14C372007764E8 /* MemoryLocalStorage.m in Sources */,
+				CEAB46771C14C372007764E8 /* SQLiteLocalStorage.m in Sources */,
+				CEAB46781C14C372007764E8 /* LocationInstance.m in Sources */,
+				CEAB46791C14C372007764E8 /* Reachability.m in Sources */,
+				CEAB467A1C14C372007764E8 /* Request.m in Sources */,
+				CEAB467B1C14C372007764E8 /* RestClient.m in Sources */,
+				CEAB467C1C14C372007764E8 /* SessionInstance.m in Sources */,
+				CEAB467D1C14C372007764E8 /* UserProfile.m in Sources */,
+				CEAB467E1C14C372007764E8 /* UserProfileInternal.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CED9A9CB1BA00B9500B54B94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,23 +549,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CED9A9E41BA00B9500B54B94 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CED9A9EF1BA00B9500B54B94 /* ForkizeLibTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CED9A9EA1BA00B9500B54B94 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CED9A9CE1BA00B9500B54B94 /* ForkizeLib */;
-			targetProxy = CED9A9E91BA00B9500B54B94 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CED9A9DC1BA00B9500B54B94 /* Main.storyboard */ = {
@@ -455,6 +571,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CEAB46471C14C261007764E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CEAB46481C14C261007764E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		CED9A9F01BA00B9500B54B94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -492,7 +629,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -530,7 +667,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -571,45 +708,18 @@
 			};
 			name = Release;
 		};
-		CED9A9F61BA00B9500B54B94 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = ForkizeLibTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.artak.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ForkizeLib.app/ForkizeLib";
-			};
-			name = Debug;
-		};
-		CED9A9F71BA00B9500B54B94 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = ForkizeLibTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.artak.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ForkizeLib.app/ForkizeLib";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CEAB46491C14C261007764E8 /* Build configuration list for PBXNativeTarget "Forkize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEAB46471C14C261007764E8 /* Debug */,
+				CEAB46481C14C261007764E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CED9A9CA1BA00B9500B54B94 /* Build configuration list for PBXProject "ForkizeLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -624,15 +734,6 @@
 			buildConfigurations = (
 				CED9A9F31BA00B9500B54B94 /* Debug */,
 				CED9A9F41BA00B9500B54B94 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CED9A9F51BA00B9500B54B94 /* Build configuration list for PBXNativeTarget "ForkizeLibTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CED9A9F61BA00B9500B54B94 /* Debug */,
-				CED9A9F71BA00B9500B54B94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
