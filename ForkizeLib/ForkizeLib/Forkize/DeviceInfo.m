@@ -12,10 +12,6 @@
 #import "Reachability.h"
 #import "ForkizeDefines.h"
 
-      
-
-
-
 @interface DeviceInfo ()
 
 @property (nonatomic, strong) NSDictionary *deviceParams;

@@ -12,7 +12,7 @@
 
 @interface LocalStorageManager : NSObject
 
-+ (LocalStorageManager*) getInstance;
++(LocalStorageManager*) getInstance;
 
 -(void) flushToDatabase ;
 -(void) close;

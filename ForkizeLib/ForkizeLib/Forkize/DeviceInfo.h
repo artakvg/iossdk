@@ -10,11 +10,11 @@
 
 @interface DeviceInfo : NSObject
 
-+ (DeviceInfo*) getInstance;
++(DeviceInfo*) getInstance;
 
-- (NSDictionary *) getDeviceInfo;
+-(NSDictionary *) getDeviceInfo;
 
-- (NSString *) getBatteryLevel;
+-(NSString *) getBatteryLevel;
 -(NSString *) getConnectionType;
 
 @end

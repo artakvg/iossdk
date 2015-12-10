@@ -18,7 +18,9 @@
 		CE4A315F1C0DC7C20013E83C /* FZUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31571C0DC7C20013E83C /* FZUserDAO.m */; };
 		CE4A31621C0DC7C20013E83C /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A315B1C0DC7C20013E83C /* SQLiteHelper.m */; };
 		CE63E5561BBBEFFF00A4DD79 /* ForkizeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */; };
-		CEAB464B1C14C2F4007764E8 /* IForkize.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31631C0DD5C60013E83C /* IForkize.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CE74747D1C162F21007CF829 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74747C1C162F21007CF829 /* CoreLocation.framework */; };
+		CE74747F1C162F40007CF829 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74747E1C162F40007CF829 /* SystemConfiguration.framework */; };
+		CE7474811C162F4E007CF829 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7474801C162F4E007CF829 /* CFNetwork.framework */; };
 		CEAB464C1C14C2F4007764E8 /* Forkize.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F820E3FB1C06197800D4FF77 /* Forkize.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CEAB464D1C14C2F4007764E8 /* UserProfile.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA071BA0508100B54B94 /* UserProfile.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CEAB464E1C14C341007764E8 /* DAOFactory.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A314F1C0DC7C20013E83C /* DAOFactory.h */; };
@@ -75,6 +77,8 @@
 		CED054731BA81B0700842D52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054721BA81B0700842D52 /* Reachability.m */; };
 		CED054771BA9C03200842D52 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054761BA9C03200842D52 /* Request.m */; };
 		CED0547A1BA9C08300842D52 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054791BA9C08300842D52 /* RestClient.m */; };
+		CED211EE1C19F5F90086E62E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CED211ED1C19F5F90086E62E /* libsqlite3.tbd */; };
+		CED211EF1C19F6070086E62E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CED211ED1C19F5F90086E62E /* libsqlite3.tbd */; };
 		CED9A9D51BA00B9500B54B94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9D41BA00B9500B54B94 /* main.m */; };
 		CED9A9D81BA00B9500B54B94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9D71BA00B9500B54B94 /* AppDelegate.m */; };
 		CED9A9DB1BA00B9500B54B94 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9DA1BA00B9500B54B94 /* ViewController.m */; };
@@ -88,7 +92,6 @@
 		CED9AA151BA057E200B54B94 /* ForkizeEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */; };
 		CED9AA1D1BA2B90800B54B94 /* ForkizeEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA0E1BA050DE00B54B94 /* ForkizeEventManager.m */; };
 		CED9AA1E1BA2B91100B54B94 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9AA081BA0508100B54B94 /* UserProfile.m */; };
-		CED9AA291BA2C81E00B54B94 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CED9AA281BA2C81E00B54B94 /* libsqlite3.dylib */; };
 		F820E3FA1C0618D600D4FF77 /* ForkizeFull.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3F91C0618D600D4FF77 /* ForkizeFull.m */; };
 		F820E3FD1C06197800D4FF77 /* Forkize.m in Sources */ = {isa = PBXBuildFile; fileRef = F820E3FC1C06197800D4FF77 /* Forkize.m */; };
 /* End PBXBuildFile section */
@@ -124,7 +127,6 @@
 				CEAB46631C14C341007764E8 /* RestClient.h in CopyFiles */,
 				CEAB46641C14C341007764E8 /* SessionInstance.h in CopyFiles */,
 				CEAB46651C14C341007764E8 /* UserProfileInternal.h in CopyFiles */,
-				CEAB464B1C14C2F4007764E8 /* IForkize.h in CopyFiles */,
 				CEAB464C1C14C2F4007764E8 /* Forkize.h in CopyFiles */,
 				CEAB464D1C14C2F4007764E8 /* UserProfile.h in CopyFiles */,
 			);
@@ -155,12 +157,12 @@
 		CE4A31571C0DC7C20013E83C /* FZUserDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZUserDAO.m; path = Forkize/FZUserDAO.m; sourceTree = "<group>"; };
 		CE4A315A1C0DC7C20013E83C /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteHelper.h; path = Forkize/SQLiteHelper.h; sourceTree = "<group>"; };
 		CE4A315B1C0DC7C20013E83C /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteHelper.m; path = Forkize/SQLiteHelper.m; sourceTree = "<group>"; };
-		CE4A31631C0DD5C60013E83C /* IForkize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IForkize.h; path = Forkize/IForkize.h; sourceTree = "<group>"; };
 		CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeMessage.h; path = Forkize/ForkizeMessage.h; sourceTree = "<group>"; };
 		CE63E5551BBBEFFF00A4DD79 /* ForkizeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeMessage.m; path = Forkize/ForkizeMessage.m; sourceTree = "<group>"; };
+		CE74747C1C162F21007CF829 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CE74747E1C162F40007CF829 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CE7474801C162F4E007CF829 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CEAB46411C14C261007764E8 /* libForkize.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libForkize.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEAB46431C14C261007764E8 /* Forkize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Forkize.h; sourceTree = "<group>"; };
-		CEAB46451C14C261007764E8 /* Forkize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Forkize.m; sourceTree = "<group>"; };
 		CEB760201C0A45E90091B9ED /* UserProfileInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileInternal.h; path = Forkize/UserProfileInternal.h; sourceTree = "<group>"; };
 		CEB760211C0A45E90091B9ED /* UserProfileInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileInternal.m; path = Forkize/UserProfileInternal.m; sourceTree = "<group>"; };
 		CED0546E1BA7FDEC00842D52 /* LocationInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationInstance.h; path = Forkize/LocationInstance.h; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		CED054761BA9C03200842D52 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Request.m; path = Forkize/Request.m; sourceTree = "<group>"; };
 		CED054781BA9C08300842D52 /* RestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestClient.h; path = Forkize/RestClient.h; sourceTree = "<group>"; };
 		CED054791BA9C08300842D52 /* RestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestClient.m; path = Forkize/RestClient.m; sourceTree = "<group>"; };
+		CED211ED1C19F5F90086E62E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		CED9A9CF1BA00B9500B54B94 /* ForkizeLib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ForkizeLib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED9A9D31BA00B9500B54B94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CED9A9D41BA00B9500B54B94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -197,7 +200,6 @@
 		CED9AA0E1BA050DE00B54B94 /* ForkizeEventManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeEventManager.m; path = Forkize/ForkizeEventManager.m; sourceTree = "<group>"; };
 		CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeEmpty.h; path = Forkize/ForkizeEmpty.h; sourceTree = "<group>"; };
 		CED9AA141BA057E200B54B94 /* ForkizeEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeEmpty.m; path = Forkize/ForkizeEmpty.m; sourceTree = "<group>"; };
-		CED9AA281BA2C81E00B54B94 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		F820E3F81C0618D600D4FF77 /* ForkizeFull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkizeFull.h; path = Forkize/ForkizeFull.h; sourceTree = "<group>"; };
 		F820E3F91C0618D600D4FF77 /* ForkizeFull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForkizeFull.m; path = Forkize/ForkizeFull.m; sourceTree = "<group>"; };
 		F820E3FB1C06197800D4FF77 /* Forkize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Forkize.h; path = Forkize/Forkize.h; sourceTree = "<group>"; };
@@ -209,6 +211,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED211EE1C19F5F90086E62E /* libsqlite3.tbd in Frameworks */,
+				CE7474811C162F4E007CF829 /* CFNetwork.framework in Frameworks */,
+				CE74747F1C162F40007CF829 /* SystemConfiguration.framework in Frameworks */,
+				CE74747D1C162F21007CF829 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,22 +222,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CED9AA291BA2C81E00B54B94 /* libsqlite3.dylib in Frameworks */,
+				CED211EF1C19F6070086E62E /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CEAB46421C14C261007764E8 /* Forkize */ = {
-			isa = PBXGroup;
-			children = (
-				CEAB46431C14C261007764E8 /* Forkize.h */,
-				CEAB46451C14C261007764E8 /* Forkize.m */,
-			);
-			path = Forkize;
-			sourceTree = "<group>";
-		};
 		CED054741BA96DFF00842D52 /* DBObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,10 +243,12 @@
 		CED9A9C61BA00B9500B54B94 = {
 			isa = PBXGroup;
 			children = (
-				CED9AA281BA2C81E00B54B94 /* libsqlite3.dylib */,
+				CED211ED1C19F5F90086E62E /* libsqlite3.tbd */,
+				CE7474801C162F4E007CF829 /* CFNetwork.framework */,
+				CE74747E1C162F40007CF829 /* SystemConfiguration.framework */,
+				CE74747C1C162F21007CF829 /* CoreLocation.framework */,
 				CED9A9D11BA00B9500B54B94 /* ForkizeLib */,
 				CED9A9EB1BA00B9500B54B94 /* ForkizeLibTests */,
-				CEAB46421C14C261007764E8 /* Forkize */,
 				CED9A9D01BA00B9500B54B94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -312,7 +311,6 @@
 				CED9AA1F1BA2C7DA00B54B94 /* DB */,
 				CED9A9FC1BA01B0500B54B94 /* DeviceInfo.h */,
 				CED9A9FD1BA01B0500B54B94 /* DeviceInfo.m */,
-				CE4A31631C0DD5C60013E83C /* IForkize.h */,
 				F820E3FB1C06197800D4FF77 /* Forkize.h */,
 				F820E3FC1C06197800D4FF77 /* Forkize.m */,
 				CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */,
@@ -478,6 +476,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\nPRODUCT_NAME =\"Forkize\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target ${PRODUCT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target ${PRODUCT_NAME} -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PRODUCT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PRODUCT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PRODUCT_NAME}.a\"\n\n# Last touch. copy the header files. Just for convenience\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

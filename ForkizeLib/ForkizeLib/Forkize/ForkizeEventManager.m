@@ -77,7 +77,6 @@
 
 @implementation ForkizeEventManager
 
-
 -(instancetype) init{
     self = [super init];
     

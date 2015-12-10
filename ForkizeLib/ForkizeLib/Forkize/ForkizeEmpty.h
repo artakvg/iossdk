@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Artak. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "IForkize.h"
+#import "Forkize.h"
 
 @interface ForkizeEmpty : NSObject<IForkize>
 

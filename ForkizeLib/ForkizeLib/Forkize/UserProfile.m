@@ -7,7 +7,6 @@
 //
 
 #import "UserProfile.h"
-
 #import "UserProfileInternal.h"
 
 @interface UserProfile()

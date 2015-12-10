@@ -50,7 +50,6 @@
 -(void) addEvent:(FZEvent *) event{
     @synchronized(self.eventLock)
     {
-        
         @try {
             if (![self.imMemoryStorage write:event] ) {
                 [self.secondaryStorage writeArray:[self.imMemoryStorage read]];
