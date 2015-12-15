@@ -119,6 +119,10 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
     [self.userProfileInternal alias:userId];
 }
 
+-(UserProfile *) getProfile{
+    return [UserProfile getInstance];
+}
+
 -(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters{
     [self.eventManager queueEventWithName:eventName andParams:parameters];
 }

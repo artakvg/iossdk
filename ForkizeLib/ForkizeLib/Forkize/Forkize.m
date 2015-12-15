@@ -43,6 +43,10 @@
     [[Forkize getInstance] alias:userId];
 }
 
+-(UserProfile *) getProfile{
+    return [[Forkize getInstance] getProfile];
+}
+
 -(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters{
     [[Forkize getInstance]  trackEvent:eventName withParams:parameters];
 }

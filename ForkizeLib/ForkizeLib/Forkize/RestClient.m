@@ -83,13 +83,6 @@
                 
                 [self.localStorage updateEventsAfterAlias:aliasedName];
                 
-//                NSArray *events = [self.localStorage getEvents];
-//                
-//                for (FZEvent *event in events) {
-//                    event.userName = aliasedName;
-//                }
-//                [self.localStorage updateEvents:events];
-                
                 [[UserProfileInternal getInstance] applyAlias];
             }
         }

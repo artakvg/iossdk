@@ -14,6 +14,10 @@
 
 }
 
+-(UserProfile *) getProfile{
+    return nil;
+}
+
 -(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters{
 }
 

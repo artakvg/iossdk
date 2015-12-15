@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/FZUser.m \
-  /Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/FZUser.h
+  /Users/artak/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/FZUser.m \
+  /Users/artak/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/FZUser.h

@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/Reachability.m \
-  /Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/Reachability.h \
-  /Users/artak/Projects/github/iossdk/ForkizeLib/ForkizeLib/Forkize/ForkizeDefines.h
+  /Users/artak/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/Reachability.m \
+  /Users/artak/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/Reachability.h \
+  /Users/artak/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/ForkizeDefines.h

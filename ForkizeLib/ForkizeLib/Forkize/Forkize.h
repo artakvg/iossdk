@@ -18,6 +18,8 @@
 
 -(void) alias:(NSString*) userId;
 
+-(UserProfile *) getProfile;
+
 -(void) trackEvent:(NSString*) eventName withParams:(NSDictionary*) parameters;
 
 -(void) purchaseWithProductId:(NSString* ) productId  andCurrency:(NSString*) currency andPrice:(double) price andQuantity: (NSInteger) quantity;

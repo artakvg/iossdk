@@ -21,32 +21,32 @@
 		CE74747D1C162F21007CF829 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74747C1C162F21007CF829 /* CoreLocation.framework */; };
 		CE74747F1C162F40007CF829 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74747E1C162F40007CF829 /* SystemConfiguration.framework */; };
 		CE7474811C162F4E007CF829 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7474801C162F4E007CF829 /* CFNetwork.framework */; };
-		CEAB464C1C14C2F4007764E8 /* Forkize.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F820E3FB1C06197800D4FF77 /* Forkize.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CEAB464D1C14C2F4007764E8 /* UserProfile.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA071BA0508100B54B94 /* UserProfile.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CEAB464E1C14C341007764E8 /* DAOFactory.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A314F1C0DC7C20013E83C /* DAOFactory.h */; };
-		CEAB464F1C14C341007764E8 /* DataAccessException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31511C0DC7C20013E83C /* DataAccessException.h */; };
-		CEAB46501C14C341007764E8 /* DBHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31531C0DC7C20013E83C /* DBHelper.h */; };
-		CEAB46511C14C341007764E8 /* FZEventsDAO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31541C0DC7C20013E83C /* FZEventsDAO.h */; };
-		CEAB46521C14C341007764E8 /* FZUserDAO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31561C0DC7C20013E83C /* FZUserDAO.h */; };
-		CEAB46531C14C341007764E8 /* SQLiteHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A315A1C0DC7C20013E83C /* SQLiteHelper.h */; };
-		CEAB46541C14C341007764E8 /* FZEvent.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31491C0DC7A90013E83C /* FZEvent.h */; };
-		CEAB46551C14C341007764E8 /* FZUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A314B1C0DC7A90013E83C /* FZUser.h */; };
-		CEAB46561C14C341007764E8 /* DeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9A9FC1BA01B0500B54B94 /* DeviceInfo.h */; };
-		CEAB46571C14C341007764E8 /* ForkizeEmpty.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */; };
-		CEAB46581C14C341007764E8 /* ForkizeFull.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F820E3F81C0618D600D4FF77 /* ForkizeFull.h */; };
-		CEAB46591C14C341007764E8 /* ForkizeConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9A9F91BA00BE900B54B94 /* ForkizeConfig.h */; };
-		CEAB465A1C14C341007764E8 /* ForkizeEventManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA0D1BA050DE00B54B94 /* ForkizeEventManager.h */; };
-		CEAB465B1C14C341007764E8 /* ForkizeHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9A9FF1BA0378E00B54B94 /* ForkizeHelper.h */; };
-		CEAB465C1C14C341007764E8 /* ForkizeMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */; };
-		CEAB465D1C14C341007764E8 /* LocalStorageManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31401C0DC7980013E83C /* LocalStorageManager.h */; };
-		CEAB465E1C14C341007764E8 /* MemoryLocalStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31421C0DC7980013E83C /* MemoryLocalStorage.h */; };
-		CEAB465F1C14C341007764E8 /* SQLiteLocalStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE4A31441C0DC7980013E83C /* SQLiteLocalStorage.h */; };
-		CEAB46601C14C341007764E8 /* LocationInstance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED0546E1BA7FDEC00842D52 /* LocationInstance.h */; };
-		CEAB46611C14C341007764E8 /* Reachability.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED054711BA81B0700842D52 /* Reachability.h */; };
-		CEAB46621C14C341007764E8 /* Request.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED054751BA9C03200842D52 /* Request.h */; };
-		CEAB46631C14C341007764E8 /* RestClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED054781BA9C08300842D52 /* RestClient.h */; };
-		CEAB46641C14C341007764E8 /* SessionInstance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CED9AA0A1BA050B000B54B94 /* SessionInstance.h */; };
-		CEAB46651C14C341007764E8 /* UserProfileInternal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB760201C0A45E90091B9ED /* UserProfileInternal.h */; };
+		CEAB464C1C14C2F4007764E8 /* Forkize.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F820E3FB1C06197800D4FF77 /* Forkize.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CEAB464D1C14C2F4007764E8 /* UserProfile.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED9AA071BA0508100B54B94 /* UserProfile.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CEAB464E1C14C341007764E8 /* DAOFactory.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A314F1C0DC7C20013E83C /* DAOFactory.h */; };
+		CEAB464F1C14C341007764E8 /* DataAccessException.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31511C0DC7C20013E83C /* DataAccessException.h */; };
+		CEAB46501C14C341007764E8 /* DBHelper.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31531C0DC7C20013E83C /* DBHelper.h */; };
+		CEAB46511C14C341007764E8 /* FZEventsDAO.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31541C0DC7C20013E83C /* FZEventsDAO.h */; };
+		CEAB46521C14C341007764E8 /* FZUserDAO.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31561C0DC7C20013E83C /* FZUserDAO.h */; };
+		CEAB46531C14C341007764E8 /* SQLiteHelper.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A315A1C0DC7C20013E83C /* SQLiteHelper.h */; };
+		CEAB46541C14C341007764E8 /* FZEvent.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31491C0DC7A90013E83C /* FZEvent.h */; };
+		CEAB46551C14C341007764E8 /* FZUser.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A314B1C0DC7A90013E83C /* FZUser.h */; };
+		CEAB46561C14C341007764E8 /* DeviceInfo.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED9A9FC1BA01B0500B54B94 /* DeviceInfo.h */; };
+		CEAB46571C14C341007764E8 /* ForkizeEmpty.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED9AA131BA057E200B54B94 /* ForkizeEmpty.h */; };
+		CEAB46581C14C341007764E8 /* ForkizeFull.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F820E3F81C0618D600D4FF77 /* ForkizeFull.h */; };
+		CEAB46591C14C341007764E8 /* ForkizeConfig.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED9A9F91BA00BE900B54B94 /* ForkizeConfig.h */; };
+		CEAB465A1C14C341007764E8 /* ForkizeEventManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED9AA0D1BA050DE00B54B94 /* ForkizeEventManager.h */; };
+		CEAB465B1C14C341007764E8 /* ForkizeHelper.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED9A9FF1BA0378E00B54B94 /* ForkizeHelper.h */; };
+		CEAB465C1C14C341007764E8 /* ForkizeMessage.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE63E5541BBBEFFF00A4DD79 /* ForkizeMessage.h */; };
+		CEAB465D1C14C341007764E8 /* LocalStorageManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31401C0DC7980013E83C /* LocalStorageManager.h */; };
+		CEAB465E1C14C341007764E8 /* MemoryLocalStorage.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31421C0DC7980013E83C /* MemoryLocalStorage.h */; };
+		CEAB465F1C14C341007764E8 /* SQLiteLocalStorage.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CE4A31441C0DC7980013E83C /* SQLiteLocalStorage.h */; };
+		CEAB46601C14C341007764E8 /* LocationInstance.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED0546E1BA7FDEC00842D52 /* LocationInstance.h */; };
+		CEAB46611C14C341007764E8 /* Reachability.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED054711BA81B0700842D52 /* Reachability.h */; };
+		CEAB46621C14C341007764E8 /* Request.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED054751BA9C03200842D52 /* Request.h */; };
+		CEAB46631C14C341007764E8 /* RestClient.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED054781BA9C08300842D52 /* RestClient.h */; };
+		CEAB46641C14C341007764E8 /* SessionInstance.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CED9AA0A1BA050B000B54B94 /* SessionInstance.h */; };
+		CEAB46651C14C341007764E8 /* UserProfileInternal.h in Copy Files */ = {isa = PBXBuildFile; fileRef = CEB760201C0A45E90091B9ED /* UserProfileInternal.h */; };
 		CEAB46661C14C372007764E8 /* DAOFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31501C0DC7C20013E83C /* DAOFactory.m */; };
 		CEAB46671C14C372007764E8 /* DataAccessException.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31521C0DC7C20013E83C /* DataAccessException.m */; };
 		CEAB46681C14C372007764E8 /* FZEventsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31551C0DC7C20013E83C /* FZEventsDAO.m */; };
@@ -77,7 +77,6 @@
 		CED054731BA81B0700842D52 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054721BA81B0700842D52 /* Reachability.m */; };
 		CED054771BA9C03200842D52 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054761BA9C03200842D52 /* Request.m */; };
 		CED0547A1BA9C08300842D52 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CED054791BA9C08300842D52 /* RestClient.m */; };
-		CED211EE1C19F5F90086E62E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CED211ED1C19F5F90086E62E /* libsqlite3.tbd */; };
 		CED211EF1C19F6070086E62E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CED211ED1C19F5F90086E62E /* libsqlite3.tbd */; };
 		CED9A9D51BA00B9500B54B94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9D41BA00B9500B54B94 /* main.m */; };
 		CED9A9D81BA00B9500B54B94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9A9D71BA00B9500B54B94 /* AppDelegate.m */; };
@@ -97,39 +96,40 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		CEAB463F1C14C261007764E8 /* CopyFiles */ = {
+		CEAB463F1C14C261007764E8 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				CEAB464E1C14C341007764E8 /* DAOFactory.h in CopyFiles */,
-				CEAB464F1C14C341007764E8 /* DataAccessException.h in CopyFiles */,
-				CEAB46501C14C341007764E8 /* DBHelper.h in CopyFiles */,
-				CEAB46511C14C341007764E8 /* FZEventsDAO.h in CopyFiles */,
-				CEAB46521C14C341007764E8 /* FZUserDAO.h in CopyFiles */,
-				CEAB46531C14C341007764E8 /* SQLiteHelper.h in CopyFiles */,
-				CEAB46541C14C341007764E8 /* FZEvent.h in CopyFiles */,
-				CEAB46551C14C341007764E8 /* FZUser.h in CopyFiles */,
-				CEAB46561C14C341007764E8 /* DeviceInfo.h in CopyFiles */,
-				CEAB46571C14C341007764E8 /* ForkizeEmpty.h in CopyFiles */,
-				CEAB46581C14C341007764E8 /* ForkizeFull.h in CopyFiles */,
-				CEAB46591C14C341007764E8 /* ForkizeConfig.h in CopyFiles */,
-				CEAB465A1C14C341007764E8 /* ForkizeEventManager.h in CopyFiles */,
-				CEAB465B1C14C341007764E8 /* ForkizeHelper.h in CopyFiles */,
-				CEAB465C1C14C341007764E8 /* ForkizeMessage.h in CopyFiles */,
-				CEAB465D1C14C341007764E8 /* LocalStorageManager.h in CopyFiles */,
-				CEAB465E1C14C341007764E8 /* MemoryLocalStorage.h in CopyFiles */,
-				CEAB465F1C14C341007764E8 /* SQLiteLocalStorage.h in CopyFiles */,
-				CEAB46601C14C341007764E8 /* LocationInstance.h in CopyFiles */,
-				CEAB46611C14C341007764E8 /* Reachability.h in CopyFiles */,
-				CEAB46621C14C341007764E8 /* Request.h in CopyFiles */,
-				CEAB46631C14C341007764E8 /* RestClient.h in CopyFiles */,
-				CEAB46641C14C341007764E8 /* SessionInstance.h in CopyFiles */,
-				CEAB46651C14C341007764E8 /* UserProfileInternal.h in CopyFiles */,
-				CEAB464C1C14C2F4007764E8 /* Forkize.h in CopyFiles */,
-				CEAB464D1C14C2F4007764E8 /* UserProfile.h in CopyFiles */,
+				CEAB464E1C14C341007764E8 /* DAOFactory.h in Copy Files */,
+				CEAB464F1C14C341007764E8 /* DataAccessException.h in Copy Files */,
+				CEAB46501C14C341007764E8 /* DBHelper.h in Copy Files */,
+				CEAB46511C14C341007764E8 /* FZEventsDAO.h in Copy Files */,
+				CEAB46521C14C341007764E8 /* FZUserDAO.h in Copy Files */,
+				CEAB46531C14C341007764E8 /* SQLiteHelper.h in Copy Files */,
+				CEAB46541C14C341007764E8 /* FZEvent.h in Copy Files */,
+				CEAB46551C14C341007764E8 /* FZUser.h in Copy Files */,
+				CEAB46561C14C341007764E8 /* DeviceInfo.h in Copy Files */,
+				CEAB46571C14C341007764E8 /* ForkizeEmpty.h in Copy Files */,
+				CEAB46581C14C341007764E8 /* ForkizeFull.h in Copy Files */,
+				CEAB46591C14C341007764E8 /* ForkizeConfig.h in Copy Files */,
+				CEAB465A1C14C341007764E8 /* ForkizeEventManager.h in Copy Files */,
+				CEAB465B1C14C341007764E8 /* ForkizeHelper.h in Copy Files */,
+				CEAB465C1C14C341007764E8 /* ForkizeMessage.h in Copy Files */,
+				CEAB465D1C14C341007764E8 /* LocalStorageManager.h in Copy Files */,
+				CEAB465E1C14C341007764E8 /* MemoryLocalStorage.h in Copy Files */,
+				CEAB465F1C14C341007764E8 /* SQLiteLocalStorage.h in Copy Files */,
+				CEAB46601C14C341007764E8 /* LocationInstance.h in Copy Files */,
+				CEAB46611C14C341007764E8 /* Reachability.h in Copy Files */,
+				CEAB46621C14C341007764E8 /* Request.h in Copy Files */,
+				CEAB46631C14C341007764E8 /* RestClient.h in Copy Files */,
+				CEAB46641C14C341007764E8 /* SessionInstance.h in Copy Files */,
+				CEAB46651C14C341007764E8 /* UserProfileInternal.h in Copy Files */,
+				CEAB464C1C14C2F4007764E8 /* Forkize.h in Copy Files */,
+				CEAB464D1C14C2F4007764E8 /* UserProfile.h in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -211,7 +211,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CED211EE1C19F5F90086E62E /* libsqlite3.tbd in Frameworks */,
 				CE7474811C162F4E007CF829 /* CFNetwork.framework in Frameworks */,
 				CE74747F1C162F40007CF829 /* SystemConfiguration.framework in Frameworks */,
 				CE74747D1C162F21007CF829 /* CoreLocation.framework in Frameworks */,
@@ -385,7 +384,7 @@
 			buildPhases = (
 				CEAB463D1C14C261007764E8 /* Sources */,
 				CEAB463E1C14C261007764E8 /* Frameworks */,
-				CEAB463F1C14C261007764E8 /* CopyFiles */,
+				CEAB463F1C14C261007764E8 /* Copy Files */,
 				CEAB464A1C14C283007764E8 /* ShellScript */,
 			);
 			buildRules = (
@@ -466,7 +465,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		CEAB464A1C14C283007764E8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -475,8 +474,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\nPRODUCT_NAME =\"Forkize\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target ${PRODUCT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target ${PRODUCT_NAME} -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PRODUCT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PRODUCT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PRODUCT_NAME}.a\"\n\n# Last touch. copy the header files. Just for convenience\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target Forkize ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target Forkize -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO VALID_ARCHS=\"i386 x86_64\"  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/libForkize.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libForkize.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libForkize.a\"\n\n# Last touch. copy the header files. Just for convenience\n#cp \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/${PRODUCT_NAME}/Forkize.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/Forkize/Forkize.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/Forkize/UserProfile.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
