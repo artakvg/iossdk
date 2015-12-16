@@ -14,9 +14,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>UniversalLib.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>CE197D781C21F2AC0007F4DF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CEAB46401C14C261007764E8</key>
 		<dict>
 			<key>primary</key>

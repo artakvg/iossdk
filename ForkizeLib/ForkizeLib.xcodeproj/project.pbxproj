@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		CE197D781C21F2AC0007F4DF /* UniversalLib */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CE197D7B1C21F2AC0007F4DF /* Build configuration list for PBXAggregateTarget "UniversalLib" */;
+			buildPhases = (
+				CE197D7C1C21F2BF0007F4DF /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = UniversalLib;
+			productName = UniversalLib;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		CE4A31461C0DC7980013E83C /* LocalStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31411C0DC7980013E83C /* LocalStorageManager.m */; };
 		CE4A31471C0DC7980013E83C /* MemoryLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4A31431C0DC7980013E83C /* MemoryLocalStorage.m */; };
@@ -385,7 +399,6 @@
 				CEAB463D1C14C261007764E8 /* Sources */,
 				CEAB463E1C14C261007764E8 /* Frameworks */,
 				CEAB463F1C14C261007764E8 /* Copy Files */,
-				CEAB464A1C14C283007764E8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -422,6 +435,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Artak;
 				TargetAttributes = {
+					CE197D781C21F2AC0007F4DF = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					CEAB46401C14C261007764E8 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
@@ -445,6 +461,7 @@
 			targets = (
 				CED9A9CE1BA00B9500B54B94 /* ForkizeLib */,
 				CEAB46401C14C261007764E8 /* Forkize */,
+				CE197D781C21F2AC0007F4DF /* UniversalLib */,
 			);
 		};
 /* End PBXProject section */
@@ -463,9 +480,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CEAB464A1C14C283007764E8 /* ShellScript */ = {
+		CE197D7C1C21F2BF0007F4DF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
@@ -474,8 +491,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# Step 1. Build Device and Simulator versions\n#xcodebuild -target Forkize ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target Forkize -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO VALID_ARCHS=\"i386 x86_64\"  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/libForkize.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libForkize.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libForkize.a\"\n\n# Last touch. copy the header files. Just for convenience\n#cp \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/${PRODUCT_NAME}/Forkize.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/Forkize/Forkize.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/Forkize/UserProfile.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target Forkize ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target Forkize -configuration ${CONFIGURATION} -sdk iphonesimulator  ONLY_ACTIVE_ARCH=NO VALID_ARCHS=\"i386 x86_64\" BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n#ONLY_ACTIVE_ARCH=NO VALID_ARCHS=\"i386 x86_64\"\n#-arch i386\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/libForkize.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libForkize.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libForkize.a\"\n\n# Last touch. copy the header files. Just for convenience\n#cp \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/${PRODUCT_NAME}/Forkize.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/Forkize/Forkize.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include/Forkize/UserProfile.h\" \"${UNIVERSAL_OUTPUTFOLDER}/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -569,6 +585,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CE197D791C21F2AC0007F4DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CE197D7A1C21F2AC0007F4DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		CEAB46471C14C261007764E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -709,6 +739,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CE197D7B1C21F2AC0007F4DF /* Build configuration list for PBXAggregateTarget "UniversalLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE197D791C21F2AC0007F4DF /* Debug */,
+				CE197D7A1C21F2AC0007F4DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		CEAB46491C14C261007764E8 /* Build configuration list for PBXNativeTarget "Forkize" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
