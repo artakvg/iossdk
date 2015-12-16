@@ -553,7 +553,7 @@ typedef enum{
     
 }
 
--(id) getChangeLogJSON{
+-(NSString *) getChangeLogJSON{
     
     NSMutableDictionary * changeLogJSONDict = [NSMutableDictionary dictionary];
     
@@ -611,7 +611,7 @@ typedef enum{
     
 
     
-    id changeLogJSON = [ForkizeHelper getJSON:changeLogJSONDict];
+    NSString* changeLogJSON = [ForkizeHelper getJsonString:changeLogJSONDict];
     
     return changeLogJSON;
 }

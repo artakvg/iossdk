@@ -49,7 +49,7 @@
 
 -(NSString *) getChangeLog;
 -(BOOL) isChangeLogEmpty;
--(id) getChangeLogJSON;
+-(NSString *) getChangeLogJSON;
 -(void) dropChangeLog;
 
 - (void) start;

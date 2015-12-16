@@ -51,9 +51,12 @@
 	<integer>20</integer>
 	<key>ForkizeTimeAfterFlush</key>
 	<integer>8</integer>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>ForkizeRequestTimout</key>
 	<integer>6</integer>
-	<key>NSAppTransportSecurity</key>
-	<string></string>
 </dict>
 </plist>

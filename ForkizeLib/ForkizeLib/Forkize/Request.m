@@ -176,7 +176,7 @@
 -(NSDictionary *) updateUserProfile:(NSString *) accessToken{
     @try {
         
-        NSString *jsonString = [[UserProfileInternal getInstance] getChangeLog];
+        NSString *jsonString = [[UserProfileInternal getInstance] getChangeLogJSON];
         NSData *jsonData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
 
         NSMutableDictionary *mutDict = [self getCommonDict:jsonData];

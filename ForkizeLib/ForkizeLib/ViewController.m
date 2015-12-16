@@ -65,6 +65,13 @@
     [self.view addSubview:setButton];
     
     
+    UIButton *unsetButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    unsetButton.frame = CGRectMake(190, 350, 120, 40);
+    [unsetButton addTarget:self action:@selector(unsetAction:) forControlEvents:UIControlEventTouchUpInside];
+    [unsetButton setTitle:@"Unset" forState:UIControlStateNormal];
+    [self.view addSubview:unsetButton];
+    
+    
 }
 
 -(void) generateAction:(UIButton *) button{
@@ -83,6 +90,11 @@
 -(void) setAction:(UIButton *) button{
     [[UserProfile getInstance] setValue:valueTextField_.text forKey:keyTextField_.text];
 }
+
+-(void) unsetAction:(UIButton *) button{
+    [[UserProfile getInstance] unsetForKey: keyTextField_.text];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
