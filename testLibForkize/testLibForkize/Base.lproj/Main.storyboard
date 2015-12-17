@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,12 +19,13 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u29-WX-Dmb">
                                 <rect key="frame" x="46" y="34" width="37" height="30"/>
-                                <animations/>
                                 <state key="normal" title="Alias:"/>
+                                <connections>
+                                    <action selector="alias:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WgC-DM-BfP"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOj-QU-brp">
                                 <rect key="frame" x="25" y="90" width="30" height="30"/>
-                                <animations/>
                                 <state key="normal" title="Set"/>
                                 <connections>
                                     <action selector="setAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SKX-1R-Lsf"/>
@@ -32,7 +33,6 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zu3-qW-hpI">
                                 <rect key="frame" x="90" y="90" width="60" height="30"/>
-                                <animations/>
                                 <state key="normal" title="SetOnce"/>
                                 <connections>
                                     <action selector="setOnceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nSU-Fg-i27"/>
@@ -40,7 +40,6 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2s-Zl-fxh">
                                 <rect key="frame" x="34" y="136" width="69" height="30"/>
-                                <animations/>
                                 <state key="normal" title="Increment"/>
                                 <connections>
                                     <action selector="incrementAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oZs-Dr-PrB"/>
@@ -48,7 +47,6 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUL-zo-7f3">
                                 <rect key="frame" x="180" y="90" width="41" height="30"/>
-                                <animations/>
                                 <state key="normal" title="Unset"/>
                                 <connections>
                                     <action selector="unsetAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T3g-TW-Zq9"/>
@@ -56,19 +54,16 @@
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Value" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yDz-CC-hRd">
                                 <rect key="frame" x="152" y="263" width="97" height="30"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kSQ-d2-xqv">
                                 <rect key="frame" x="160" y="40" width="97" height="30"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ahh-2h-kqP">
                                 <rect key="frame" x="288" y="48" width="105" height="30"/>
-                                <animations/>
                                 <state key="normal" title="Generate event"/>
                                 <connections>
                                     <action selector="generateEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PW1-wY-1nw"/>
@@ -76,12 +71,10 @@
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Key" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RLY-ez-Euk">
                                 <rect key="frame" x="16" y="263" width="97" height="30"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
