@@ -53,7 +53,7 @@ NSString *const FORKIZE_INSTALL_TIME = @"$forkize_install_time";
 -(void)runOperations:(id<IForkize>) forkize{
     while (self.isRunning) {
         @try {
-            FZLog(@"Forkize SDK %@", [self.userProfileInternal getChangeLog]); // FZ::TODO remove this in production version
+            FZLog(@"Forkize SDK %@", [self.userProfileInternal getChangeLogJSON]); // FZ::TODO remove this in production version
             [self.restClient flush];
             [NSThread sleepForTimeInterval:[[ForkizeConfig getInstance] TIME_AFTER_FLUSH]];
         }

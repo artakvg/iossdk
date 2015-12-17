@@ -78,6 +78,7 @@ typedef enum{
         self.changeLog = [NSMutableDictionary dictionary];
         self.localStorage = [LocalStorageManager getInstance];
         self.userDAO = [[DAOFactory defaultFactory] userDAO];
+        self.upv = @"0";
     }
     
     return self;
@@ -492,9 +493,14 @@ typedef enum{
     self.changeLog = [NSMutableDictionary dictionary];
 }
 
--(void) syncProfile:(NSDictionary *) dict{//FZ::TODO Artak implement this
+-(void) syncProfile:(NSDictionary *) dict{
 
     self.upv = [dict objectForKey:@"upv"];
+    
+    NSDictionary *upDict = [dict objectForKey:@"up"];
+    for(NSString *key in [upDict allKeys]){
+        [self.userInfo setValue:[upDict objectForKey:key] forKey:key];
+    }
 }
 
 - (void) start{
@@ -609,9 +615,13 @@ typedef enum{
         [changeLogJSONDict setObject:prependJSON forKey:FORKIZE_PREPEND];
     }
     
+    if (!self.upv) {
+        self.upv = @"0";
+    }
+    NSDictionary *newDict = [NSDictionary dictionaryWithObjectsAndKeys:self.upv, @"upv", changeLogJSONDict, @"changelog", nil];
 
     
-    NSString* changeLogJSON = [ForkizeHelper getJsonString:changeLogJSONDict];
+    NSString* changeLogJSON = [ForkizeHelper getJsonString:newDict];
     
     return changeLogJSON;
 }

@@ -85,13 +85,13 @@
                   symbolName = "-[Request postAliasWithAliasedUserId:andUserId:andAccessToken:]"
                   moduleName = "ForkizeLib"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak/Projects/iossdk/ForkizeLib/ForkizeLib/Forkize/Request.m"
-                  timestampString = "470838430.638183"
+                  urlString = "file:///Users/artak/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/Request.m"
+                  timestampString = "472063108.867978"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "174"
                   endingLineNumber = "174"
-                  offsetFromSymbolStart = "930">
+                  offsetFromSymbolStart = "985">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -100,13 +100,13 @@
                   symbolName = "-[Request postAliasWithAliasedUserId:andUserId:andAccessToken:]"
                   moduleName = "ForkizeLib"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artak/Projects/iossdk/ForkizeLib/ForkizeLib/Forkize/Request.m"
-                  timestampString = "470838430.63887"
+                  urlString = "file:///Users/artak/workspace/iossdk/ForkizeLib/ForkizeLib/Forkize/Request.m"
+                  timestampString = "472063108.868126"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "174"
                   endingLineNumber = "174"
-                  offsetFromSymbolStart = "1028">
+                  offsetFromSymbolStart = "1072">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -354,11 +354,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/UserProfileInternal.m"
-            timestampString = "470837338.265383"
+            timestampString = "472062499.72129"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "-identify:"
             landmarkType = "5">
          </BreakpointContent>
@@ -370,11 +370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForkizeLib/Forkize/UserProfileInternal.m"
-            timestampString = "470837377.784594"
+            timestampString = "472062499.72129"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "-identify:"
             landmarkType = "5">
          </BreakpointContent>
@@ -424,6 +424,22 @@
             startingLineNumber = "46"
             endingLineNumber = "46"
             landmarkName = "-applicationDidEnterBackground:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ForkizeLib/Forkize/UserProfileInternal.m"
+            timestampString = "472062549.203"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
